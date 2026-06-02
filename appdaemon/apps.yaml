@@ -1,0 +1,12 @@
+---
+# AppDaemon Konfiguration für VisuRAM CC600 Integration
+# Kopieren nach: /config/appdaemon/apps/apps.yaml
+# (oder in bestehende apps.yaml einbinden)
+
+visuRAM:
+  module: visuRAM_app
+  class: VisuRAMApp
+  # IP des Windows-PCs mit VisuRAM/DataCom45
+  visurampc_host: "192.168.178.83"
+  # Abfrageintervall in Sekunden (20s = guter Kompromiss)
+  interval: 20
