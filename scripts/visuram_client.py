@@ -488,9 +488,13 @@ class VisuRAMClient:
         Hinweis zu W1/W2:
             Für Kanäle mit zwei Werten (z.B. Gießdauer/Handstart):
               - w1 = Gießdauer, z.B. "12:00" (min:s)
-              - w2 = Status:   "1" (ein/öffnen) oder "0" (aus/schließen)
-            Für einfache Ein/Aus-Schalter:
-              - w1 = "1" (ein) oder "0" (aus), w2 = "" (leer)
+              - w2 = Handstart-Status:
+                  "0"  = Aus (manuell gesperrt)
+                  "1"  = Automatik (CC600-Steuerungslogik greift)
+                  "2"  = Manuell Ein (Ventil öffnen, unabhängig von CC600)
+                  ⚠️  Live verifiziert 02.06.2026: nur w2="2" öffnet das Ventil!
+            Für einfache Schalter (Pumpen etc.):
+              - w1 = "2" (ein) oder "0" (aus), w2 = "" (leer) – noch zu testen
             Werte werden OHNE Einheit übergeben (bEinheit=false).
 
         Raises:

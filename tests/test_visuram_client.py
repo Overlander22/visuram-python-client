@@ -470,3 +470,26 @@ class TestVisuRAMClientSetValue:
         client = VisuRAMClient()
         with pytest.raises(RuntimeError, match="connect"):
             client.set_value("Feld79", "0191112101", "1")
+
+
+class TestHandstartValues:
+    """Verifiziert CC600 Handstart-Werte (live getestet 02.06.2026)."""
+
+    def test_handstart_manuell_ein_ist_2(self):
+        """w2='2' = Manuell Ein – öffnet Ventil unabhängig von CC600-Logik."""
+        arg = build_set_value_arg("Feld92", "0101500311", w1="12:00", w2="2")
+        decoded = decode_xml_names(arg)
+        assert "W2{2}" in decoded
+        assert "W1{12:00}" in decoded
+
+    def test_handstart_aus_ist_0(self):
+        """w2='0' = Aus – Ventil schließen."""
+        arg = build_set_value_arg("Feld92", "0101500311", w1="12:00", w2="0")
+        decoded = decode_xml_names(arg)
+        assert "W2{0}" in decoded
+
+    def test_handstart_auto_ist_1(self):
+        """w2='1' = Automatik – CC600-Steuerungslogik greift."""
+        arg = build_set_value_arg("Feld92", "0101500311", w1="12:00", w2="1")
+        decoded = decode_xml_names(arg)
+        assert "W2{1}" in decoded
