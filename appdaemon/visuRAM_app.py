@@ -1,12 +1,13 @@
 """
 VisuRAM AppDaemon App – CC600 Gewächshaussteuerung → Home Assistant
 
-Liest Sensordaten vom RAM GmbH CC600 via VisuRAM HTTP/JSON-Protokoll
-und schreibt sie als Sensor-Entities in Home Assistant.
+Pollt alle Kanäle aus cc600_channel_mapping.json direkt via Parameterzeile-API
+(kein BildId-Advise-Subscribe). Schreibt Sensorwerte als HA-Entities.
 
 Installation:
   1. AppDaemon Add-on in HA installieren
-  2. Diese Datei + visuram_client.py nach /config/appdaemon/apps/visuRAM/ kopieren
+  2. Diese Datei + visuram_client.py + cc600_channel_mapping.json nach
+     /config/appdaemon/apps/visuRAM/ kopieren
   3. apps.yaml konfigurieren (siehe unten)
   4. AppDaemon neu starten
 
@@ -15,7 +16,8 @@ apps.yaml Beispiel:
     module: visuRAM_app
     class: VisuRAMApp
     visurampc_host: "192.168.178.83"
-    interval: 20
+    interval: 60        # Sekunden zwischen Poll-Zyklen
+    batch_size: 20      # Kanäle pro Parameterzeile-Call
 """
 
 import sys
@@ -24,7 +26,6 @@ import traceback
 
 import appdaemon.plugins.hass.hassapi as hass
 
-# visuram_client.py liegt im gleichen Verzeichnis
 sys.path.insert(0, os.path.dirname(__file__))
 
 from visuram_client import (  # type: ignore
@@ -33,27 +34,30 @@ from visuram_client import (  # type: ignore
     load_field_lookup,
     VISURAMPC_HOST,
     VISURAMPC_PORT,
-    BILD_ID,
 )
 
 
 class VisuRAMApp(hass.Hass):
-    """AppDaemon App: liest CC600-Sensordaten und schreibt sie in HA."""
+    """AppDaemon App: pollt alle CC600-Kanäle via Parameterzeile und schreibt sie in HA."""
 
     # ── Initialisierung ──────────────────────────────────────────────────
     def initialize(self) -> None:
-        host     = self.args.get("visurampc_host", VISURAMPC_HOST)
-        port     = int(self.args.get("visurampc_port", VISURAMPC_PORT))
-        interval = int(self.args.get("interval", 20))
+        host       = self.args.get("visurampc_host", VISURAMPC_HOST)
+        port       = int(self.args.get("visurampc_port", VISURAMPC_PORT))
+        interval   = int(self.args.get("interval", 60))
+        self._batch_size = int(self.args.get("batch_size", 20))
 
-        self.log(f"VisuRAM App startet – Host: {host}:{port}, Intervall: {interval}s")
+        self.log(f"VisuRAM App startet – Host: {host}:{port}, "
+                 f"Intervall: {interval}s, Batch: {self._batch_size}")
 
         self._client = VisuRAMClient(host=host, port=port)
-        self._field_names = load_field_names()
-        self.log(f"{len(self._field_names)} Sensor-Namen geladen")
-
+        self._field_names  = load_field_names()
         self._field_lookup = load_field_lookup()
-        self.log(f"{len(self._field_lookup)} Kanal-Mappings für Service geladen")
+
+        # Kanal-Liste aus cc600_channel_mapping.json aufbauen
+        self._poll_channels = self._build_poll_channels()
+        self.log(f"{len(self._poll_channels)} Kanäle zum Pollen geladen "
+                 f"(von {len(self._load_mapping())} gesamt)")
 
         # Einheiten → HA Device Class
         self._UNIT_TO_CLASS = {
@@ -63,74 +67,139 @@ class VisuRAMApp(hass.Hass):
             "%": "humidity",
         }
 
-        # Ersten Poll sofort, dann alle N Sekunden
         self.run_every(self._poll, "now", interval)
 
         # HA-Service zum Schalten registrieren
         self.register_service("visuram/set_value", self._handle_set_value)
         self.log("Service 'visuram/set_value' registriert")
 
+    # ── Kanal-Liste aufbauen ─────────────────────────────────────────────
+    def _load_mapping(self) -> list:
+        import json
+        script_dir = os.path.dirname(__file__)
+        for path in [
+            os.path.join(script_dir, "cc600_channel_mapping.json"),
+            os.path.join(os.path.dirname(script_dir), "data", "cc600_channel_mapping.json"),
+        ]:
+            if os.path.exists(path):
+                with open(path, encoding="utf-8") as f:
+                    return json.load(f)
+        self.log("cc600_channel_mapping.json nicht gefunden!", level="ERROR")
+        return []
+
+    def _build_poll_channels(self) -> list[dict]:
+        """
+        Gibt eine Liste aller zu pollenden Kanäle zurück.
+        Kanäle mit  "poll": false  in der JSON werden übersprungen.
+
+        Jeder Eintrag enthält:
+          {cc600_adr, w1_entity, w2_entity, w1_friendly, w2_friendly}
+        """
+        channels = []
+        for ch in self._load_mapping():
+            if not ch.get("poll", True):
+                continue
+
+            adr        = ch.get("cc600_adr", "")
+            desc       = ch.get("desc", "")
+            w1_label   = ch.get("w1_label", "") or desc
+            w2_label   = ch.get("w2_label", "")
+            feld_id_w1 = ch.get("feld_id_w1")
+            feld_id_w2 = ch.get("feld_id_w2")
+
+            if not adr:
+                continue
+
+            # W1-Entity: FeldID-Name wenn vorhanden, sonst cc600_adr
+            if feld_id_w1:
+                w1_entity   = f"sensor.nersingen_{feld_id_w1.lower()}"
+                w1_friendly = self._field_names.get(f"{feld_id_w1}_Feld", w1_label)
+            else:
+                w1_entity   = f"sensor.nersingen_{adr}"
+                w1_friendly = w1_label or adr
+
+            # W2-Entity: nur wenn w2_label vorhanden
+            if feld_id_w2:
+                w2_entity   = f"sensor.nersingen_{feld_id_w2.lower()}"
+                w2_friendly = self._field_names.get(f"{feld_id_w2}_Feld", w2_label)
+            elif w2_label:
+                w2_entity   = f"sensor.nersingen_{adr}_w2"
+                w2_friendly = w2_label
+            else:
+                w2_entity   = None
+                w2_friendly = ""
+
+            channels.append({
+                "cc600_adr":   adr,
+                "w1_entity":   w1_entity,
+                "w1_friendly": w1_friendly,
+                "w2_entity":   w2_entity,
+                "w2_friendly": w2_friendly,
+            })
+
+        return channels
+
     # ── Polling ──────────────────────────────────────────────────────────
     def _poll(self, kwargs) -> None:
-        """Stellt Verbindung her, liest Sensordaten, schreibt HA-Entities."""
+        """Liest alle CC600-Kanäle via Parameterzeile und schreibt HA-Entities."""
         try:
-            # Stateless: jedes Mal neue Session (vermeidet VisuRAM-Ruhemodus)
-            client = VisuRAMClient(
-                host=self._client.base_url.split("//")[1].split(":")[0],
-                port=int(self._client.base_url.split(":")[-1].split("/")[0]),
-            )
-            client.connect()
+            host = self._client.base_url.split("//")[1].split(":")[0]
+            port = int(self._client.base_url.split(":")[-1].split("/")[0])
+            client = VisuRAMClient(host=host, port=port)
+            client.connect_lightweight()
 
-            # Initiale Sensordaten direkt nach BINITCALL
-            sensors = dict(client._initial_sensors)
-            client._initial_sensors = {}
+            total_pushed = 0
+            # Kanäle in Batches aufteilen
+            for i in range(0, len(self._poll_channels), self._batch_size):
+                batch = self._poll_channels[i : i + self._batch_size]
+                addrs = [ch["cc600_adr"] for ch in batch]
+                results = client.fetch_channels_batch(addrs, batch_id=f"b{i}")
 
-            # Ein Polling-Zyklus für BPB-Updates
-            for _ in range(5):
-                s = client.poll()
-                if s:
-                    sensors.update(s)
+                for ch_meta, result in zip(batch, results):
+                    n = self._push_channel(ch_meta, result)
+                    total_pushed += n
 
-            if sensors:
-                self._push_sensors(sensors)
-                self.log(f"{len(sensors)} Sensoren → HA", level="DEBUG")
-            else:
-                self.log("Keine Sensordaten empfangen", level="WARNING")
+            self.log(f"{total_pushed} Sensor-Entities aktualisiert "
+                     f"({len(self._poll_channels)} Kanäle gepolt)", level="DEBUG")
 
         except Exception as exc:
             self.log(f"Fehler beim Polling: {exc}\n{traceback.format_exc()}",
                      level="ERROR")
 
     # ── HA Entity Update ─────────────────────────────────────────────────
-    def _push_sensors(self, sensors: dict) -> None:
-        """Schreibt alle Sensoren als HA-Entities."""
-        for feld_id, sensor in sensors.items():
-            value = sensor.get("value", "")
-            unit  = sensor.get("unit", "")
+    def _push_channel(self, ch_meta: dict, result: dict) -> int:
+        """Schreibt W1 (und ggf. W2) eines Kanals als HA-Entity. Gibt Anzahl zurück."""
+        pushed = 0
+
+        def write(entity_id: str, value: str, unit: str, friendly: str) -> None:
+            nonlocal pushed
             if not value:
-                continue
-
-            entity_id    = f"sensor.nersingen_{feld_id.lower().replace('_feld', '')}"
-            friendly     = self._field_names.get(feld_id, feld_id)
-            device_class = self._UNIT_TO_CLASS.get(unit)
-
-            # Numerischen Wert extrahieren
+                return
             try:
                 state = str(float(value.replace(",", ".").split()[0]))
             except (ValueError, IndexError):
                 state = value
 
-            attributes = {
+            dc = self._UNIT_TO_CLASS.get(unit)
+            attrs = {
                 "friendly_name":       friendly,
                 "unit_of_measurement": unit or None,
-                "device_class":        device_class,
+                "device_class":        dc,
                 "source":              "VisuRAM CC600",
-                "feld_id":             feld_id,
+                "cc600_adr":           result["cc600_adr"],
             }
-            # None-Werte entfernen
-            attributes = {k: v for k, v in attributes.items() if v is not None}
+            attrs = {k: v for k, v in attrs.items() if v is not None}
+            self.set_state(entity_id, state=state, attributes=attrs)
+            pushed += 1
 
-            self.set_state(entity_id, state=state, attributes=attributes)
+        write(ch_meta["w1_entity"], result["w1_value"], result["w1_unit"],
+              ch_meta["w1_friendly"])
+
+        if ch_meta["w2_entity"]:
+            write(ch_meta["w2_entity"], result["w2_value"], result["w2_unit"],
+                  ch_meta["w2_friendly"])
+
+        return pushed
 
     # ── Service-Handler: Schalten ────────────────────────────────────────
     def _handle_set_value(self, namespace: str, domain: str, service: str, kwargs: dict) -> None:
