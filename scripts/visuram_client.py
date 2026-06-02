@@ -631,7 +631,93 @@ class VisuRAMClient:
 
 
 # ─────────────────────────────────────────────
-# Standalone-Test
+# Home Assistant REST API Push
+# ─────────────────────────────────────────────
+
+def push_to_ha(sensors: dict,
+               ha_url: str,
+               ha_token: str,
+               field_mapping: dict | None = None) -> None:
+    """
+    Schreibt Sensordaten via HA REST API in Home Assistant.
+
+    Jedes Feld wird als Sensor-Entity angelegt:
+      POST /api/states/sensor.nersingen_<feld_id_lower>
+
+    Args:
+        sensors:       Dict von parse_sensors() → {FeldID: {name, value, unit}}
+        ha_url:        HA-Basis-URL, z.B. "http://192.168.178.102:8123"
+        ha_token:      Long-Lived Access Token aus HA
+        field_mapping: Optional – Dict {FeldID: "Lesbarer Name"} für friendly_name
+    """
+    headers = {
+        "Authorization": f"Bearer {ha_token}",
+        "Content-Type":  "application/json",
+    }
+
+    # Einheiten → HA Device Class Mapping
+    UNIT_TO_DEVICE_CLASS = {
+        "oC": ("temperature",    "°C"),
+        "°C": ("temperature",    "°C"),
+        "klx": (None,            "klx"),
+        "klxh": (None,           "klxh"),
+        "m/s": ("wind_speed",    "m/s"),
+        "W":   ("power",         "W"),
+        "kW":  ("power",         "kW"),
+        "%":   ("humidity",      "%"),
+    }
+
+    pushed = 0
+    errors = 0
+    for feld_id, sensor in sensors.items():
+        value = sensor.get("value", "")
+        unit  = sensor.get("unit", "")
+        if not value:
+            continue
+
+        entity_id = f"sensor.nersingen_{feld_id.lower().replace('_feld', '')}"
+        friendly  = (field_mapping or {}).get(feld_id, feld_id)
+
+        device_class, ha_unit = UNIT_TO_DEVICE_CLASS.get(unit, (None, unit))
+
+        # Numerischen Wert extrahieren (Komma → Punkt)
+        try:
+            num_value = float(value.replace(",", ".").split()[0])
+            state = str(num_value)
+        except (ValueError, IndexError):
+            state = value  # Text-Wert (z.B. "0 aus")
+
+        payload = {
+            "state": state,
+            "attributes": {
+                "friendly_name":      friendly,
+                "unit_of_measurement": ha_unit,
+                "device_class":       device_class,
+                "source":             "VisuRAM CC600",
+                "feld_id":            feld_id,
+            },
+        }
+        # None-Werte aus Attributen entfernen
+        payload["attributes"] = {k: v for k, v in payload["attributes"].items()
+                                  if v is not None}
+
+        try:
+            resp = requests.post(
+                f"{ha_url}/api/states/{entity_id}",
+                headers=headers, json=payload, timeout=5,
+            )
+            resp.raise_for_status()
+            pushed += 1
+        except requests.RequestException as e:
+            logger.warning("HA Push fehlgeschlagen für %s: %s", entity_id, e)
+            errors += 1
+
+    if pushed:
+        logger.info("HA Push: %d Entities aktualisiert (%d Fehler)", pushed, errors)
+
+
+# ─────────────────────────────────────────────
+# Standalone-Test / Hauptprogramm
 # ─────────────────────────────────────────────
 if __name__ == "__main__":
     logging.basicConfig(
@@ -640,6 +726,17 @@ if __name__ == "__main__":
         datefmt="%H:%M:%S",
     )
 
+    # Optionale lokale Konfiguration laden (config_local.py)
+    HA_URL   = None
+    HA_TOKEN = None
+    try:
+        import sys, os
+        sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
+        from config_local import HA_URL, HA_TOKEN  # type: ignore
+        print(f"HA-URL: {HA_URL}")
+    except ImportError:
+        print("Kein config_local.py gefunden – kein HA-Push.")
+
     pwd = service_password(K_NUMMER, datetime.date.today())
     print(f"Tagespasswort K{K_NUMMER}: {pwd}\n")
 
@@ -647,7 +744,10 @@ if __name__ == "__main__":
         print(f"{'─'*60}")
         print(f"{len(sensors)} Sensoren empfangen:")
         for k, v in sorted(sensors.items()):
-            print(f"  {k}: {v['name']:35s} = {v['value']:>10s}  {v['unit']}")
+            print(f"  {k:22s} = {v['value']:>12s}  {v['unit']}")
+        # HA Push wenn konfiguriert
+        if HA_URL and HA_TOKEN:
+            push_to_ha(sensors, HA_URL, HA_TOKEN)
 
     client = VisuRAMClient()
     client.run_loop(on_sensors, interval=POLL_INTERVAL)
