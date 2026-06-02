@@ -1,0 +1,4382 @@
+[
+  {
+    "zone": "00",
+    "kanal": "00000",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "16:46 h:min",
+    "w2_value": "1 MESZ"
+  },
+  {
+    "zone": "00",
+    "kanal": "00001",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "02.06.",
+    "w2_value": "2026"
+  },
+  {
+    "zone": "00",
+    "kanal": "00002",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "2 Di",
+    "w2_value": ""
+  },
+  {
+    "zone": "00",
+    "kanal": "00003",
+    "cc600_adr": "0100000032",
+    "feld_id_w1": "Feld48",
+    "feld_id_w2": "Feld50",
+    "desc": "Sonnenaufgang /-untergang",
+    "w1_value": "5:24 h:min",
+    "w2_value": "21:13 h:min"
+  },
+  {
+    "zone": "00",
+    "kanal": "09500",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "2 ein",
+    "w2_value": ""
+  },
+  {
+    "zone": "00",
+    "kanal": "10000",
+    "cc600_adr": "0100100001",
+    "feld_id_w1": "Feld28",
+    "feld_id_w2": null,
+    "desc": "Außentemperatur",
+    "w1_value": "24,7 oC",
+    "w2_value": ""
+  },
+  {
+    "zone": "00",
+    "kanal": "10001",
+    "cc600_adr": "0100100011",
+    "feld_id_w1": "Feld34",
+    "feld_id_w2": "Feld14",
+    "desc": "Außentemp: 24Std-Minimum /Maximum",
+    "w1_value": "10,7 oC",
+    "w2_value": "28,8 oC"
+  },
+  {
+    "zone": "00",
+    "kanal": "10501",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Prior",
+    "w1_value": "-15,0 oC",
+    "w2_value": "1"
+  },
+  {
+    "zone": "00",
+    "kanal": "40000",
+    "cc600_adr": "0100400001",
+    "feld_id_w1": "Feld27",
+    "feld_id_w2": null,
+    "desc": "Außenhelligkeit",
+    "w1_value": "8,3 klx",
+    "w2_value": ""
+  },
+  {
+    "zone": "00",
+    "kanal": "40001",
+    "cc600_adr": "0100400012",
+    "feld_id_w1": "Feld8",
+    "feld_id_w2": "Feld58",
+    "desc": "Lichtsumme /-Vortag",
+    "w1_value": "296 klxh",
+    "w2_value": "383 klxh"
+  },
+  {
+    "zone": "00",
+    "kanal": "90000",
+    "cc600_adr": "0100900001",
+    "feld_id_w1": "Feld33",
+    "feld_id_w2": "Feld26",
+    "desc": "Windgeschwindigkeit /Richtung",
+    "w1_value": "2,3 m/s",
+    "w2_value": "6 W"
+  },
+  {
+    "zone": "00",
+    "kanal": "90050",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Schnee",
+    "w1_value": "0 nein",
+    "w2_value": "0 nein"
+  },
+  {
+    "zone": "00",
+    "kanal": "90300",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Umschaltpunkt",
+    "w1_value": "6 W",
+    "w2_value": "4,0 m/s"
+  },
+  {
+    "zone": "00",
+    "kanal": "90301",
+    "cc600_adr": "0100903011",
+    "feld_id_w1": "Feld93",
+    "feld_id_w2": null,
+    "desc": "Sturmschutz manuell",
+    "w1_value": "0 aus",
+    "w2_value": ""
+  },
+  {
+    "zone": "00",
+    "kanal": "90302",
+    "cc600_adr": "0100903021",
+    "feld_id_w1": "Feld29",
+    "feld_id_w2": "Feld17",
+    "desc": "Sturmschutz /ab Windgeschw",
+    "w1_value": "0 aus",
+    "w2_value": "14,0 m/s"
+  },
+  {
+    "zone": "00",
+    "kanal": "90350",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0 aus",
+    "w2_value": ""
+  },
+  {
+    "zone": "00",
+    "kanal": "90351",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0 aus",
+    "w2_value": ""
+  },
+  {
+    "zone": "00",
+    "kanal": "90501",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Prior",
+    "w1_value": "15,0 m/s",
+    "w2_value": "1"
+  },
+  {
+    "zone": "01",
+    "kanal": "00100",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "1 Nr.",
+    "w2_value": ""
+  },
+  {
+    "zone": "01",
+    "kanal": "00101",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis(SU) / +0:00",
+    "w1_value": "+0:00 h:min",
+    "w2_value": "0:00 h:min"
+  },
+  {
+    "zone": "01",
+    "kanal": "01110",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Laufzeit",
+    "w1_value": "1 Auto",
+    "w2_value": "302 d"
+  },
+  {
+    "zone": "01",
+    "kanal": "01111",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0,0 oC",
+    "w2_value": "26,0 oC"
+  },
+  {
+    "zone": "01",
+    "kanal": "01112",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Dauer",
+    "w1_value": "0:00 h:min",
+    "w2_value": "3:00 h:min"
+  },
+  {
+    "zone": "01",
+    "kanal": "01113",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Dauer / +0:00",
+    "w1_value": "+0:00 h:min",
+    "w2_value": "3:00 h:min"
+  },
+  {
+    "zone": "01",
+    "kanal": "01114",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Lüftung",
+    "w1_value": "1,0 oC",
+    "w2_value": "28,0 oC"
+  },
+  {
+    "zone": "01",
+    "kanal": "01120",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Laufzeit",
+    "w1_value": "1 Auto",
+    "w2_value": "128 d"
+  },
+  {
+    "zone": "01",
+    "kanal": "01121",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0,0 oC",
+    "w2_value": "26,0 oC"
+  },
+  {
+    "zone": "01",
+    "kanal": "01122",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Dauer",
+    "w1_value": "0:00 h:min",
+    "w2_value": "0:00 h:min"
+  },
+  {
+    "zone": "01",
+    "kanal": "01123",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Dauer",
+    "w1_value": "-4:00 h:min",
+    "w2_value": "6:00 h:min"
+  },
+  {
+    "zone": "01",
+    "kanal": "01124",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Lüftung",
+    "w1_value": "1,0 oC",
+    "w2_value": "24,0 oC"
+  },
+  {
+    "zone": "01",
+    "kanal": "01150",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Funktion",
+    "w1_value": "0 aus",
+    "w2_value": "0 aus"
+  },
+  {
+    "zone": "01",
+    "kanal": "01160",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Funktion",
+    "w1_value": "0 aus",
+    "w2_value": "0 aus"
+  },
+  {
+    "zone": "01",
+    "kanal": "09100",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Funktion",
+    "w1_value": "0 aus",
+    "w2_value": "0 aus"
+  },
+  {
+    "zone": "01",
+    "kanal": "10000",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "27,1 oC",
+    "w2_value": ""
+  },
+  {
+    "zone": "01",
+    "kanal": "10202",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/-Vortag",
+    "w1_value": "26,2 oC",
+    "w2_value": "23,6 oC"
+  },
+  {
+    "zone": "01",
+    "kanal": "10501",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Prior",
+    "w1_value": "-1,0 oC",
+    "w2_value": "2"
+  },
+  {
+    "zone": "01",
+    "kanal": "10502",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Prior",
+    "w1_value": "50,0 oC",
+    "w2_value": "2"
+  },
+  {
+    "zone": "01",
+    "kanal": "11000",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Nacht",
+    "w1_value": "1,0 oC",
+    "w2_value": "1,0 oC"
+  },
+  {
+    "zone": "01",
+    "kanal": "11100",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "1 AlZpr",
+    "w2_value": ""
+  },
+  {
+    "zone": "01",
+    "kanal": "11101",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "5:00 min/K",
+    "w2_value": "5:00 min/K"
+  },
+  {
+    "zone": "01",
+    "kanal": "11102",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis",
+    "w1_value": "0,0 klx",
+    "w2_value": "0,0 klx"
+  },
+  {
+    "zone": "01",
+    "kanal": "11202",
+    "cc600_adr": "0101112021",
+    "feld_id_w1": "Feld49",
+    "feld_id_w2": null,
+    "desc": "Heizung: akt Raumsollwert",
+    "w1_value": "1,0 oC",
+    "w2_value": ""
+  },
+  {
+    "zone": "01",
+    "kanal": "11210",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0 aus",
+    "w2_value": ""
+  },
+  {
+    "zone": "01",
+    "kanal": "11220",
+    "cc600_adr": "0101112203",
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "Lufthzg: Einschaltdauer /Ventilator",
+    "w1_value": "0,0 %",
+    "w2_value": "0 aus"
+  },
+  {
+    "zone": "01",
+    "kanal": "11300",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "-7,0 oC",
+    "w2_value": ""
+  },
+  {
+    "zone": "01",
+    "kanal": "11310",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0 aus",
+    "w2_value": ""
+  },
+  {
+    "zone": "01",
+    "kanal": "11320",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/ED",
+    "w1_value": "-8,0 oC",
+    "w2_value": "4,0 %"
+  },
+  {
+    "zone": "01",
+    "kanal": "11500",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Prior",
+    "w1_value": "-2,0 K",
+    "w2_value": "2"
+  },
+  {
+    "zone": "01",
+    "kanal": "11610",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "+0,0",
+    "w1_value": "+0,0 K",
+    "w2_value": ""
+  },
+  {
+    "zone": "01",
+    "kanal": "11620",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "+0,0",
+    "w1_value": "+0,0 K",
+    "w2_value": ""
+  },
+  {
+    "zone": "01",
+    "kanal": "12000",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Nacht",
+    "w1_value": "24,0 oC",
+    "w2_value": "24,0 oC"
+  },
+  {
+    "zone": "01",
+    "kanal": "12001",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "+0,0",
+    "w1_value": "+0,0 K",
+    "w2_value": ""
+  },
+  {
+    "zone": "01",
+    "kanal": "12100",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "1 AlZpr",
+    "w2_value": ""
+  },
+  {
+    "zone": "01",
+    "kanal": "12101",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "5:00 min/K",
+    "w2_value": "10:00 min/K"
+  },
+  {
+    "zone": "01",
+    "kanal": "12102",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis",
+    "w1_value": "50,0 klx",
+    "w2_value": "80,0 klx"
+  },
+  {
+    "zone": "01",
+    "kanal": "12202",
+    "cc600_adr": "0101122021",
+    "feld_id_w1": "Feld43",
+    "feld_id_w2": null,
+    "desc": "Lüftung: akt Raumsollwert",
+    "w1_value": "24,0 oC",
+    "w2_value": ""
+  },
+  {
+    "zone": "01",
+    "kanal": "12210",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/West",
+    "w1_value": "100,0 %",
+    "w2_value": "100,0 %"
+  },
+  {
+    "zone": "01",
+    "kanal": "12220",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0 aus",
+    "w2_value": ""
+  },
+  {
+    "zone": "01",
+    "kanal": "12310",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Luv",
+    "w1_value": "3,0 K",
+    "w2_value": "3,0 K"
+  },
+  {
+    "zone": "01",
+    "kanal": "12311",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0,00 K/K",
+    "w2_value": ""
+  },
+  {
+    "zone": "01",
+    "kanal": "12312",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Lee",
+    "w1_value": "0,0 %",
+    "w2_value": "0,0 %"
+  },
+  {
+    "zone": "01",
+    "kanal": "12313",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/RTemp-HS",
+    "w1_value": "0,0 oC",
+    "w2_value": "+1,0 K"
+  },
+  {
+    "zone": "01",
+    "kanal": "12314",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Lee",
+    "w1_value": "100,0 %",
+    "w2_value": "100,0 %"
+  },
+  {
+    "zone": "01",
+    "kanal": "12315",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Lee",
+    "w1_value": "10,0 %",
+    "w2_value": "20,0 %"
+  },
+  {
+    "zone": "01",
+    "kanal": "12316",
+    "cc600_adr": "0101123161",
+    "feld_id_w1": "Feld66",
+    "feld_id_w2": "Feld56",
+    "desc": "D-Lüftg: Zu-Windgeschw Luv /Lee",
+    "w1_value": "8,0 m/s",
+    "w2_value": "12,0 m/s"
+  },
+  {
+    "zone": "01",
+    "kanal": "12317",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Lee",
+    "w1_value": "10,0 %",
+    "w2_value": "20,0 %"
+  },
+  {
+    "zone": "01",
+    "kanal": "12318",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Nacht",
+    "w1_value": "-5,0 oC",
+    "w2_value": "0,0 oC"
+  },
+  {
+    "zone": "01",
+    "kanal": "12320",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0 aus",
+    "w2_value": ""
+  },
+  {
+    "zone": "01",
+    "kanal": "12321",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "25,0 oC",
+    "w2_value": ""
+  },
+  {
+    "zone": "01",
+    "kanal": "12610",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Luv-Lee / +0,0",
+    "w1_value": "+0,0 K",
+    "w2_value": "+0,0 K"
+  },
+  {
+    "zone": "01",
+    "kanal": "12620",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "+8,0",
+    "w1_value": "+8,0 K",
+    "w2_value": ""
+  },
+  {
+    "zone": "01",
+    "kanal": "42010",
+    "cc600_adr": "0101420101",
+    "feld_id_w1": "Feld61",
+    "feld_id_w2": null,
+    "desc": "Schirm: Schaltpunkt Tag",
+    "w1_value": "35,0 klx",
+    "w2_value": ""
+  },
+  {
+    "zone": "01",
+    "kanal": "42011",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis(SU) / +0:00",
+    "w1_value": "+0:00 h:min",
+    "w2_value": "+0:00 h:min"
+  },
+  {
+    "zone": "01",
+    "kanal": "42012",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis(SA)",
+    "w1_value": "-2:00 h:min",
+    "w2_value": "+3:00 h:min"
+  },
+  {
+    "zone": "01",
+    "kanal": "42013",
+    "cc600_adr": "0101420131",
+    "feld_id_w1": "Feld44",
+    "feld_id_w2": "Feld4",
+    "desc": "Schirm: Schaltpunkt Nacht So /Wi",
+    "w1_value": "5,0 klx",
+    "w2_value": "12,0 klx"
+  },
+  {
+    "zone": "01",
+    "kanal": "42110",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Nachtfkt",
+    "w1_value": "1 ein",
+    "w2_value": "2 Zt+Li"
+  },
+  {
+    "zone": "01",
+    "kanal": "42210",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Betriebsart",
+    "w1_value": "0,0 %",
+    "w2_value": "0 Tag"
+  },
+  {
+    "zone": "01",
+    "kanal": "42211",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Winter",
+    "w1_value": "13,0 oC",
+    "w2_value": "-1,0 oC"
+  },
+  {
+    "zone": "01",
+    "kanal": "42310",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "20,0 %",
+    "w2_value": "20,0 %"
+  },
+  {
+    "zone": "01",
+    "kanal": "42311",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Auf",
+    "w1_value": "15:00 min:s",
+    "w2_value": "15:00 min:s"
+  },
+  {
+    "zone": "01",
+    "kanal": "42312",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Winter / +12,0",
+    "w1_value": "+12,0 K",
+    "w2_value": "-2,0 K"
+  },
+  {
+    "zone": "01",
+    "kanal": "42314",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Wi",
+    "w1_value": "20,0 %",
+    "w2_value": "10,0 %"
+  },
+  {
+    "zone": "01",
+    "kanal": "42315",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Spalt",
+    "w1_value": "10:00 min:s",
+    "w2_value": "20,0 %"
+  },
+  {
+    "zone": "01",
+    "kanal": "50011",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Handstart",
+    "w1_value": "15:00 min:s",
+    "w2_value": "0 aus"
+  },
+  {
+    "zone": "01",
+    "kanal": "50019",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis(SU)",
+    "w1_value": "10:00 h:min",
+    "w2_value": "10:15 h:min"
+  },
+  {
+    "zone": "01",
+    "kanal": "50021",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Handstart",
+    "w1_value": "15:00 min:s",
+    "w2_value": "0 aus"
+  },
+  {
+    "zone": "01",
+    "kanal": "50029",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis(SU)",
+    "w1_value": "10:15 h:min",
+    "w2_value": "10:30 h:min"
+  },
+  {
+    "zone": "01",
+    "kanal": "50031",
+    "cc600_adr": "0101500311",
+    "feld_id_w1": "Feld92",
+    "feld_id_w2": null,
+    "desc": "Bereg: Gießdauer /Handstart",
+    "w1_value": "12:00 min:s",
+    "w2_value": "0 aus"
+  },
+  {
+    "zone": "01",
+    "kanal": "50032",
+    "cc600_adr": "0101500321",
+    "feld_id_w1": "Feld37",
+    "feld_id_w2": null,
+    "desc": "Bereg: Gießdauer",
+    "w1_value": "15:00 min:s",
+    "w2_value": ""
+  },
+  {
+    "zone": "01",
+    "kanal": "50034",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0,0 klxh",
+    "w2_value": "22:00 h:min"
+  },
+  {
+    "zone": "01",
+    "kanal": "50039",
+    "cc600_adr": "0101500391",
+    "feld_id_w1": "Feld62",
+    "feld_id_w2": "Feld40",
+    "desc": "Bereg: Freigabe von(SA) /bis(SU)",
+    "w1_value": "12:00 h:min",
+    "w2_value": "13:00 h:min"
+  },
+  {
+    "zone": "01",
+    "kanal": "50041",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Handstart",
+    "w1_value": "15:00 min:s",
+    "w2_value": "0 aus"
+  },
+  {
+    "zone": "01",
+    "kanal": "50049",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis(SU)",
+    "w1_value": "13:00 h:min",
+    "w2_value": "13:30 h:min"
+  },
+  {
+    "zone": "01",
+    "kanal": "50051",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Handstart",
+    "w1_value": "10:00 min:s",
+    "w2_value": "0 aus"
+  },
+  {
+    "zone": "01",
+    "kanal": "50059",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis(SU)",
+    "w1_value": "13:00 h:min",
+    "w2_value": "14:00 h:min"
+  },
+  {
+    "zone": "01",
+    "kanal": "50061",
+    "cc600_adr": "0101500612",
+    "feld_id_w1": null,
+    "feld_id_w2": "Feld91",
+    "desc": "Bereg: Gießdauer /Handstart",
+    "w1_value": "60:00 min:s",
+    "w2_value": "0 aus"
+  },
+  {
+    "zone": "01",
+    "kanal": "50062",
+    "cc600_adr": "0101500621",
+    "feld_id_w1": "Feld39",
+    "feld_id_w2": null,
+    "desc": "Bereg: Gießdauer",
+    "w1_value": "60:00 min:s",
+    "w2_value": ""
+  },
+  {
+    "zone": "01",
+    "kanal": "50064",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0,0 klxh",
+    "w2_value": "22:00 h:min"
+  },
+  {
+    "zone": "01",
+    "kanal": "50069",
+    "cc600_adr": "0101500692",
+    "feld_id_w1": "Feld42",
+    "feld_id_w2": "Feld63",
+    "desc": "Bereg: Freigabe von(SA) /bis(SU)",
+    "w1_value": "12:00 h:min",
+    "w2_value": "13:00 h:min"
+  },
+  {
+    "zone": "01",
+    "kanal": "50110",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0 Hand",
+    "w2_value": ""
+  },
+  {
+    "zone": "01",
+    "kanal": "50120",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0 Hand",
+    "w2_value": ""
+  },
+  {
+    "zone": "01",
+    "kanal": "50130",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "1 Li+Zt",
+    "w2_value": ""
+  },
+  {
+    "zone": "01",
+    "kanal": "50140",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0 Hand",
+    "w2_value": ""
+  },
+  {
+    "zone": "01",
+    "kanal": "50150",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0 Hand",
+    "w2_value": ""
+  },
+  {
+    "zone": "01",
+    "kanal": "50160",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "1 Li+Zt",
+    "w2_value": ""
+  },
+  {
+    "zone": "01",
+    "kanal": "50210",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Bedarf",
+    "w1_value": "0 aus",
+    "w2_value": "0 nein"
+  },
+  {
+    "zone": "01",
+    "kanal": "50211",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Gießdauer",
+    "w1_value": "0",
+    "w2_value": "0:00 min:s"
+  },
+  {
+    "zone": "01",
+    "kanal": "50220",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Bedarf",
+    "w1_value": "0 aus",
+    "w2_value": "0 nein"
+  },
+  {
+    "zone": "01",
+    "kanal": "50221",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Gießdauer",
+    "w1_value": "0",
+    "w2_value": "0:00 min:s"
+  },
+  {
+    "zone": "01",
+    "kanal": "50230",
+    "cc600_adr": "0101502303",
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "Bereg: Magnetventil /Bedarf",
+    "w1_value": "0 aus",
+    "w2_value": "0 nein"
+  },
+  {
+    "zone": "01",
+    "kanal": "50231",
+    "cc600_adr": "0101502312",
+    "feld_id_w1": null,
+    "feld_id_w2": "Feld5",
+    "desc": "Bereg: akt Anzahl /Gießdauer",
+    "w1_value": "4",
+    "w2_value": "0:00 min:s"
+  },
+  {
+    "zone": "01",
+    "kanal": "50232",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Zeit",
+    "w1_value": "141,8 klxh",
+    "w2_value": "15:32 h:min"
+  },
+  {
+    "zone": "01",
+    "kanal": "50240",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Bedarf",
+    "w1_value": "0 aus",
+    "w2_value": "0 nein"
+  },
+  {
+    "zone": "01",
+    "kanal": "50241",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Gießdauer",
+    "w1_value": "0",
+    "w2_value": "0:00 min:s"
+  },
+  {
+    "zone": "01",
+    "kanal": "50250",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Bedarf",
+    "w1_value": "0 aus",
+    "w2_value": "0 nein"
+  },
+  {
+    "zone": "01",
+    "kanal": "50251",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Gießdauer",
+    "w1_value": "0",
+    "w2_value": "0:00 min:s"
+  },
+  {
+    "zone": "01",
+    "kanal": "50260",
+    "cc600_adr": "0101502603",
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "Bereg: Magnetventil /Bedarf",
+    "w1_value": "0 aus",
+    "w2_value": "0 nein"
+  },
+  {
+    "zone": "01",
+    "kanal": "50261",
+    "cc600_adr": "0101502612",
+    "feld_id_w1": null,
+    "feld_id_w2": "Feld35",
+    "desc": "Bereg: akt Anzahl /Gießdauer",
+    "w1_value": "2",
+    "w2_value": "0:00 min:s"
+  },
+  {
+    "zone": "01",
+    "kanal": "50262",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Zeit",
+    "w1_value": "108,5 klxh",
+    "w2_value": "14:47 h:min"
+  },
+  {
+    "zone": "01",
+    "kanal": "50310",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "70 %",
+    "w2_value": ""
+  },
+  {
+    "zone": "01",
+    "kanal": "50320",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "70 %",
+    "w2_value": ""
+  },
+  {
+    "zone": "01",
+    "kanal": "50330",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "10 %",
+    "w2_value": ""
+  },
+  {
+    "zone": "01",
+    "kanal": "50331",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "10,0 %",
+    "w2_value": ""
+  },
+  {
+    "zone": "01",
+    "kanal": "50340",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "10 %",
+    "w2_value": ""
+  },
+  {
+    "zone": "01",
+    "kanal": "50350",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "70 %",
+    "w2_value": ""
+  },
+  {
+    "zone": "01",
+    "kanal": "50360",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "10 %",
+    "w2_value": ""
+  },
+  {
+    "zone": "01",
+    "kanal": "50361",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "10,0 %",
+    "w2_value": ""
+  },
+  {
+    "zone": "02",
+    "kanal": "00100",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "1 Nr.",
+    "w2_value": ""
+  },
+  {
+    "zone": "02",
+    "kanal": "00101",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis(SU) / +0:00",
+    "w1_value": "+0:00 h:min",
+    "w2_value": "+0:00 h:min"
+  },
+  {
+    "zone": "02",
+    "kanal": "01110",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Laufzeit",
+    "w1_value": "0 aus",
+    "w2_value": "0 d"
+  },
+  {
+    "zone": "02",
+    "kanal": "01120",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Laufzeit",
+    "w1_value": "0 aus",
+    "w2_value": "0 d"
+  },
+  {
+    "zone": "02",
+    "kanal": "01150",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Funktion",
+    "w1_value": "0 aus",
+    "w2_value": "0 aus"
+  },
+  {
+    "zone": "02",
+    "kanal": "01160",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Funktion",
+    "w1_value": "0 aus",
+    "w2_value": "0 aus"
+  },
+  {
+    "zone": "02",
+    "kanal": "09100",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Funktion",
+    "w1_value": "0 aus",
+    "w2_value": "0 aus"
+  },
+  {
+    "zone": "02",
+    "kanal": "10000",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "28,7 oC",
+    "w2_value": ""
+  },
+  {
+    "zone": "02",
+    "kanal": "10001",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "29,1 oC",
+    "w2_value": "28,3 oC"
+  },
+  {
+    "zone": "02",
+    "kanal": "10202",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/-Vortag",
+    "w1_value": "27,7 oC",
+    "w2_value": "25,1 oC"
+  },
+  {
+    "zone": "02",
+    "kanal": "10501",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Prior",
+    "w1_value": "-10,0 oC",
+    "w2_value": "1"
+  },
+  {
+    "zone": "02",
+    "kanal": "10502",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Prior",
+    "w1_value": "50,0 oC",
+    "w2_value": "2"
+  },
+  {
+    "zone": "02",
+    "kanal": "10504",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Prior",
+    "w1_value": "-10,0 oC",
+    "w2_value": "1"
+  },
+  {
+    "zone": "02",
+    "kanal": "10505",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Prior",
+    "w1_value": "50,0 oC",
+    "w2_value": "2"
+  },
+  {
+    "zone": "02",
+    "kanal": "11000",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Nacht",
+    "w1_value": "-3,0 oC",
+    "w2_value": "-3,0 oC"
+  },
+  {
+    "zone": "02",
+    "kanal": "11100",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "1 AlZpr",
+    "w2_value": ""
+  },
+  {
+    "zone": "02",
+    "kanal": "11101",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "5:00 min/K",
+    "w2_value": "5:00 min/K"
+  },
+  {
+    "zone": "02",
+    "kanal": "11102",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis",
+    "w1_value": "0,0 klx",
+    "w2_value": "0,0 klx"
+  },
+  {
+    "zone": "02",
+    "kanal": "11202",
+    "cc600_adr": "0102112021",
+    "feld_id_w1": "Feld11",
+    "feld_id_w2": null,
+    "desc": "Heizung: akt Raumsollwert",
+    "w1_value": "-3,0 oC",
+    "w2_value": ""
+  },
+  {
+    "zone": "02",
+    "kanal": "11210",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0 aus",
+    "w2_value": ""
+  },
+  {
+    "zone": "02",
+    "kanal": "11220",
+    "cc600_adr": "0102112203",
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "Lufthzg: Einschaltdauer /Ventilator",
+    "w1_value": "0,0 %",
+    "w2_value": "0 aus"
+  },
+  {
+    "zone": "02",
+    "kanal": "11230",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Ventilator",
+    "w1_value": "0,0 %",
+    "w2_value": "0 aus"
+  },
+  {
+    "zone": "02",
+    "kanal": "11300",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "-9,0 oC",
+    "w2_value": ""
+  },
+  {
+    "zone": "02",
+    "kanal": "11310",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "1 Stufe",
+    "w2_value": ""
+  },
+  {
+    "zone": "02",
+    "kanal": "11320",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/ED",
+    "w1_value": "-8,0 oC",
+    "w2_value": "4,0 %"
+  },
+  {
+    "zone": "02",
+    "kanal": "11330",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/ED",
+    "w1_value": "-8,0 oC",
+    "w2_value": "4,0 %"
+  },
+  {
+    "zone": "02",
+    "kanal": "11500",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Prior",
+    "w1_value": "-2,0 K",
+    "w2_value": "2"
+  },
+  {
+    "zone": "02",
+    "kanal": "11610",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "+0,0",
+    "w1_value": "+0,0 K",
+    "w2_value": ""
+  },
+  {
+    "zone": "02",
+    "kanal": "11620",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "+0,0",
+    "w1_value": "+0,0 K",
+    "w2_value": ""
+  },
+  {
+    "zone": "02",
+    "kanal": "11630",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "+0,0",
+    "w1_value": "+0,0 K",
+    "w2_value": ""
+  },
+  {
+    "zone": "02",
+    "kanal": "12000",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Nacht",
+    "w1_value": "28,0 oC",
+    "w2_value": "28,0 oC"
+  },
+  {
+    "zone": "02",
+    "kanal": "12001",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "+0,0",
+    "w1_value": "+0,0 K",
+    "w2_value": ""
+  },
+  {
+    "zone": "02",
+    "kanal": "12100",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "1 AlZpr",
+    "w2_value": ""
+  },
+  {
+    "zone": "02",
+    "kanal": "12101",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "5:00 min/K",
+    "w2_value": "10:00 min/K"
+  },
+  {
+    "zone": "02",
+    "kanal": "12102",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis",
+    "w1_value": "2,0 klx",
+    "w2_value": "5,0 klx"
+  },
+  {
+    "zone": "02",
+    "kanal": "12202",
+    "cc600_adr": "0102122021",
+    "feld_id_w1": "Feld46",
+    "feld_id_w2": null,
+    "desc": "Lüftung: akt Raumsollwert",
+    "w1_value": "28,0 oC",
+    "w2_value": ""
+  },
+  {
+    "zone": "02",
+    "kanal": "12210",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/West",
+    "w1_value": "20,4 %",
+    "w2_value": "0,0 %"
+  },
+  {
+    "zone": "02",
+    "kanal": "12220",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0 aus",
+    "w2_value": ""
+  },
+  {
+    "zone": "02",
+    "kanal": "12310",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Luv",
+    "w1_value": "3,0 K",
+    "w2_value": "3,0 K"
+  },
+  {
+    "zone": "02",
+    "kanal": "12311",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0,20 K/K",
+    "w2_value": ""
+  },
+  {
+    "zone": "02",
+    "kanal": "12312",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Lee",
+    "w1_value": "0,0 %",
+    "w2_value": "0,0 %"
+  },
+  {
+    "zone": "02",
+    "kanal": "12313",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/RTemp-HS",
+    "w1_value": "0,0 oC",
+    "w2_value": "+1,0 K"
+  },
+  {
+    "zone": "02",
+    "kanal": "12314",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Lee",
+    "w1_value": "100,0 %",
+    "w2_value": "100,0 %"
+  },
+  {
+    "zone": "02",
+    "kanal": "12315",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Lee",
+    "w1_value": "10,0 %",
+    "w2_value": "20,0 %"
+  },
+  {
+    "zone": "02",
+    "kanal": "12316",
+    "cc600_adr": "0102123162",
+    "feld_id_w1": "Feld54",
+    "feld_id_w2": "Feld60",
+    "desc": "D-Lüftg: Zu-Windgeschw Luv /Lee",
+    "w1_value": "8,0 m/s",
+    "w2_value": "12,0 m/s"
+  },
+  {
+    "zone": "02",
+    "kanal": "12317",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Lee",
+    "w1_value": "10,0 %",
+    "w2_value": "20,0 %"
+  },
+  {
+    "zone": "02",
+    "kanal": "12318",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Nacht",
+    "w1_value": "-5,0 oC",
+    "w2_value": "0,0 oC"
+  },
+  {
+    "zone": "02",
+    "kanal": "12320",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0 aus",
+    "w2_value": ""
+  },
+  {
+    "zone": "02",
+    "kanal": "12321",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "25,0 oC",
+    "w2_value": ""
+  },
+  {
+    "zone": "02",
+    "kanal": "12610",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Luv-Lee / +0,0",
+    "w1_value": "+0,0 K",
+    "w2_value": "+0,5 K"
+  },
+  {
+    "zone": "02",
+    "kanal": "12620",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "+8,0",
+    "w1_value": "+8,0 K",
+    "w2_value": ""
+  },
+  {
+    "zone": "02",
+    "kanal": "42010",
+    "cc600_adr": "0102420101",
+    "feld_id_w1": "Feld41",
+    "feld_id_w2": null,
+    "desc": "Schirm: Schaltpunkt Tag",
+    "w1_value": "50,0 klx",
+    "w2_value": ""
+  },
+  {
+    "zone": "02",
+    "kanal": "42011",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis(SU) / +0:00",
+    "w1_value": "+0:00 h:min",
+    "w2_value": "+0:00 h:min"
+  },
+  {
+    "zone": "02",
+    "kanal": "42012",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis(SA)",
+    "w1_value": "-2:00 h:min",
+    "w2_value": "+3:00 h:min"
+  },
+  {
+    "zone": "02",
+    "kanal": "42013",
+    "cc600_adr": "0102420132",
+    "feld_id_w1": "Feld45",
+    "feld_id_w2": "Feld47",
+    "desc": "Schirm: Schaltpunkt Nacht So /Wi",
+    "w1_value": "6,0 klx",
+    "w2_value": "12,0 klx"
+  },
+  {
+    "zone": "02",
+    "kanal": "42110",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Nachtfkt",
+    "w1_value": "1 ein",
+    "w2_value": "2 Zt+Li"
+  },
+  {
+    "zone": "02",
+    "kanal": "42210",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Betriebsart",
+    "w1_value": "0,0 %",
+    "w2_value": "0 Tag"
+  },
+  {
+    "zone": "02",
+    "kanal": "42211",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Winter",
+    "w1_value": "15,0 oC",
+    "w2_value": "-5,0 oC"
+  },
+  {
+    "zone": "02",
+    "kanal": "42310",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "20,0 %",
+    "w2_value": "20,0 %"
+  },
+  {
+    "zone": "02",
+    "kanal": "42311",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Auf",
+    "w1_value": "15:00 min:s",
+    "w2_value": "15:00 min:s"
+  },
+  {
+    "zone": "02",
+    "kanal": "42312",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Winter / +18,0",
+    "w1_value": "+18,0 K",
+    "w2_value": "-2,0 K"
+  },
+  {
+    "zone": "02",
+    "kanal": "42314",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Wi",
+    "w1_value": "20,0 %",
+    "w2_value": "20,0 %"
+  },
+  {
+    "zone": "02",
+    "kanal": "42315",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Spalt",
+    "w1_value": "10:00 min:s",
+    "w2_value": "20,0 %"
+  },
+  {
+    "zone": "02",
+    "kanal": "50011",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Handstart",
+    "w1_value": "8:00 min:s",
+    "w2_value": "0 aus"
+  },
+  {
+    "zone": "02",
+    "kanal": "50012",
+    "cc600_adr": "0102500121",
+    "feld_id_w1": "Feld23",
+    "feld_id_w2": null,
+    "desc": "Bereg: Gießdauer",
+    "w1_value": "8:00 min:s",
+    "w2_value": ""
+  },
+  {
+    "zone": "02",
+    "kanal": "50014",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0,0 klxh",
+    "w2_value": "23:00 h:min"
+  },
+  {
+    "zone": "02",
+    "kanal": "50019",
+    "cc600_adr": "0102500191",
+    "feld_id_w1": "Feld24",
+    "feld_id_w2": "Feld19",
+    "desc": "Bereg: Freigabe von(SA) /bis(SU)",
+    "w1_value": "11:30 h:min",
+    "w2_value": "11:45 h:min"
+  },
+  {
+    "zone": "02",
+    "kanal": "50021",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Handstart",
+    "w1_value": "15:00 min:s",
+    "w2_value": "0 aus"
+  },
+  {
+    "zone": "02",
+    "kanal": "50022",
+    "cc600_adr": "0102500221",
+    "feld_id_w1": "Feld30",
+    "feld_id_w2": null,
+    "desc": "Bereg: Gießdauer",
+    "w1_value": "15:00 min:s",
+    "w2_value": ""
+  },
+  {
+    "zone": "02",
+    "kanal": "50024",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0,0 klxh",
+    "w2_value": "23:30 h:min"
+  },
+  {
+    "zone": "02",
+    "kanal": "50029",
+    "cc600_adr": "0102500291",
+    "feld_id_w1": "Feld21",
+    "feld_id_w2": "Feld18",
+    "desc": "Bereg: Freigabe von(SA) /bis(SU)",
+    "w1_value": "11:40 h:min",
+    "w2_value": "12:15 h:min"
+  },
+  {
+    "zone": "02",
+    "kanal": "50110",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "1 Li+Zt",
+    "w2_value": ""
+  },
+  {
+    "zone": "02",
+    "kanal": "50120",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "1 Li+Zt",
+    "w2_value": ""
+  },
+  {
+    "zone": "02",
+    "kanal": "50210",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Bedarf",
+    "w1_value": "0 aus",
+    "w2_value": "0 nein"
+  },
+  {
+    "zone": "02",
+    "kanal": "50211",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Gießdauer",
+    "w1_value": "1",
+    "w2_value": "0:00 min:s"
+  },
+  {
+    "zone": "02",
+    "kanal": "50212",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Zeit",
+    "w1_value": "179,0 klxh",
+    "w2_value": "16:40 h:min"
+  },
+  {
+    "zone": "02",
+    "kanal": "50220",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Bedarf",
+    "w1_value": "0 aus",
+    "w2_value": "0 nein"
+  },
+  {
+    "zone": "02",
+    "kanal": "50221",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Gießdauer",
+    "w1_value": "1",
+    "w2_value": "0:00 min:s"
+  },
+  {
+    "zone": "02",
+    "kanal": "50222",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Zeit",
+    "w1_value": "168,0 klxh",
+    "w2_value": "16:38 h:min"
+  },
+  {
+    "zone": "02",
+    "kanal": "50310",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "70 %",
+    "w2_value": ""
+  },
+  {
+    "zone": "02",
+    "kanal": "50311",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "30,0 %",
+    "w2_value": ""
+  },
+  {
+    "zone": "02",
+    "kanal": "50320",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "70 %",
+    "w2_value": ""
+  },
+  {
+    "zone": "02",
+    "kanal": "50321",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "30,0 %",
+    "w2_value": ""
+  },
+  {
+    "zone": "02",
+    "kanal": "51011",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Handstart",
+    "w1_value": "8:00 min:s",
+    "w2_value": "0 aus"
+  },
+  {
+    "zone": "02",
+    "kanal": "51019",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis(SU)",
+    "w1_value": "9:15 h:min",
+    "w2_value": "9:30 h:min"
+  },
+  {
+    "zone": "02",
+    "kanal": "51110",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0 Hand",
+    "w2_value": ""
+  },
+  {
+    "zone": "02",
+    "kanal": "51210",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Bedarf",
+    "w1_value": "0 aus",
+    "w2_value": "0 nein"
+  },
+  {
+    "zone": "02",
+    "kanal": "51211",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0",
+    "w2_value": "0:00 min:s"
+  },
+  {
+    "zone": "02",
+    "kanal": "51310",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "10 %",
+    "w2_value": ""
+  },
+  {
+    "zone": "03",
+    "kanal": "00100",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "1 Nr.",
+    "w2_value": ""
+  },
+  {
+    "zone": "03",
+    "kanal": "00101",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis(SU) / +0:00",
+    "w1_value": "+0:00 h:min",
+    "w2_value": "+0:00 h:min"
+  },
+  {
+    "zone": "03",
+    "kanal": "01110",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Laufzeit",
+    "w1_value": "0 aus",
+    "w2_value": "0 d"
+  },
+  {
+    "zone": "03",
+    "kanal": "01120",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Laufzeit",
+    "w1_value": "0 aus",
+    "w2_value": "0 d"
+  },
+  {
+    "zone": "03",
+    "kanal": "01150",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Funktion",
+    "w1_value": "0 aus",
+    "w2_value": "0 aus"
+  },
+  {
+    "zone": "03",
+    "kanal": "01160",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Funktion",
+    "w1_value": "0 aus",
+    "w2_value": "0 aus"
+  },
+  {
+    "zone": "03",
+    "kanal": "09100",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Funktion",
+    "w1_value": "0 aus",
+    "w2_value": "0 aus"
+  },
+  {
+    "zone": "03",
+    "kanal": "10000",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "28,5 oC",
+    "w2_value": ""
+  },
+  {
+    "zone": "03",
+    "kanal": "10202",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/-Vortag",
+    "w1_value": "27,2 oC",
+    "w2_value": "25,1 oC"
+  },
+  {
+    "zone": "03",
+    "kanal": "10501",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Prior",
+    "w1_value": "-10,0 oC",
+    "w2_value": "1"
+  },
+  {
+    "zone": "03",
+    "kanal": "10502",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Prior",
+    "w1_value": "50,0 oC",
+    "w2_value": "2"
+  },
+  {
+    "zone": "03",
+    "kanal": "11000",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Nacht",
+    "w1_value": "-3,0 oC",
+    "w2_value": "-3,0 oC"
+  },
+  {
+    "zone": "03",
+    "kanal": "11100",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "1 AlZpr",
+    "w2_value": ""
+  },
+  {
+    "zone": "03",
+    "kanal": "11101",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "20:00 min/K",
+    "w2_value": "5:00 min/K"
+  },
+  {
+    "zone": "03",
+    "kanal": "11102",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis",
+    "w1_value": "0,0 klx",
+    "w2_value": "0,0 klx"
+  },
+  {
+    "zone": "03",
+    "kanal": "11202",
+    "cc600_adr": "0103112021",
+    "feld_id_w1": "Feld1",
+    "feld_id_w2": null,
+    "desc": "Heizung: akt Raumsollwert",
+    "w1_value": "-3,0 oC",
+    "w2_value": ""
+  },
+  {
+    "zone": "03",
+    "kanal": "11210",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0 aus",
+    "w2_value": ""
+  },
+  {
+    "zone": "03",
+    "kanal": "11220",
+    "cc600_adr": "0103112203",
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "Lufthzg: Einschaltdauer /Ventilator",
+    "w1_value": "0,0 %",
+    "w2_value": "0 aus"
+  },
+  {
+    "zone": "03",
+    "kanal": "11300",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "-9,0 oC",
+    "w2_value": ""
+  },
+  {
+    "zone": "03",
+    "kanal": "11310",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "1 Stufe",
+    "w2_value": ""
+  },
+  {
+    "zone": "03",
+    "kanal": "11320",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/ED",
+    "w1_value": "-8,0 oC",
+    "w2_value": "4,0 %"
+  },
+  {
+    "zone": "03",
+    "kanal": "11500",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Prior",
+    "w1_value": "-2,0 K",
+    "w2_value": "2"
+  },
+  {
+    "zone": "03",
+    "kanal": "11610",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "+0,0",
+    "w1_value": "+0,0 K",
+    "w2_value": ""
+  },
+  {
+    "zone": "03",
+    "kanal": "11620",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "+0,0",
+    "w1_value": "+0,0 K",
+    "w2_value": ""
+  },
+  {
+    "zone": "03",
+    "kanal": "12000",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Nacht",
+    "w1_value": "28,0 oC",
+    "w2_value": "28,0 oC"
+  },
+  {
+    "zone": "03",
+    "kanal": "12001",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "+0,0",
+    "w1_value": "+0,0 K",
+    "w2_value": ""
+  },
+  {
+    "zone": "03",
+    "kanal": "12100",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "1 AlZpr",
+    "w2_value": ""
+  },
+  {
+    "zone": "03",
+    "kanal": "12101",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "5:00 min/K",
+    "w2_value": "10:00 min/K"
+  },
+  {
+    "zone": "03",
+    "kanal": "12102",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis",
+    "w1_value": "2,0 klx",
+    "w2_value": "5,0 klx"
+  },
+  {
+    "zone": "03",
+    "kanal": "12202",
+    "cc600_adr": "0103122021",
+    "feld_id_w1": "Feld55",
+    "feld_id_w2": null,
+    "desc": "Lüftung: akt Raumsollwert",
+    "w1_value": "28,0 oC",
+    "w2_value": ""
+  },
+  {
+    "zone": "03",
+    "kanal": "12210",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/West",
+    "w1_value": "18,3 %",
+    "w2_value": "0,0 %"
+  },
+  {
+    "zone": "03",
+    "kanal": "12220",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0 aus",
+    "w2_value": ""
+  },
+  {
+    "zone": "03",
+    "kanal": "12310",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Luv",
+    "w1_value": "3,0 K",
+    "w2_value": "3,0 K"
+  },
+  {
+    "zone": "03",
+    "kanal": "12311",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0,20 K/K",
+    "w2_value": ""
+  },
+  {
+    "zone": "03",
+    "kanal": "12312",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Lee",
+    "w1_value": "0,0 %",
+    "w2_value": "0,0 %"
+  },
+  {
+    "zone": "03",
+    "kanal": "12313",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/RTemp-HS",
+    "w1_value": "0,0 oC",
+    "w2_value": "+1,0 K"
+  },
+  {
+    "zone": "03",
+    "kanal": "12314",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Lee",
+    "w1_value": "100,0 %",
+    "w2_value": "100,0 %"
+  },
+  {
+    "zone": "03",
+    "kanal": "12315",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Lee",
+    "w1_value": "10,0 %",
+    "w2_value": "20,0 %"
+  },
+  {
+    "zone": "03",
+    "kanal": "12316",
+    "cc600_adr": "0103123161",
+    "feld_id_w1": "Feld53",
+    "feld_id_w2": "Feld52",
+    "desc": "D-Lüftg: Zu-Windgeschw Luv /Lee",
+    "w1_value": "8,0 m/s",
+    "w2_value": "12,0 m/s"
+  },
+  {
+    "zone": "03",
+    "kanal": "12317",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Lee",
+    "w1_value": "10,0 %",
+    "w2_value": "20,0 %"
+  },
+  {
+    "zone": "03",
+    "kanal": "12318",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Nacht",
+    "w1_value": "-5,0 oC",
+    "w2_value": "0,0 oC"
+  },
+  {
+    "zone": "03",
+    "kanal": "12320",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0 aus",
+    "w2_value": ""
+  },
+  {
+    "zone": "03",
+    "kanal": "12321",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "25,0 oC",
+    "w2_value": ""
+  },
+  {
+    "zone": "03",
+    "kanal": "12610",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Luv-Lee / +0,0",
+    "w1_value": "+0,0 K",
+    "w2_value": "+0,5 K"
+  },
+  {
+    "zone": "03",
+    "kanal": "12620",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "+8,0",
+    "w1_value": "+8,0 K",
+    "w2_value": ""
+  },
+  {
+    "zone": "03",
+    "kanal": "50011",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Handstart",
+    "w1_value": "8:00 min:s",
+    "w2_value": "0 aus"
+  },
+  {
+    "zone": "03",
+    "kanal": "50012",
+    "cc600_adr": "0103500121",
+    "feld_id_w1": "Feld25",
+    "feld_id_w2": null,
+    "desc": "Bereg: Gießdauer",
+    "w1_value": "8:00 min:s",
+    "w2_value": ""
+  },
+  {
+    "zone": "03",
+    "kanal": "50014",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0,0 klxh",
+    "w2_value": "22:00 h:min"
+  },
+  {
+    "zone": "03",
+    "kanal": "50019",
+    "cc600_adr": "0103500192",
+    "feld_id_w1": "Feld64",
+    "feld_id_w2": "Feld65",
+    "desc": "Bereg: Freigabe von(SA) /bis(SU)",
+    "w1_value": "11:00 h:min",
+    "w2_value": "11:15 h:min"
+  },
+  {
+    "zone": "03",
+    "kanal": "50021",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Handstart",
+    "w1_value": "20:00 min:s",
+    "w2_value": "0 aus"
+  },
+  {
+    "zone": "03",
+    "kanal": "50022",
+    "cc600_adr": "0103500221",
+    "feld_id_w1": "Feld22",
+    "feld_id_w2": null,
+    "desc": "Bereg: Gießdauer",
+    "w1_value": "20:00 min:s",
+    "w2_value": ""
+  },
+  {
+    "zone": "03",
+    "kanal": "50024",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0,0 klxh",
+    "w2_value": "5:00 h:min"
+  },
+  {
+    "zone": "03",
+    "kanal": "50029",
+    "cc600_adr": "0103500291",
+    "feld_id_w1": "Feld31",
+    "feld_id_w2": "Feld20",
+    "desc": "Bereg: Freigabe von(SA) /bis(SU)",
+    "w1_value": "11:10 h:min",
+    "w2_value": "11:45 h:min"
+  },
+  {
+    "zone": "03",
+    "kanal": "50110",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "1 Li+Zt",
+    "w2_value": ""
+  },
+  {
+    "zone": "03",
+    "kanal": "50120",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "1 Li+Zt",
+    "w2_value": ""
+  },
+  {
+    "zone": "03",
+    "kanal": "50210",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Bedarf",
+    "w1_value": "0 aus",
+    "w2_value": "0 nein"
+  },
+  {
+    "zone": "03",
+    "kanal": "50211",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Gießdauer",
+    "w1_value": "1",
+    "w2_value": "0:00 min:s"
+  },
+  {
+    "zone": "03",
+    "kanal": "50212",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Zeit",
+    "w1_value": "196,0 klxh",
+    "w2_value": "16:41 h:min"
+  },
+  {
+    "zone": "03",
+    "kanal": "50220",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Bedarf",
+    "w1_value": "0 aus",
+    "w2_value": "1 ja"
+  },
+  {
+    "zone": "03",
+    "kanal": "50221",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Gießdauer",
+    "w1_value": "2",
+    "w2_value": "0:00 min:s"
+  },
+  {
+    "zone": "03",
+    "kanal": "50222",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Zeit",
+    "w1_value": "184,0 klxh",
+    "w2_value": "7:49 h:min"
+  },
+  {
+    "zone": "03",
+    "kanal": "50310",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "70 %",
+    "w2_value": ""
+  },
+  {
+    "zone": "03",
+    "kanal": "50320",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "70 %",
+    "w2_value": ""
+  },
+  {
+    "zone": "04",
+    "kanal": "00100",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "1 Nr.",
+    "w2_value": ""
+  },
+  {
+    "zone": "04",
+    "kanal": "00101",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis(SU) / +0:00",
+    "w1_value": "+0:00 h:min",
+    "w2_value": "+0:00 h:min"
+  },
+  {
+    "zone": "04",
+    "kanal": "01110",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Laufzeit",
+    "w1_value": "0 aus",
+    "w2_value": "0 d"
+  },
+  {
+    "zone": "04",
+    "kanal": "01120",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Laufzeit",
+    "w1_value": "0 aus",
+    "w2_value": "0 d"
+  },
+  {
+    "zone": "04",
+    "kanal": "01150",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Funktion",
+    "w1_value": "0 aus",
+    "w2_value": "0 aus"
+  },
+  {
+    "zone": "04",
+    "kanal": "01160",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Funktion",
+    "w1_value": "0 aus",
+    "w2_value": "0 aus"
+  },
+  {
+    "zone": "04",
+    "kanal": "09100",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Funktion",
+    "w1_value": "0 aus",
+    "w2_value": "0 aus"
+  },
+  {
+    "zone": "04",
+    "kanal": "10000",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "30,6 oC",
+    "w2_value": ""
+  },
+  {
+    "zone": "04",
+    "kanal": "10202",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/-Vortag",
+    "w1_value": "29,0 oC",
+    "w2_value": "27,1 oC"
+  },
+  {
+    "zone": "04",
+    "kanal": "10501",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Prior",
+    "w1_value": "-12,0 oC",
+    "w2_value": "1"
+  },
+  {
+    "zone": "04",
+    "kanal": "10502",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Prior",
+    "w1_value": "50,0 oC",
+    "w2_value": "2"
+  },
+  {
+    "zone": "04",
+    "kanal": "11000",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Nacht",
+    "w1_value": "-2,0 oC",
+    "w2_value": "-10,0 oC"
+  },
+  {
+    "zone": "04",
+    "kanal": "11100",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "3 SoPr",
+    "w2_value": ""
+  },
+  {
+    "zone": "04",
+    "kanal": "11101",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "20:00 min/K",
+    "w2_value": "5:00 min/K"
+  },
+  {
+    "zone": "04",
+    "kanal": "11105",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis",
+    "w1_value": "0,5 klx",
+    "w2_value": "7,0 klx"
+  },
+  {
+    "zone": "04",
+    "kanal": "11202",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "-2,0 oC",
+    "w2_value": ""
+  },
+  {
+    "zone": "04",
+    "kanal": "11210",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0 aus",
+    "w2_value": ""
+  },
+  {
+    "zone": "04",
+    "kanal": "11220",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "53,6 oC",
+    "w2_value": ""
+  },
+  {
+    "zone": "04",
+    "kanal": "11221",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Pumpe",
+    "w1_value": "0,0 %",
+    "w2_value": "0 aus"
+  },
+  {
+    "zone": "04",
+    "kanal": "11222",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0 aus",
+    "w2_value": ""
+  },
+  {
+    "zone": "04",
+    "kanal": "11230",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "53,6 oC",
+    "w2_value": ""
+  },
+  {
+    "zone": "04",
+    "kanal": "11300",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0,0 oC",
+    "w2_value": ""
+  },
+  {
+    "zone": "04",
+    "kanal": "11310",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "1 Stufe",
+    "w2_value": ""
+  },
+  {
+    "zone": "04",
+    "kanal": "11320",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Max",
+    "w1_value": "25,0 oC",
+    "w2_value": "80,0 oC"
+  },
+  {
+    "zone": "04",
+    "kanal": "11321",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/VTemp",
+    "w1_value": "-20,0 oC",
+    "w2_value": "-20,0 oC"
+  },
+  {
+    "zone": "04",
+    "kanal": "11500",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Prior",
+    "w1_value": "-4,0 K",
+    "w2_value": "1"
+  },
+  {
+    "zone": "04",
+    "kanal": "11522",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Prior",
+    "w1_value": "90,0 oC",
+    "w2_value": "2"
+  },
+  {
+    "zone": "04",
+    "kanal": "11610",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "+1,0",
+    "w1_value": "+1,0 K",
+    "w2_value": ""
+  },
+  {
+    "zone": "04",
+    "kanal": "11620",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "+0,0",
+    "w1_value": "+0,0 K",
+    "w2_value": ""
+  },
+  {
+    "zone": "04",
+    "kanal": "12000",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Nacht",
+    "w1_value": "30,0 oC",
+    "w2_value": "30,0 oC"
+  },
+  {
+    "zone": "04",
+    "kanal": "12001",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "+0,0",
+    "w1_value": "+0,0 K",
+    "w2_value": ""
+  },
+  {
+    "zone": "04",
+    "kanal": "12100",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "3 SoPr",
+    "w2_value": ""
+  },
+  {
+    "zone": "04",
+    "kanal": "12101",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "5:00 min/K",
+    "w2_value": "10:00 min/K"
+  },
+  {
+    "zone": "04",
+    "kanal": "12102",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis",
+    "w1_value": "2,0 klx",
+    "w2_value": "5,0 klx"
+  },
+  {
+    "zone": "04",
+    "kanal": "12105",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "2:00 h:min",
+    "w2_value": "4:00 h:min"
+  },
+  {
+    "zone": "04",
+    "kanal": "12202",
+    "cc600_adr": "0104122021",
+    "feld_id_w1": "Feld38",
+    "feld_id_w2": null,
+    "desc": "Lüftung: akt Raumsollwert",
+    "w1_value": "30,0 oC",
+    "w2_value": ""
+  },
+  {
+    "zone": "04",
+    "kanal": "12210",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/West",
+    "w1_value": "15,8 %",
+    "w2_value": "0,0 %"
+  },
+  {
+    "zone": "04",
+    "kanal": "12220",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0 aus",
+    "w2_value": ""
+  },
+  {
+    "zone": "04",
+    "kanal": "12310",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Luv",
+    "w1_value": "3,0 K",
+    "w2_value": "3,0 K"
+  },
+  {
+    "zone": "04",
+    "kanal": "12311",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0,20 K/K",
+    "w2_value": ""
+  },
+  {
+    "zone": "04",
+    "kanal": "12312",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Lee",
+    "w1_value": "0,0 %",
+    "w2_value": "0,0 %"
+  },
+  {
+    "zone": "04",
+    "kanal": "12313",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/RTemp-HS",
+    "w1_value": "0,0 oC",
+    "w2_value": "+1,0 K"
+  },
+  {
+    "zone": "04",
+    "kanal": "12314",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Lee",
+    "w1_value": "100,0 %",
+    "w2_value": "100,0 %"
+  },
+  {
+    "zone": "04",
+    "kanal": "12315",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Lee",
+    "w1_value": "0,0 %",
+    "w2_value": "0,0 %"
+  },
+  {
+    "zone": "04",
+    "kanal": "12316",
+    "cc600_adr": "0104123162",
+    "feld_id_w1": "Feld51",
+    "feld_id_w2": "Feld67",
+    "desc": "D-Lüftg: Zu-Windgeschw Luv /Lee",
+    "w1_value": "7,0 m/s",
+    "w2_value": "10,0 m/s"
+  },
+  {
+    "zone": "04",
+    "kanal": "12317",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Lee",
+    "w1_value": "10,0 %",
+    "w2_value": "20,0 %"
+  },
+  {
+    "zone": "04",
+    "kanal": "12318",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Nacht",
+    "w1_value": "-5,0 oC",
+    "w2_value": "0,0 oC"
+  },
+  {
+    "zone": "04",
+    "kanal": "12320",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0 aus",
+    "w2_value": ""
+  },
+  {
+    "zone": "04",
+    "kanal": "12321",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "25,0 oC",
+    "w2_value": ""
+  },
+  {
+    "zone": "04",
+    "kanal": "12610",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Luv-Lee / +0,0",
+    "w1_value": "+0,0 K",
+    "w2_value": "+1,0 K"
+  },
+  {
+    "zone": "04",
+    "kanal": "12620",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "+6,0",
+    "w1_value": "+6,0 K",
+    "w2_value": ""
+  },
+  {
+    "zone": "04",
+    "kanal": "50011",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Handstart",
+    "w1_value": "0:00 min:s",
+    "w2_value": "0 aus"
+  },
+  {
+    "zone": "04",
+    "kanal": "50019",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis(SU)",
+    "w1_value": "0:00 h:min",
+    "w2_value": "0:00 h:min"
+  },
+  {
+    "zone": "04",
+    "kanal": "50021",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Handstart",
+    "w1_value": "15:00 min:s",
+    "w2_value": "0 aus"
+  },
+  {
+    "zone": "04",
+    "kanal": "50029",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis(SU)",
+    "w1_value": "11:00 h:min",
+    "w2_value": "11:15 h:min"
+  },
+  {
+    "zone": "04",
+    "kanal": "50031",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Handstart",
+    "w1_value": "15:00 min:s",
+    "w2_value": "0 aus"
+  },
+  {
+    "zone": "04",
+    "kanal": "50039",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis(SU)",
+    "w1_value": "11:15 h:min",
+    "w2_value": "11:30 h:min"
+  },
+  {
+    "zone": "04",
+    "kanal": "50041",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Handstart",
+    "w1_value": "15:00 min:s",
+    "w2_value": "0 aus"
+  },
+  {
+    "zone": "04",
+    "kanal": "50049",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis(SU)",
+    "w1_value": "11:30 h:min",
+    "w2_value": "11:45 h:min"
+  },
+  {
+    "zone": "04",
+    "kanal": "50051",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Handstart",
+    "w1_value": "0:00 min:s",
+    "w2_value": "0 aus"
+  },
+  {
+    "zone": "04",
+    "kanal": "50059",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis(SU)",
+    "w1_value": "0:00 h:min",
+    "w2_value": "0:00 h:min"
+  },
+  {
+    "zone": "04",
+    "kanal": "50061",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Handstart",
+    "w1_value": "15:00 min:s",
+    "w2_value": "0 aus"
+  },
+  {
+    "zone": "04",
+    "kanal": "50069",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis(SU)",
+    "w1_value": "11:45 h:min",
+    "w2_value": "12:00 h:min"
+  },
+  {
+    "zone": "04",
+    "kanal": "50071",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Handstart",
+    "w1_value": "30:00 min:s",
+    "w2_value": "0 aus"
+  },
+  {
+    "zone": "04",
+    "kanal": "50079",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis(SU)",
+    "w1_value": "8:30 h:min",
+    "w2_value": "9:00 h:min"
+  },
+  {
+    "zone": "04",
+    "kanal": "50081",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Handstart",
+    "w1_value": "30:00 min:s",
+    "w2_value": "0 aus"
+  },
+  {
+    "zone": "04",
+    "kanal": "50089",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis(SU)",
+    "w1_value": "8:30 h:min",
+    "w2_value": "9:00 h:min"
+  },
+  {
+    "zone": "04",
+    "kanal": "50110",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0 Hand",
+    "w2_value": ""
+  },
+  {
+    "zone": "04",
+    "kanal": "50120",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0 Hand",
+    "w2_value": ""
+  },
+  {
+    "zone": "04",
+    "kanal": "50130",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0 Hand",
+    "w2_value": ""
+  },
+  {
+    "zone": "04",
+    "kanal": "50140",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0 Hand",
+    "w2_value": ""
+  },
+  {
+    "zone": "04",
+    "kanal": "50150",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0 Hand",
+    "w2_value": ""
+  },
+  {
+    "zone": "04",
+    "kanal": "50160",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0 Hand",
+    "w2_value": ""
+  },
+  {
+    "zone": "04",
+    "kanal": "50170",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0 Hand",
+    "w2_value": ""
+  },
+  {
+    "zone": "04",
+    "kanal": "50180",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0 Hand",
+    "w2_value": ""
+  },
+  {
+    "zone": "04",
+    "kanal": "50210",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Bedarf",
+    "w1_value": "0 aus",
+    "w2_value": "0 nein"
+  },
+  {
+    "zone": "04",
+    "kanal": "50211",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Gießdauer",
+    "w1_value": "0",
+    "w2_value": "0:00 min:s"
+  },
+  {
+    "zone": "04",
+    "kanal": "50220",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Bedarf",
+    "w1_value": "0 aus",
+    "w2_value": "0 nein"
+  },
+  {
+    "zone": "04",
+    "kanal": "50221",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Gießdauer",
+    "w1_value": "0",
+    "w2_value": "0:00 min:s"
+  },
+  {
+    "zone": "04",
+    "kanal": "50230",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Bedarf",
+    "w1_value": "0 aus",
+    "w2_value": "0 nein"
+  },
+  {
+    "zone": "04",
+    "kanal": "50231",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Gießdauer",
+    "w1_value": "0",
+    "w2_value": "0:00 min:s"
+  },
+  {
+    "zone": "04",
+    "kanal": "50240",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Bedarf",
+    "w1_value": "0 aus",
+    "w2_value": "0 nein"
+  },
+  {
+    "zone": "04",
+    "kanal": "50241",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Gießdauer",
+    "w1_value": "0",
+    "w2_value": "0:00 min:s"
+  },
+  {
+    "zone": "04",
+    "kanal": "50250",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Bedarf",
+    "w1_value": "0 aus",
+    "w2_value": "0 nein"
+  },
+  {
+    "zone": "04",
+    "kanal": "50251",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Gießdauer",
+    "w1_value": "0",
+    "w2_value": "0:00 min:s"
+  },
+  {
+    "zone": "04",
+    "kanal": "50260",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Bedarf",
+    "w1_value": "0 aus",
+    "w2_value": "0 nein"
+  },
+  {
+    "zone": "04",
+    "kanal": "50261",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Gießdauer",
+    "w1_value": "0",
+    "w2_value": "0:00 min:s"
+  },
+  {
+    "zone": "04",
+    "kanal": "50270",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Bedarf",
+    "w1_value": "0 aus",
+    "w2_value": "0 nein"
+  },
+  {
+    "zone": "04",
+    "kanal": "50271",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Gießdauer",
+    "w1_value": "0",
+    "w2_value": "0:00 min:s"
+  },
+  {
+    "zone": "04",
+    "kanal": "50280",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Bedarf",
+    "w1_value": "0 aus",
+    "w2_value": "0 nein"
+  },
+  {
+    "zone": "04",
+    "kanal": "50281",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Gießdauer",
+    "w1_value": "0",
+    "w2_value": "0:00 min:s"
+  },
+  {
+    "zone": "04",
+    "kanal": "50310",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "25 %",
+    "w2_value": ""
+  },
+  {
+    "zone": "04",
+    "kanal": "50320",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "60 %",
+    "w2_value": ""
+  },
+  {
+    "zone": "04",
+    "kanal": "50330",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "25 %",
+    "w2_value": ""
+  },
+  {
+    "zone": "04",
+    "kanal": "50340",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "60 %",
+    "w2_value": ""
+  },
+  {
+    "zone": "04",
+    "kanal": "50350",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "45 %",
+    "w2_value": ""
+  },
+  {
+    "zone": "04",
+    "kanal": "50360",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "45 %",
+    "w2_value": ""
+  },
+  {
+    "zone": "04",
+    "kanal": "50370",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "8 %",
+    "w2_value": ""
+  },
+  {
+    "zone": "04",
+    "kanal": "50380",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "8 %",
+    "w2_value": ""
+  },
+  {
+    "zone": "05",
+    "kanal": "00100",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "2 Nr.",
+    "w2_value": ""
+  },
+  {
+    "zone": "05",
+    "kanal": "00110",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis",
+    "w1_value": "00.00. Tg.Mo",
+    "w2_value": "00.00. Tg.Mo"
+  },
+  {
+    "zone": "05",
+    "kanal": "00111",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis",
+    "w1_value": "0:00 h:min",
+    "w2_value": "0:00 h:min"
+  },
+  {
+    "zone": "05",
+    "kanal": "00112",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis",
+    "w1_value": "0:00 h:min",
+    "w2_value": "0:00 h:min"
+  },
+  {
+    "zone": "05",
+    "kanal": "00113",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis",
+    "w1_value": "0:00 h:min",
+    "w2_value": "0:00 h:min"
+  },
+  {
+    "zone": "05",
+    "kanal": "00114",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis",
+    "w1_value": "0:00 h:min",
+    "w2_value": "0:00 h:min"
+  },
+  {
+    "zone": "05",
+    "kanal": "00115",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis",
+    "w1_value": "0:00 h:min",
+    "w2_value": "0:00 h:min"
+  },
+  {
+    "zone": "05",
+    "kanal": "00116",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis",
+    "w1_value": "0:00 h:min",
+    "w2_value": "0:00 h:min"
+  },
+  {
+    "zone": "05",
+    "kanal": "00117",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis",
+    "w1_value": "0:00 h:min",
+    "w2_value": "0:00 h:min"
+  },
+  {
+    "zone": "05",
+    "kanal": "00121",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis",
+    "w1_value": "0:00 h:min",
+    "w2_value": "0:00 h:min"
+  },
+  {
+    "zone": "05",
+    "kanal": "00122",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis",
+    "w1_value": "0:00 h:min",
+    "w2_value": "0:00 h:min"
+  },
+  {
+    "zone": "05",
+    "kanal": "00123",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis",
+    "w1_value": "0:00 h:min",
+    "w2_value": "0:00 h:min"
+  },
+  {
+    "zone": "05",
+    "kanal": "00124",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis",
+    "w1_value": "0:00 h:min",
+    "w2_value": "0:00 h:min"
+  },
+  {
+    "zone": "05",
+    "kanal": "00125",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis",
+    "w1_value": "0:00 h:min",
+    "w2_value": "0:00 h:min"
+  },
+  {
+    "zone": "05",
+    "kanal": "00126",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis",
+    "w1_value": "0:00 h:min",
+    "w2_value": "0:00 h:min"
+  },
+  {
+    "zone": "05",
+    "kanal": "00127",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis",
+    "w1_value": "0:00 h:min",
+    "w2_value": "0:00 h:min"
+  },
+  {
+    "zone": "05",
+    "kanal": "01160",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Funktion",
+    "w1_value": "0 aus",
+    "w2_value": "0 aus"
+  },
+  {
+    "zone": "05",
+    "kanal": "10000",
+    "cc600_adr": "0105100001",
+    "feld_id_w1": "Feld36",
+    "feld_id_w2": null,
+    "desc": "Raumtemperatur",
+    "w1_value": "29,4 oC",
+    "w2_value": ""
+  },
+  {
+    "zone": "05",
+    "kanal": "10202",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/-Vortag",
+    "w1_value": "27,8 oC",
+    "w2_value": "25,0 oC"
+  },
+  {
+    "zone": "05",
+    "kanal": "10501",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Prior",
+    "w1_value": "-3,0 oC",
+    "w2_value": "2"
+  },
+  {
+    "zone": "05",
+    "kanal": "10502",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Prior",
+    "w1_value": "50,0 oC",
+    "w2_value": "2"
+  },
+  {
+    "zone": "05",
+    "kanal": "12000",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Nacht",
+    "w1_value": "25,0 oC",
+    "w2_value": "25,0 oC"
+  },
+  {
+    "zone": "05",
+    "kanal": "12100",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "1 AlZpr",
+    "w2_value": ""
+  },
+  {
+    "zone": "05",
+    "kanal": "12101",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "5:00 min/K",
+    "w2_value": "10:00 min/K"
+  },
+  {
+    "zone": "05",
+    "kanal": "12102",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis",
+    "w1_value": "0,0 klx",
+    "w2_value": "0,0 klx"
+  },
+  {
+    "zone": "05",
+    "kanal": "12202",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "25,0 oC",
+    "w2_value": ""
+  },
+  {
+    "zone": "05",
+    "kanal": "12210",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/West",
+    "w1_value": "100,0 %",
+    "w2_value": "100,0 %"
+  },
+  {
+    "zone": "05",
+    "kanal": "12310",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Luv",
+    "w1_value": "3,0 K",
+    "w2_value": "3,0 K"
+  },
+  {
+    "zone": "05",
+    "kanal": "12311",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0,20 K/K",
+    "w2_value": ""
+  },
+  {
+    "zone": "05",
+    "kanal": "12312",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Lee",
+    "w1_value": "0,0 %",
+    "w2_value": "0,0 %"
+  },
+  {
+    "zone": "05",
+    "kanal": "12313",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/RTemp",
+    "w1_value": "0,0 oC",
+    "w2_value": "1,0 oC"
+  },
+  {
+    "zone": "05",
+    "kanal": "12314",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Lee",
+    "w1_value": "100,0 %",
+    "w2_value": "100,0 %"
+  },
+  {
+    "zone": "05",
+    "kanal": "12315",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Lee",
+    "w1_value": "40,0 %",
+    "w2_value": "40,0 %"
+  },
+  {
+    "zone": "05",
+    "kanal": "12316",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Lee",
+    "w1_value": "8,0 m/s",
+    "w2_value": "12,0 m/s"
+  },
+  {
+    "zone": "05",
+    "kanal": "12317",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Lee",
+    "w1_value": "0,0 %",
+    "w2_value": "15,0 %"
+  },
+  {
+    "zone": "05",
+    "kanal": "12318",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Nacht",
+    "w1_value": "-5,0 oC",
+    "w2_value": "0,0 oC"
+  },
+  {
+    "zone": "05",
+    "kanal": "12610",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Luv-Lee / +0,0",
+    "w1_value": "+0,0 K",
+    "w2_value": "+1,0 K"
+  },
+  {
+    "zone": "05",
+    "kanal": "42010",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "20,0 klx",
+    "w2_value": "30,0 klx"
+  },
+  {
+    "zone": "05",
+    "kanal": "42011",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis(SU) / +0:00",
+    "w1_value": "+0:00 h:min",
+    "w2_value": "+0:00 h:min"
+  },
+  {
+    "zone": "05",
+    "kanal": "42012",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/bis(SA)",
+    "w1_value": "-2:00 h:min",
+    "w2_value": "+2:00 h:min"
+  },
+  {
+    "zone": "05",
+    "kanal": "42013",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Wi",
+    "w1_value": "0,2 klx",
+    "w2_value": "2,0 klx"
+  },
+  {
+    "zone": "05",
+    "kanal": "42110",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Nachtfkt",
+    "w1_value": "2 ein",
+    "w2_value": "2 Zt+Li"
+  },
+  {
+    "zone": "05",
+    "kanal": "42210",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Betriebsart",
+    "w1_value": "8,7 %",
+    "w2_value": "0 Tag"
+  },
+  {
+    "zone": "05",
+    "kanal": "42310",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0,0 %",
+    "w2_value": "10,0 %"
+  },
+  {
+    "zone": "05",
+    "kanal": "42311",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Auf",
+    "w1_value": "5:00 min:s",
+    "w2_value": "10:00 min:s"
+  },
+  {
+    "zone": "05",
+    "kanal": "42313",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Winter / +15,0",
+    "w1_value": "+15,0 oC",
+    "w2_value": "-5,0 oC"
+  },
+  {
+    "zone": "05",
+    "kanal": "42314",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Wi",
+    "w1_value": "30,0 %",
+    "w2_value": "10,0 %"
+  },
+  {
+    "zone": "05",
+    "kanal": "42315",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Spalt",
+    "w1_value": "60:00 min:s",
+    "w2_value": "20,0 %"
+  },
+  {
+    "zone": "50",
+    "kanal": "50200",
+    "cc600_adr": "0150502003",
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "Bewässerung",
+    "w1_value": "0 aus",
+    "w2_value": ""
+  },
+  {
+    "zone": "50",
+    "kanal": "50202",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Ventil",
+    "w1_value": "0000 Nr.",
+    "w2_value": "0000 Nr."
+  },
+  {
+    "zone": "50",
+    "kanal": "50300",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "",
+    "w1_value": "0 aus",
+    "w2_value": ""
+  },
+  {
+    "zone": "50",
+    "kanal": "51100",
+    "cc600_adr": "0150511001",
+    "feld_id_w1": "Feld16",
+    "feld_id_w2": "Feld12",
+    "desc": "GWasser: Wochentag von /bis",
+    "w1_value": "1 Mo",
+    "w2_value": "5 Fr"
+  },
+  {
+    "zone": "50",
+    "kanal": "51101",
+    "cc600_adr": "0150511012",
+    "feld_id_w1": "Feld13",
+    "feld_id_w2": "Feld32",
+    "desc": "GWasser: Versorgung von /bis",
+    "w1_value": "10:58 h:min",
+    "w2_value": "13:00 h:min"
+  },
+  {
+    "zone": "50",
+    "kanal": "51102",
+    "cc600_adr": "0150511021",
+    "feld_id_w1": "Feld3",
+    "feld_id_w2": null,
+    "desc": "GWasser: Wochentag von /bis",
+    "w1_value": "6 Sa",
+    "w2_value": "6 Sa"
+  },
+  {
+    "zone": "50",
+    "kanal": "51103",
+    "cc600_adr": "0150511031",
+    "feld_id_w1": "Feld59",
+    "feld_id_w2": "Feld10",
+    "desc": "GWasser: Versorgung von /bis",
+    "w1_value": "10:58 h:min",
+    "w2_value": "13:00 h:min"
+  },
+  {
+    "zone": "50",
+    "kanal": "51104",
+    "cc600_adr": "0150511041",
+    "feld_id_w1": "Feld9",
+    "feld_id_w2": null,
+    "desc": "GWasser: Wochentag von /bis",
+    "w1_value": "7 So",
+    "w2_value": "7 So"
+  },
+  {
+    "zone": "50",
+    "kanal": "51105",
+    "cc600_adr": "0150511052",
+    "feld_id_w1": "Feld15",
+    "feld_id_w2": "Feld57",
+    "desc": "GWasser: Versorgung von /bis",
+    "w1_value": "10:58 h:min",
+    "w2_value": "13:00 h:min"
+  },
+  {
+    "zone": "91",
+    "kanal": "11210",
+    "cc600_adr": "0191112101",
+    "feld_id_w1": "Feld79",
+    "feld_id_w2": null,
+    "desc": "Pumpe",
+    "w1_value": "0 aus",
+    "w2_value": ""
+  },
+  {
+    "zone": "91",
+    "kanal": "11310",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Tag",
+    "w1_value": "5,0 klx",
+    "w2_value": "5,0 klx"
+  },
+  {
+    "zone": "91",
+    "kanal": "11311",
+    "cc600_adr": null,
+    "feld_id_w1": null,
+    "feld_id_w2": null,
+    "desc": "/Nacht",
+    "w1_value": "-8,0 oC",
+    "w2_value": "-8,0 oC"
+  }
+]
