@@ -1,0 +1,387 @@
+{
+  "Feld1": {
+    "zone": "03 Zitru 11202",
+    "desc": "Heizung: akt Raumsollwert",
+    "raw": "ID:Feld1_Feld;ADRTXT0:03 Zitru 11202 ;W1TXT0:Heizung: akt Raumsollwert            ;W2TXT0:;W10:  -3,0 oC     ;W20:              ;W12_0:1;LEN:1;"
+  },
+  "Feld2": {
+    "zone": "02 WarmH 42013",
+    "desc": "Schirm: Schaltpunkt Nacht So /Wi",
+    "raw": "ID:Feld2_Feld;ADRTXT0:02 WarmH 42013 ;W1TXT0:Schirm: Schaltpunkt Nacht So;W2TXT0:/Wi      ;W10:   6,0 klx    ;W20:  12,0 klx    ;W12_0:2;LEN:1;"
+  },
+  "Feld3": {
+    "zone": "50 Bew-Z 51102",
+    "desc": "GWasser: Wochentag von /bis",
+    "raw": "ID:Feld3_Feld;ADRTXT0:50 Bew-Z 51102 ;W1TXT0:GWasser: Wochentag von;W2TXT0:/bis           ;W10:     6 Sa     ;W20:     6 Sa     ;W12_0:1;LEN:1;"
+  },
+  "Feld4": {
+    "zone": "01 TempH 42013",
+    "desc": "Schirm: Schaltpunkt Nacht So /Wi",
+    "raw": "ID:Feld4_Feld;ADRTXT0:01 TempH 42013 ;W1TXT0:Schirm: Schaltpunkt Nacht So;W2TXT0:/Wi      ;W10:   5,0 klx    ;W20:  12,0 klx    ;W12_0:2;LEN:1;"
+  },
+  "Feld5": {
+    "zone": "01 TempH 50231",
+    "desc": "Bereg: akt Anzahl /Gießdauer",
+    "raw": "ID:Feld5_Feld;ADRTXT0:01 TempH 50231 ;W1TXT0:Bereg: akt Anzahl;W2TXT0:/Gießdauer          ;W10:     1        ;W20:  0:00 min:s  ;W12_0:2;LEN:1;"
+  },
+  "Feld6": {
+    "zone": "02 WarmH 42010",
+    "desc": "Schirm: Schaltpunkt Tag",
+    "raw": "ID:Feld6_Feld;ADRTXT0:02 WarmH 42010 ;W1TXT0:Schirm: Schaltpunkt Tag              ;W2TXT0:;W10:  50,0 klx    ;W20:              ;W12_0:1;LEN:1;"
+  },
+  "Feld7": {
+    "zone": "02 WarmH 42013",
+    "desc": "Schirm: Schaltpunkt Nacht So /Wi",
+    "raw": "ID:Feld7_Feld;ADRTXT0:02 WarmH 42013 ;W1TXT0:Schirm: Schaltpunkt Nacht So;W2TXT0:/Wi      ;W10:   6,0 klx    ;W20:  12,0 klx    ;W12_0:1;LEN:1;"
+  },
+  "Feld8": {
+    "zone": "00 Zentr 40001",
+    "desc": "Lichtsumme /-Vortag",
+    "raw": "ID:Feld8_Feld;ADRTXT0:00 Zentr 40001 ;W1TXT0:Lichtsumme;W2TXT0:/-Vortag                   ;W10:   253 klxh   ;W20:   383 klxh   ;W12_0:1;LEN:1;"
+  },
+  "Feld9": {
+    "zone": "50 Bew-Z 51104",
+    "desc": "GWasser: Wochentag von /bis",
+    "raw": "ID:Feld9_Feld;ADRTXT0:50 Bew-Z 51104 ;W1TXT0:GWasser: Wochentag von;W2TXT0:/bis           ;W10:     7 So     ;W20:     7 So     ;W12_0:1;LEN:1;"
+  },
+  "Feld10": {
+    "zone": "50 Bew-Z 51103",
+    "desc": "GWasser: Versorgung von /bis",
+    "raw": "ID:Feld10_Feld;ADRTXT0:50 Bew-Z 51103 ;W1TXT0:GWasser: Versorgung von;W2TXT0:/bis          ;W10: 10:58 h:min  ;W20: 13:00 h:min  ;W12_0:2;LEN:1;"
+  },
+  "Feld11": {
+    "zone": "02 WarmH 11202",
+    "desc": "Heizung: akt Raumsollwert",
+    "raw": "ID:Feld11_Feld;ADRTXT0:02 WarmH 11202 ;W1TXT0:Heizung: akt Raumsollwert            ;W2TXT0:;W10:  -3,0 oC     ;W20:              ;W12_0:1;LEN:1;"
+  },
+  "Feld12": {
+    "zone": "50 Bew-Z 51100",
+    "desc": "GWasser: Wochentag von /bis",
+    "raw": "ID:Feld12_Feld;ADRTXT0:50 Bew-Z 51100 ;W1TXT0:GWasser: Wochentag von;W2TXT0:/bis           ;W10:     1 Mo     ;W20:     5 Fr     ;W12_0:2;LEN:1;"
+  },
+  "Feld13": {
+    "zone": "50 Bew-Z 51101",
+    "desc": "GWasser: Versorgung von /bis",
+    "raw": "ID:Feld13_Feld;ADRTXT0:50 Bew-Z 51101 ;W1TXT0:GWasser: Versorgung von;W2TXT0:/bis          ;W10: 10:58 h:min  ;W20: 13:00 h:min  ;W12_0:1;LEN:1;"
+  },
+  "Feld14": {
+    "zone": "00 Zentr 10001",
+    "desc": "Außentemp: 24Std-Minimum /Maximum",
+    "raw": "ID:Feld14_Feld;ADRTXT0:00 Zentr 10001 ;W1TXT0:Außentemp: 24Std-Minimum;W2TXT0:/Maximum     ;W10:  10,7 oC     ;W20:  28,8 oC     ;W12_0:2;LEN:1;"
+  },
+  "Feld15": {
+    "zone": "50 Bew-Z 51105",
+    "desc": "GWasser: Versorgung von /bis",
+    "raw": "ID:Feld15_Feld;ADRTXT0:50 Bew-Z 51105 ;W1TXT0:GWasser: Versorgung von;W2TXT0:/bis          ;W10: 10:58 h:min  ;W20: 13:00 h:min  ;W12_0:1;LEN:1;"
+  },
+  "Feld16": {
+    "zone": "50 Bew-Z 51100",
+    "desc": "GWasser: Wochentag von /bis",
+    "raw": "ID:Feld16_Feld;ADRTXT0:50 Bew-Z 51100 ;W1TXT0:GWasser: Wochentag von;W2TXT0:/bis           ;W10:     1 Mo     ;W20:     5 Fr     ;W12_0:1;LEN:1;"
+  },
+  "Feld17": {
+    "zone": "00 Zentr 90302",
+    "desc": "Sturmschutz /ab Windgeschw",
+    "raw": "ID:Feld17_Feld;ADRTXT0:00 Zentr 90302 ;W1TXT0:Sturmschutz;W2TXT0:/ab Windgeschw            ;W10:     0 aus    ;W20:  14,0 m/s    ;W12_0:2;LEN:1;"
+  },
+  "Feld18": {
+    "zone": "02 WarmH 50029",
+    "desc": "Bereg: Freigabe von(SA) /bis(SU)",
+    "raw": "ID:Feld18_Feld;ADRTXT0:02 WarmH 50029 ;W1TXT0:Bereg: Freigabe von(SA);W2TXT0:/bis(SU)      ;W10: 11:40 h:min  ;W20: 12:15 h:min  ;W12_0:2;LEN:1;"
+  },
+  "Feld19": {
+    "zone": "02 WarmH 50019",
+    "desc": "Bereg: Freigabe von(SA) /bis(SU)",
+    "raw": "ID:Feld19_Feld;ADRTXT0:02 WarmH 50019 ;W1TXT0:Bereg: Freigabe von(SA);W2TXT0:/bis(SU)      ;W10: 11:30 h:min  ;W20: 11:45 h:min  ;W12_0:2;LEN:1;"
+  },
+  "Feld20": {
+    "zone": "03 Zitru 50029",
+    "desc": "Bereg: Freigabe von(SA) /bis(SU)",
+    "raw": "ID:Feld20_Feld;ADRTXT0:03 Zitru 50029 ;W1TXT0:Bereg: Freigabe von(SA);W2TXT0:/bis(SU)      ;W10: 11:10 h:min  ;W20: 11:45 h:min  ;W12_0:2;LEN:1;"
+  },
+  "Feld21": {
+    "zone": "02 WarmH 50029",
+    "desc": "Bereg: Freigabe von(SA) /bis(SU)",
+    "raw": "ID:Feld21_Feld;ADRTXT0:02 WarmH 50029 ;W1TXT0:Bereg: Freigabe von(SA);W2TXT0:/bis(SU)      ;W10: 11:40 h:min  ;W20: 12:15 h:min  ;W12_0:1;LEN:1;"
+  },
+  "Feld22": {
+    "zone": "03 Zitru 50022",
+    "desc": "Bereg: Gießdauer",
+    "raw": "ID:Feld22_Feld;ADRTXT0:03 Zitru 50022 ;W1TXT0:Bereg: Gießdauer                     ;W2TXT0:;W10: 20:00 min:s  ;W20:              ;W12_0:1;LEN:1;"
+  },
+  "Feld23": {
+    "zone": "02 WarmH 50012",
+    "desc": "Bereg: Gießdauer",
+    "raw": "ID:Feld23_Feld;ADRTXT0:02 WarmH 50012 ;W1TXT0:Bereg: Gießdauer                     ;W2TXT0:;W10:  8:00 min:s  ;W20:              ;W12_0:1;LEN:1;"
+  },
+  "Feld24": {
+    "zone": "02 WarmH 50019",
+    "desc": "Bereg: Freigabe von(SA) /bis(SU)",
+    "raw": "ID:Feld24_Feld;ADRTXT0:02 WarmH 50019 ;W1TXT0:Bereg: Freigabe von(SA);W2TXT0:/bis(SU)      ;W10: 11:30 h:min  ;W20: 11:45 h:min  ;W12_0:1;LEN:1;"
+  },
+  "Feld25": {
+    "zone": "03 Zitru 50012",
+    "desc": "Bereg: Gießdauer",
+    "raw": "ID:Feld25_Feld;ADRTXT0:03 Zitru 50012 ;W1TXT0:Bereg: Gießdauer                     ;W2TXT0:;W10:  8:00 min:s  ;W20:              ;W12_0:1;LEN:1;"
+  },
+  "Feld26": {
+    "zone": "00 Zentr 90000",
+    "desc": "Windgeschwindigkeit /Richtung",
+    "raw": "ID:Feld26_Feld;ADRTXT0:00 Zentr 90000 ;W1TXT0:Windgeschwindigkeit;W2TXT0:/Richtung         ;W10:   0,3 m/s    ;W20:     6 W      ;W12_0:2;LEN:1;"
+  },
+  "Feld27": {
+    "zone": "00 Zentr 40000",
+    "desc": "Außenhelligkeit",
+    "raw": "ID:Feld27_Feld;ADRTXT0:00 Zentr 40000 ;W1TXT0:Außenhelligkeit                      ;W2TXT0:;W10:  19,8 klx    ;W20:              ;W12_0:1;LEN:1;"
+  },
+  "Feld28": {
+    "zone": "00 Zentr 10000",
+    "desc": "Außentemperatur",
+    "raw": "ID:Feld28_Feld;ADRTXT0:00 Zentr 10000 ;W1TXT0:Außentemperatur                      ;W2TXT0:;W10:  27,8 oC     ;W20:              ;W12_0:1;LEN:1;"
+  },
+  "Feld29": {
+    "zone": "00 Zentr 90302",
+    "desc": "Sturmschutz /ab Windgeschw",
+    "raw": "ID:Feld29_Feld;ADRTXT0:00 Zentr 90302 ;W1TXT0:Sturmschutz;W2TXT0:/ab Windgeschw            ;W10:     0 aus    ;W20:  14,0 m/s    ;W12_0:1;LEN:1;"
+  },
+  "Feld30": {
+    "zone": "02 WarmH 50022",
+    "desc": "Bereg: Gießdauer",
+    "raw": "ID:Feld30_Feld;ADRTXT0:02 WarmH 50022 ;W1TXT0:Bereg: Gießdauer                     ;W2TXT0:;W10: 15:00 min:s  ;W20:              ;W12_0:1;LEN:1;"
+  },
+  "Feld31": {
+    "zone": "03 Zitru 50029",
+    "desc": "Bereg: Freigabe von(SA) /bis(SU)",
+    "raw": "ID:Feld31_Feld;ADRTXT0:03 Zitru 50029 ;W1TXT0:Bereg: Freigabe von(SA);W2TXT0:/bis(SU)      ;W10: 11:10 h:min  ;W20: 11:45 h:min  ;W12_0:1;LEN:1;"
+  },
+  "Feld32": {
+    "zone": "50 Bew-Z 51101",
+    "desc": "GWasser: Versorgung von /bis",
+    "raw": "ID:Feld32_Feld;ADRTXT0:50 Bew-Z 51101 ;W1TXT0:GWasser: Versorgung von;W2TXT0:/bis          ;W10: 10:58 h:min  ;W20: 13:00 h:min  ;W12_0:2;LEN:1;"
+  },
+  "Feld33": {
+    "zone": "00 Zentr 90000",
+    "desc": "Windgeschwindigkeit /Richtung",
+    "raw": "ID:Feld33_Feld;ADRTXT0:00 Zentr 90000 ;W1TXT0:Windgeschwindigkeit;W2TXT0:/Richtung         ;W10:   0,3 m/s    ;W20:     6 W      ;W12_0:1;LEN:1;"
+  },
+  "Feld34": {
+    "zone": "00 Zentr 10001",
+    "desc": "Außentemp: 24Std-Minimum /Maximum",
+    "raw": "ID:Feld34_Feld;ADRTXT0:00 Zentr 10001 ;W1TXT0:Außentemp: 24Std-Minimum;W2TXT0:/Maximum     ;W10:  10,7 oC     ;W20:  28,8 oC     ;W12_0:1;LEN:1;"
+  },
+  "Feld35": {
+    "zone": "01 TempH 50261",
+    "desc": "Bereg: akt Anzahl /Gießdauer",
+    "raw": "ID:Feld35_Feld;ADRTXT0:01 TempH 50261 ;W1TXT0:Bereg: akt Anzahl;W2TXT0:/Gießdauer          ;W10:     2        ;W20:  0:00 min:s  ;W12_0:2;LEN:1;"
+  },
+  "Feld36": {
+    "zone": "05 Pack  10000",
+    "desc": "Raumtemperatur",
+    "raw": "ID:Feld36_Feld;ADRTXT0:05 Pack  10000 ;W1TXT0:Raumtemperatur                       ;W2TXT0:;W10:  31,1 oC     ;W20:              ;W12_0:1;LEN:1;"
+  },
+  "Feld37": {
+    "zone": "01 TempH 50032",
+    "desc": "Bereg: Gießdauer",
+    "raw": "ID:Feld37_Feld;ADRTXT0:01 TempH 50032 ;W1TXT0:Bereg: Gießdauer                     ;W2TXT0:;W10: 15:00 min:s  ;W20:              ;W12_0:1;LEN:1;"
+  },
+  "Feld38": {
+    "zone": "04 Kalth 12202",
+    "desc": "Lüftung: akt Raumsollwert",
+    "raw": "ID:Feld38_Feld;ADRTXT0:04 Kalth 12202 ;W1TXT0:Lüftung: akt Raumsollwert            ;W2TXT0:;W10:  30,0 oC     ;W20:              ;W12_0:1;LEN:1;"
+  },
+  "Feld39": {
+    "zone": "01 TempH 50062",
+    "desc": "Bereg: Gießdauer",
+    "raw": "ID:Feld39_Feld;ADRTXT0:01 TempH 50062 ;W1TXT0:Bereg: Gießdauer                     ;W2TXT0:;W10: 60:00 min:s  ;W20:              ;W12_0:1;LEN:1;"
+  },
+  "Feld40": {
+    "zone": "01 TempH 50039",
+    "desc": "Bereg: Freigabe von(SA) /bis(SU)",
+    "raw": "ID:Feld40_Feld;ADRTXT0:01 TempH 50039 ;W1TXT0:Bereg: Freigabe von(SA);W2TXT0:/bis(SU)      ;W10: 12:00 h:min  ;W20: 13:00 h:min  ;W12_0:2;LEN:1;"
+  },
+  "Feld41": {
+    "zone": "02 WarmH 42010",
+    "desc": "Schirm: Schaltpunkt Tag",
+    "raw": "ID:Feld41_Feld;ADRTXT0:02 WarmH 42010 ;W1TXT0:Schirm: Schaltpunkt Tag              ;W2TXT0:;W10:  50,0 klx    ;W20:              ;W12_0:1;LEN:1;"
+  },
+  "Feld42": {
+    "zone": "01 TempH 50069",
+    "desc": "Bereg: Freigabe von(SA) /bis(SU)",
+    "raw": "ID:Feld42_Feld;ADRTXT0:01 TempH 50069 ;W1TXT0:Bereg: Freigabe von(SA);W2TXT0:/bis(SU)      ;W10: 12:00 h:min  ;W20: 13:00 h:min  ;W12_0:1;LEN:1;"
+  },
+  "Feld43": {
+    "zone": "01 TempH 12202",
+    "desc": "Lüftung: akt Raumsollwert",
+    "raw": "ID:Feld43_Feld;ADRTXT0:01 TempH 12202 ;W1TXT0:Lüftung: akt Raumsollwert            ;W2TXT0:;W10:  24,0 oC     ;W20:              ;W12_0:1;LEN:1;"
+  },
+  "Feld44": {
+    "zone": "01 TempH 42013",
+    "desc": "Schirm: Schaltpunkt Nacht So /Wi",
+    "raw": "ID:Feld44_Feld;ADRTXT0:01 TempH 42013 ;W1TXT0:Schirm: Schaltpunkt Nacht So;W2TXT0:/Wi      ;W10:   5,0 klx    ;W20:  12,0 klx    ;W12_0:1;LEN:1;"
+  },
+  "Feld45": {
+    "zone": "02 WarmH 42013",
+    "desc": "Schirm: Schaltpunkt Nacht So /Wi",
+    "raw": "ID:Feld45_Feld;ADRTXT0:02 WarmH 42013 ;W1TXT0:Schirm: Schaltpunkt Nacht So;W2TXT0:/Wi      ;W10:   6,0 klx    ;W20:  12,0 klx    ;W12_0:1;LEN:1;"
+  },
+  "Feld46": {
+    "zone": "02 WarmH 12202",
+    "desc": "Lüftung: akt Raumsollwert",
+    "raw": "ID:Feld46_Feld;ADRTXT0:02 WarmH 12202 ;W1TXT0:Lüftung: akt Raumsollwert            ;W2TXT0:;W10:  28,0 oC     ;W20:              ;W12_0:1;LEN:1;"
+  },
+  "Feld47": {
+    "zone": "02 WarmH 42013",
+    "desc": "Schirm: Schaltpunkt Nacht So /Wi",
+    "raw": "ID:Feld47_Feld;ADRTXT0:02 WarmH 42013 ;W1TXT0:Schirm: Schaltpunkt Nacht So;W2TXT0:/Wi      ;W10:   6,0 klx    ;W20:  12,0 klx    ;W12_0:2;LEN:1;"
+  },
+  "Feld48": {
+    "zone": "00 Zentr 00003",
+    "desc": "Sonnenaufgang /-untergang",
+    "raw": "ID:Feld48_Feld;ADRTXT0:00 Zentr 00003 ;W1TXT0:Sonnenaufgang;W2TXT0:/-untergang             ;W10:  5:24 h:min  ;W20: 21:13 h:min  ;W12_0:1;LEN:1;"
+  },
+  "Feld49": {
+    "zone": "01 TempH 11202",
+    "desc": "Heizung: akt Raumsollwert",
+    "raw": "ID:Feld49_Feld;ADRTXT0:01 TempH 11202 ;W1TXT0:Heizung: akt Raumsollwert            ;W2TXT0:;W10:   1,0 oC     ;W20:              ;W12_0:1;LEN:1;"
+  },
+  "Feld50": {
+    "zone": "00 Zentr 00003",
+    "desc": "Sonnenaufgang /-untergang",
+    "raw": "ID:Feld50_Feld;ADRTXT0:00 Zentr 00003 ;W1TXT0:Sonnenaufgang;W2TXT0:/-untergang             ;W10:  5:24 h:min  ;W20: 21:13 h:min  ;W12_0:2;LEN:1;"
+  },
+  "Feld51": {
+    "zone": "04 Kalth 12316",
+    "desc": "D-Lüftg: Zu-Windgeschw Luv /Lee",
+    "raw": "ID:Feld51_Feld;ADRTXT0:04 Kalth 12316 ;W1TXT0:D-Lüftg: Zu-Windgeschw Luv;W2TXT0:/Lee       ;W10:   7,0 m/s    ;W20:  10,0 m/s    ;W12_0:1;LEN:1;"
+  },
+  "Feld52": {
+    "zone": "03 Zitru 12316",
+    "desc": "D-Lüftg: Zu-Windgeschw Luv /Lee",
+    "raw": "ID:Feld52_Feld;ADRTXT0:03 Zitru 12316 ;W1TXT0:D-Lüftg: Zu-Windgeschw Luv;W2TXT0:/Lee       ;W10:   8,0 m/s    ;W20:  12,0 m/s    ;W12_0:2;LEN:1;"
+  },
+  "Feld53": {
+    "zone": "03 Zitru 12316",
+    "desc": "D-Lüftg: Zu-Windgeschw Luv /Lee",
+    "raw": "ID:Feld53_Feld;ADRTXT0:03 Zitru 12316 ;W1TXT0:D-Lüftg: Zu-Windgeschw Luv;W2TXT0:/Lee       ;W10:   8,0 m/s    ;W20:  12,0 m/s    ;W12_0:1;LEN:1;"
+  },
+  "Feld54": {
+    "zone": "02 WarmH 12316",
+    "desc": "D-Lüftg: Zu-Windgeschw Luv /Lee",
+    "raw": "ID:Feld54_Feld;ADRTXT0:02 WarmH 12316 ;W1TXT0:D-Lüftg: Zu-Windgeschw Luv;W2TXT0:/Lee       ;W10:   8,0 m/s    ;W20:  12,0 m/s    ;W12_0:1;LEN:1;"
+  },
+  "Feld55": {
+    "zone": "03 Zitru 12202",
+    "desc": "Lüftung: akt Raumsollwert",
+    "raw": "ID:Feld55_Feld;ADRTXT0:03 Zitru 12202 ;W1TXT0:Lüftung: akt Raumsollwert            ;W2TXT0:;W10:  28,0 oC     ;W20:              ;W12_0:1;LEN:1;"
+  },
+  "Feld56": {
+    "zone": "01 TempH 12316",
+    "desc": "D-Lüftg: Zu-Windgeschw Luv /Lee",
+    "raw": "ID:Feld56_Feld;ADRTXT0:01 TempH 12316 ;W1TXT0:D-Lüftg: Zu-Windgeschw Luv;W2TXT0:/Lee       ;W10:   8,0 m/s    ;W20:  12,0 m/s    ;W12_0:2;LEN:1;"
+  },
+  "Feld57": {
+    "zone": "50 Bew-Z 51105",
+    "desc": "GWasser: Versorgung von /bis",
+    "raw": "ID:Feld57_Feld;ADRTXT0:50 Bew-Z 51105 ;W1TXT0:GWasser: Versorgung von;W2TXT0:/bis          ;W10: 10:58 h:min  ;W20: 13:00 h:min  ;W12_0:2;LEN:1;"
+  },
+  "Feld58": {
+    "zone": "00 Zentr 40001",
+    "desc": "Lichtsumme /-Vortag",
+    "raw": "ID:Feld58_Feld;ADRTXT0:00 Zentr 40001 ;W1TXT0:Lichtsumme;W2TXT0:/-Vortag                   ;W10:   253 klxh   ;W20:   383 klxh   ;W12_0:2;LEN:1;"
+  },
+  "Feld59": {
+    "zone": "50 Bew-Z 51103",
+    "desc": "GWasser: Versorgung von /bis",
+    "raw": "ID:Feld59_Feld;ADRTXT0:50 Bew-Z 51103 ;W1TXT0:GWasser: Versorgung von;W2TXT0:/bis          ;W10: 10:58 h:min  ;W20: 13:00 h:min  ;W12_0:1;LEN:1;"
+  },
+  "Feld60": {
+    "zone": "02 WarmH 12316",
+    "desc": "D-Lüftg: Zu-Windgeschw Luv /Lee",
+    "raw": "ID:Feld60_Feld;ADRTXT0:02 WarmH 12316 ;W1TXT0:D-Lüftg: Zu-Windgeschw Luv;W2TXT0:/Lee       ;W10:   8,0 m/s    ;W20:  12,0 m/s    ;W12_0:2;LEN:1;"
+  },
+  "Feld61": {
+    "zone": "01 TempH 42010",
+    "desc": "Schirm: Schaltpunkt Tag",
+    "raw": "ID:Feld61_Feld;ADRTXT0:01 TempH 42010 ;W1TXT0:Schirm: Schaltpunkt Tag              ;W2TXT0:;W10:  35,0 klx    ;W20:              ;W12_0:1;LEN:1;"
+  },
+  "Feld62": {
+    "zone": "01 TempH 50039",
+    "desc": "Bereg: Freigabe von(SA) /bis(SU)",
+    "raw": "ID:Feld62_Feld;ADRTXT0:01 TempH 50039 ;W1TXT0:Bereg: Freigabe von(SA);W2TXT0:/bis(SU)      ;W10: 12:00 h:min  ;W20: 13:00 h:min  ;W12_0:1;LEN:1;"
+  },
+  "Feld63": {
+    "zone": "01 TempH 50069",
+    "desc": "Bereg: Freigabe von(SA) /bis(SU)",
+    "raw": "ID:Feld63_Feld;ADRTXT0:01 TempH 50069 ;W1TXT0:Bereg: Freigabe von(SA);W2TXT0:/bis(SU)      ;W10: 12:00 h:min  ;W20: 13:00 h:min  ;W12_0:2;LEN:1;"
+  },
+  "Feld64": {
+    "zone": "03 Zitru 50019",
+    "desc": "Bereg: Freigabe von(SA) /bis(SU)",
+    "raw": "ID:Feld64_Feld;ADRTXT0:03 Zitru 50019 ;W1TXT0:Bereg: Freigabe von(SA);W2TXT0:/bis(SU)      ;W10: 11:00 h:min  ;W20: 11:15 h:min  ;W12_0:1;LEN:1;"
+  },
+  "Feld65": {
+    "zone": "03 Zitru 50019",
+    "desc": "Bereg: Freigabe von(SA) /bis(SU)",
+    "raw": "ID:Feld65_Feld;ADRTXT0:03 Zitru 50019 ;W1TXT0:Bereg: Freigabe von(SA);W2TXT0:/bis(SU)      ;W10: 11:00 h:min  ;W20: 11:15 h:min  ;W12_0:2;LEN:1;"
+  },
+  "Feld66": {
+    "zone": "01 TempH 12316",
+    "desc": "D-Lüftg: Zu-Windgeschw Luv /Lee",
+    "raw": "ID:Feld66_Feld;ADRTXT0:01 TempH 12316 ;W1TXT0:D-Lüftg: Zu-Windgeschw Luv;W2TXT0:/Lee       ;W10:   8,0 m/s    ;W20:  12,0 m/s    ;W12_0:1;LEN:1;"
+  },
+  "Feld67": {
+    "zone": "04 Kalth 12316",
+    "desc": "D-Lüftg: Zu-Windgeschw Luv /Lee",
+    "raw": "ID:Feld67_Feld;ADRTXT0:04 Kalth 12316 ;W1TXT0:D-Lüftg: Zu-Windgeschw Luv;W2TXT0:/Lee       ;W10:   7,0 m/s    ;W20:  10,0 m/s    ;W12_0:2;LEN:1;"
+  },
+  "Feld75": {
+    "zone": "01 TempH 11220",
+    "desc": "Lufthzg: Einschaltdauer /Ventilator",
+    "raw": "ID:Feld75_Feld;ADRTXT0:01 TempH 11220 ;W1TXT0:Lufthzg: Einschaltdauer;W2TXT0:/Ventilator   ;W10:   0,0 %      ;W20:     0 aus    ;W12_0:3;LEN:1;"
+  },
+  "Feld76": {
+    "zone": "01 TempH 50260",
+    "desc": "Bereg: Magnetventil /Bedarf",
+    "raw": "ID:Feld76_Feld;ADRTXT0:01 TempH 50260 ;W1TXT0:Bereg: Magnetventil;W2TXT0:/Bedarf           ;W10:     0 aus    ;W20:     0 nein   ;W12_0:3;LEN:1;"
+  },
+  "Feld77": {
+    "zone": "02 WarmH 11220",
+    "desc": "Lufthzg: Einschaltdauer /Ventilator",
+    "raw": "ID:Feld77_Feld;ADRTXT0:02 WarmH 11220 ;W1TXT0:Lufthzg: Einschaltdauer;W2TXT0:/Ventilator   ;W10:   0,0 %      ;W20:     0 aus    ;W12_0:3;LEN:1;"
+  },
+  "Feld78": {
+    "zone": "50 Bew-Z 50200",
+    "desc": "Bewässerung",
+    "raw": "ID:Feld78_Feld;ADRTXT0:50 Bew-Z 50200 ;W1TXT0:Bewässerung                          ;W2TXT0:;W10:     0 aus    ;W20:              ;W12_0:3;LEN:1;"
+  },
+  "Feld79": {
+    "zone": "91 Ring  11210",
+    "desc": "Pumpe",
+    "raw": "ID:Feld79_Feld;ADRTXT0:91 Ring  11210 ;W1TXT0:Pumpe                                ;W2TXT0:;W10:     0 aus    ;W20:              ;W12_0:1;LEN:1;"
+  },
+  "Feld80": {
+    "zone": "03 Zitru 11220",
+    "desc": "Lufthzg: Einschaltdauer /Ventilator",
+    "raw": "ID:Feld80_Feld;ADRTXT0:03 Zitru 11220 ;W1TXT0:Lufthzg: Einschaltdauer;W2TXT0:/Ventilator   ;W10:   0,0 %      ;W20:     0 aus    ;W12_0:3;LEN:1;"
+  },
+  "Feld81": {
+    "zone": "01 TempH 50230",
+    "desc": "Bereg: Magnetventil /Bedarf",
+    "raw": "ID:Feld81_Feld;ADRTXT0:01 TempH 50230 ;W1TXT0:Bereg: Magnetventil;W2TXT0:/Bedarf           ;W10:     0 aus    ;W20:     0 nein   ;W12_0:3;LEN:1;"
+  },
+  "Feld91": {
+    "zone": "01 TempH 50061",
+    "desc": "Bereg: Gießdauer /Handstart",
+    "raw": "ID:Feld91_Feld;ADRTXT0:01 TempH 50061 ;W1TXT0:Bereg: Gießdauer;W2TXT0:/Handstart           ;W10: 60:00 min:s  ;W20:     0 aus    ;W12_0:2;LEN:1;"
+  },
+  "Feld92": {
+    "zone": "01 TempH 50031",
+    "desc": "Bereg: Gießdauer /Handstart",
+    "raw": "ID:Feld92_Feld;ADRTXT0:01 TempH 50031 ;W1TXT0:Bereg: Gießdauer;W2TXT0:/Handstart           ;W10: 10:00 min:s  ;W20:     0 aus    ;W12_0:1;LEN:1;"
+  },
+  "Feld93": {
+    "zone": "00 Zentr 90301",
+    "desc": "Sturmschutz manuell",
+    "raw": "ID:Feld93_Feld;ADRTXT0:00 Zentr 90301 ;W1TXT0:Sturmschutz manuell                  ;W2TXT0:;W10:     0 aus    ;W20:              ;W12_0:1;LEN:1;"
+  }
+}
