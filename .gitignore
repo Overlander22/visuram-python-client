@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+*.egg-info/
+
+# macOS
+.DS_Store
+.AppleDouble
+
+# Konfigurationsdateien mit Zugangsdaten – NICHT in Git!
+config_local.py
+*.env
+.env
+
+# HAR-Dateien (können sensible Daten enthalten)
+*.har
+
+# Logs
+*.log
