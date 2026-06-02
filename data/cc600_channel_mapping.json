@@ -269,10 +269,10 @@
     "cc600_adr": "0101011121",
     "feld_id_w1": null,
     "feld_id_w2": null,
-    "desc": "\\u003e Heizg: Beginn(SA) / Dauer",
+    "desc": "> Heizg: Beginn(SA) / Dauer",
     "w1_value": "0:00 h:min",
     "w2_value": "3:00 h:min",
-    "w1_label": "\\u003e Heizg: Beginn(SA)",
+    "w1_label": "> Heizg: Beginn(SA)",
     "w2_label": "Dauer"
   },
   {
@@ -281,10 +281,10 @@
     "cc600_adr": "0101011131",
     "feld_id_w1": null,
     "feld_id_w2": null,
-    "desc": "\\u003e Lüftg: Beginn(SA) / Dauer",
+    "desc": "> Lüftg: Beginn(SA) / Dauer",
     "w1_value": "+0:00 h:min",
     "w2_value": "3:00 h:min",
-    "w1_label": "\\u003e Lüftg: Beginn(SA)",
+    "w1_label": "> Lüftg: Beginn(SA)",
     "w2_label": "Dauer"
   },
   {
@@ -329,10 +329,10 @@
     "cc600_adr": "0101011221",
     "feld_id_w1": null,
     "feld_id_w2": null,
-    "desc": "\\u003e Heizg: Beginn(SU) / Dauer",
+    "desc": "> Heizg: Beginn(SU) / Dauer",
     "w1_value": "0:00 h:min",
     "w2_value": "0:00 h:min",
-    "w1_label": "\\u003e Heizg: Beginn(SU)",
+    "w1_label": "> Heizg: Beginn(SU)",
     "w2_label": "Dauer"
   },
   {
@@ -341,10 +341,10 @@
     "cc600_adr": "0101011231",
     "feld_id_w1": null,
     "feld_id_w2": null,
-    "desc": "\\u003e Lüftg: Beginn(SU) / Dauer",
+    "desc": "> Lüftg: Beginn(SU) / Dauer",
     "w1_value": "-4:00 h:min",
     "w2_value": "6:00 h:min",
-    "w1_label": "\\u003e Lüftg: Beginn(SU)",
+    "w1_label": "> Lüftg: Beginn(SU)",
     "w2_label": "Dauer"
   },
   {
@@ -509,10 +509,10 @@
     "cc600_adr": "0101112101",
     "feld_id_w1": null,
     "feld_id_w2": null,
-    "desc": "Heizg \\u003e Vent: Funktion",
+    "desc": "Heizg > Vent: Funktion",
     "w1_value": "0 aus",
     "w2_value": "",
-    "w1_label": "Heizg \\u003e Vent: Funktion",
+    "w1_label": "Heizg > Vent: Funktion",
     "w2_label": ""
   },
   {
@@ -545,10 +545,10 @@
     "cc600_adr": "0101113101",
     "feld_id_w1": null,
     "feld_id_w2": null,
-    "desc": "Heizg \\u003e Vent: Mindrehzahl",
+    "desc": "Heizg > Vent: Mindrehzahl",
     "w1_value": "0 aus",
     "w2_value": "",
-    "w1_label": "Heizg \\u003e Vent: Mindrehzahl",
+    "w1_label": "Heizg > Vent: Mindrehzahl",
     "w2_label": ""
   },
   {
@@ -581,10 +581,10 @@
     "cc600_adr": "0101116101",
     "feld_id_w1": null,
     "feld_id_w2": null,
-    "desc": "Heizg \\u003e Vent: Abstand",
+    "desc": "Heizg > Vent: Abstand",
     "w1_value": "+0,0 K",
     "w2_value": "",
-    "w1_label": "Heizg \\u003e Vent: Abstand",
+    "w1_label": "Heizg > Vent: Abstand",
     "w2_label": ""
   },
   {
@@ -689,10 +689,10 @@
     "cc600_adr": "0101122201",
     "feld_id_w1": null,
     "feld_id_w2": null,
-    "desc": "Lüftg \\u003e Vent: Funktion",
+    "desc": "Lüftg > Vent: Funktion",
     "w1_value": "0 aus",
     "w2_value": "",
-    "w1_label": "Lüftg \\u003e Vent: Funktion",
+    "w1_label": "Lüftg > Vent: Funktion",
     "w2_label": ""
   },
   {
@@ -809,10 +809,10 @@
     "cc600_adr": "0101123201",
     "feld_id_w1": null,
     "feld_id_w2": null,
-    "desc": "Lüftg \\u003e Vent: Mindrehzahl",
+    "desc": "Lüftg > Vent: Mindrehzahl",
     "w1_value": "0 aus",
     "w2_value": "",
-    "w1_label": "Lüftg \\u003e Vent: Mindrehzahl",
+    "w1_label": "Lüftg > Vent: Mindrehzahl",
     "w2_label": ""
   },
   {
@@ -821,10 +821,10 @@
     "cc600_adr": "0101123211",
     "feld_id_w1": null,
     "feld_id_w2": null,
-    "desc": "Lüftg \\u003e Vent: Freigabe ab Außentemp",
+    "desc": "Lüftg > Vent: Freigabe ab Außentemp",
     "w1_value": "25,0 oC",
     "w2_value": "",
-    "w1_label": "Lüftg \\u003e Vent: Freigabe ab Außentemp",
+    "w1_label": "Lüftg > Vent: Freigabe ab Außentemp",
     "w2_label": ""
   },
   {
@@ -845,10 +845,10 @@
     "cc600_adr": "0101126201",
     "feld_id_w1": null,
     "feld_id_w2": null,
-    "desc": "Lüftg \\u003e Vent: Abstand",
+    "desc": "Lüftg > Vent: Abstand",
     "w1_value": "+8,0 K",
     "w2_value": "",
-    "w1_label": "Lüftg \\u003e Vent: Abstand",
+    "w1_label": "Lüftg > Vent: Abstand",
     "w2_label": ""
   },
   {
@@ -1757,10 +1757,10 @@
     "cc600_adr": "0102112101",
     "feld_id_w1": null,
     "feld_id_w2": null,
-    "desc": "Heizg \\u003e Vent: Funktion",
+    "desc": "Heizg > Vent: Funktion",
     "w1_value": "0 aus",
     "w2_value": "",
-    "w1_label": "Heizg \\u003e Vent: Funktion",
+    "w1_label": "Heizg > Vent: Funktion",
     "w2_label": ""
   },
   {
@@ -1805,10 +1805,10 @@
     "cc600_adr": "0102113101",
     "feld_id_w1": null,
     "feld_id_w2": null,
-    "desc": "Heizg \\u003e Vent: Mindrehzahl",
+    "desc": "Heizg > Vent: Mindrehzahl",
     "w1_value": "1 Stufe",
     "w2_value": "",
-    "w1_label": "Heizg \\u003e Vent: Mindrehzahl",
+    "w1_label": "Heizg > Vent: Mindrehzahl",
     "w2_label": ""
   },
   {
@@ -1853,10 +1853,10 @@
     "cc600_adr": "0102116101",
     "feld_id_w1": null,
     "feld_id_w2": null,
-    "desc": "Heizg \\u003e Vent: Abstand",
+    "desc": "Heizg > Vent: Abstand",
     "w1_value": "+0,0 K",
     "w2_value": "",
-    "w1_label": "Heizg \\u003e Vent: Abstand",
+    "w1_label": "Heizg > Vent: Abstand",
     "w2_label": ""
   },
   {
@@ -1973,10 +1973,10 @@
     "cc600_adr": "0102122201",
     "feld_id_w1": null,
     "feld_id_w2": null,
-    "desc": "Lüftg \\u003e Vent: Funktion",
+    "desc": "Lüftg > Vent: Funktion",
     "w1_value": "0 aus",
     "w2_value": "",
-    "w1_label": "Lüftg \\u003e Vent: Funktion",
+    "w1_label": "Lüftg > Vent: Funktion",
     "w2_label": ""
   },
   {
@@ -2093,10 +2093,10 @@
     "cc600_adr": "0102123201",
     "feld_id_w1": null,
     "feld_id_w2": null,
-    "desc": "Lüftg \\u003e Vent: Mindrehzahl",
+    "desc": "Lüftg > Vent: Mindrehzahl",
     "w1_value": "0 aus",
     "w2_value": "",
-    "w1_label": "Lüftg \\u003e Vent: Mindrehzahl",
+    "w1_label": "Lüftg > Vent: Mindrehzahl",
     "w2_label": ""
   },
   {
@@ -2105,10 +2105,10 @@
     "cc600_adr": "0102123211",
     "feld_id_w1": null,
     "feld_id_w2": null,
-    "desc": "Lüftg \\u003e Vent: Freigabe ab Außentemp",
+    "desc": "Lüftg > Vent: Freigabe ab Außentemp",
     "w1_value": "25,0 oC",
     "w2_value": "",
-    "w1_label": "Lüftg \\u003e Vent: Freigabe ab Außentemp",
+    "w1_label": "Lüftg > Vent: Freigabe ab Außentemp",
     "w2_label": ""
   },
   {
@@ -2129,10 +2129,10 @@
     "cc600_adr": "0102126201",
     "feld_id_w1": null,
     "feld_id_w2": null,
-    "desc": "Lüftg \\u003e Vent: Abstand",
+    "desc": "Lüftg > Vent: Abstand",
     "w1_value": "+8,0 K",
     "w2_value": "",
-    "w1_label": "Lüftg \\u003e Vent: Abstand",
+    "w1_label": "Lüftg > Vent: Abstand",
     "w2_label": ""
   },
   {
@@ -2789,10 +2789,10 @@
     "cc600_adr": "0103112101",
     "feld_id_w1": null,
     "feld_id_w2": null,
-    "desc": "Heizg \\u003e Vent: Funktion",
+    "desc": "Heizg > Vent: Funktion",
     "w1_value": "0 aus",
     "w2_value": "",
-    "w1_label": "Heizg \\u003e Vent: Funktion",
+    "w1_label": "Heizg > Vent: Funktion",
     "w2_label": ""
   },
   {
@@ -2825,10 +2825,10 @@
     "cc600_adr": "0103113101",
     "feld_id_w1": null,
     "feld_id_w2": null,
-    "desc": "Heizg \\u003e Vent: Mindrehzahl",
+    "desc": "Heizg > Vent: Mindrehzahl",
     "w1_value": "1 Stufe",
     "w2_value": "",
-    "w1_label": "Heizg \\u003e Vent: Mindrehzahl",
+    "w1_label": "Heizg > Vent: Mindrehzahl",
     "w2_label": ""
   },
   {
@@ -2861,10 +2861,10 @@
     "cc600_adr": "0103116101",
     "feld_id_w1": null,
     "feld_id_w2": null,
-    "desc": "Heizg \\u003e Vent: Abstand",
+    "desc": "Heizg > Vent: Abstand",
     "w1_value": "+0,0 K",
     "w2_value": "",
-    "w1_label": "Heizg \\u003e Vent: Abstand",
+    "w1_label": "Heizg > Vent: Abstand",
     "w2_label": ""
   },
   {
@@ -2969,10 +2969,10 @@
     "cc600_adr": "0103122201",
     "feld_id_w1": null,
     "feld_id_w2": null,
-    "desc": "Lüftg \\u003e Vent: Funktion",
+    "desc": "Lüftg > Vent: Funktion",
     "w1_value": "0 aus",
     "w2_value": "",
-    "w1_label": "Lüftg \\u003e Vent: Funktion",
+    "w1_label": "Lüftg > Vent: Funktion",
     "w2_label": ""
   },
   {
@@ -3089,10 +3089,10 @@
     "cc600_adr": "0103123201",
     "feld_id_w1": null,
     "feld_id_w2": null,
-    "desc": "Lüftg \\u003e Vent: Mindrehzahl",
+    "desc": "Lüftg > Vent: Mindrehzahl",
     "w1_value": "0 aus",
     "w2_value": "",
-    "w1_label": "Lüftg \\u003e Vent: Mindrehzahl",
+    "w1_label": "Lüftg > Vent: Mindrehzahl",
     "w2_label": ""
   },
   {
@@ -3101,10 +3101,10 @@
     "cc600_adr": "0103123211",
     "feld_id_w1": null,
     "feld_id_w2": null,
-    "desc": "Lüftg \\u003e Vent: Freigabe ab Außentemp",
+    "desc": "Lüftg > Vent: Freigabe ab Außentemp",
     "w1_value": "25,0 oC",
     "w2_value": "",
-    "w1_label": "Lüftg \\u003e Vent: Freigabe ab Außentemp",
+    "w1_label": "Lüftg > Vent: Freigabe ab Außentemp",
     "w2_label": ""
   },
   {
@@ -3125,10 +3125,10 @@
     "cc600_adr": "0103126201",
     "feld_id_w1": null,
     "feld_id_w2": null,
-    "desc": "Lüftg \\u003e Vent: Abstand",
+    "desc": "Lüftg > Vent: Abstand",
     "w1_value": "+8,0 K",
     "w2_value": "",
-    "w1_label": "Lüftg \\u003e Vent: Abstand",
+    "w1_label": "Lüftg > Vent: Abstand",
     "w2_label": ""
   },
   {
@@ -3545,10 +3545,10 @@
     "cc600_adr": "0104112101",
     "feld_id_w1": null,
     "feld_id_w2": null,
-    "desc": "Heizg \\u003e Vent: Funktion",
+    "desc": "Heizg > Vent: Funktion",
     "w1_value": "0 aus",
     "w2_value": "",
-    "w1_label": "Heizg \\u003e Vent: Funktion",
+    "w1_label": "Heizg > Vent: Funktion",
     "w2_label": ""
   },
   {
@@ -3617,10 +3617,10 @@
     "cc600_adr": "0104113101",
     "feld_id_w1": null,
     "feld_id_w2": null,
-    "desc": "Heizg \\u003e Vent: Mindrehzahl",
+    "desc": "Heizg > Vent: Mindrehzahl",
     "w1_value": "1 Stufe",
     "w2_value": "",
-    "w1_label": "Heizg \\u003e Vent: Mindrehzahl",
+    "w1_label": "Heizg > Vent: Mindrehzahl",
     "w2_label": ""
   },
   {
@@ -3677,10 +3677,10 @@
     "cc600_adr": "0104116101",
     "feld_id_w1": null,
     "feld_id_w2": null,
-    "desc": "Heizg \\u003e Vent: Abstand",
+    "desc": "Heizg > Vent: Abstand",
     "w1_value": "+1,0 K",
     "w2_value": "",
-    "w1_label": "Heizg \\u003e Vent: Abstand",
+    "w1_label": "Heizg > Vent: Abstand",
     "w2_label": ""
   },
   {
@@ -3797,10 +3797,10 @@
     "cc600_adr": "0104122202",
     "feld_id_w1": null,
     "feld_id_w2": null,
-    "desc": "Lüftg \\u003e Vent: Funktion",
+    "desc": "Lüftg > Vent: Funktion",
     "w1_value": "0 aus",
     "w2_value": "",
-    "w1_label": "Lüftg \\u003e Vent: Funktion",
+    "w1_label": "Lüftg > Vent: Funktion",
     "w2_label": ""
   },
   {
@@ -3917,10 +3917,10 @@
     "cc600_adr": "0104123202",
     "feld_id_w1": null,
     "feld_id_w2": null,
-    "desc": "Lüftg \\u003e Vent: Mindrehzahl",
+    "desc": "Lüftg > Vent: Mindrehzahl",
     "w1_value": "0 aus",
     "w2_value": "",
-    "w1_label": "Lüftg \\u003e Vent: Mindrehzahl",
+    "w1_label": "Lüftg > Vent: Mindrehzahl",
     "w2_label": ""
   },
   {
@@ -3929,10 +3929,10 @@
     "cc600_adr": "0104123212",
     "feld_id_w1": null,
     "feld_id_w2": null,
-    "desc": "Lüftg \\u003e Vent: Freigabe ab Außentemp",
+    "desc": "Lüftg > Vent: Freigabe ab Außentemp",
     "w1_value": "25,0 oC",
     "w2_value": "",
-    "w1_label": "Lüftg \\u003e Vent: Freigabe ab Außentemp",
+    "w1_label": "Lüftg > Vent: Freigabe ab Außentemp",
     "w2_label": ""
   },
   {
@@ -3953,10 +3953,10 @@
     "cc600_adr": "0104126202",
     "feld_id_w1": null,
     "feld_id_w2": null,
-    "desc": "Lüftg \\u003e Vent: Abstand",
+    "desc": "Lüftg > Vent: Abstand",
     "w1_value": "+6,0 K",
     "w2_value": "",
-    "w1_label": "Lüftg \\u003e Vent: Abstand",
+    "w1_label": "Lüftg > Vent: Abstand",
     "w2_label": ""
   },
   {
