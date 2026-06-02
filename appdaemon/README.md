@@ -17,12 +17,12 @@ Folgende Dateien nach `/addon_configs/a0d7b954_appdaemon/apps/visuRAM/` kopieren
 
 ```bash
 # Via SSH in HA (Port 22222 mit SSH Add-on):
-mkdir -p /config/appdaemon/apps/visuRAM
+mkdir -p /addon_configs/a0d7b954_appdaemon/apps/visuRAM
 # Dateien hochladen (z.B. via scp oder HA File Editor)
 ```
 
 ### 3. apps.yaml konfigurieren
-Inhalt von `apps.yaml` in `/config/appdaemon/apps/apps.yaml` einfügen.
+Inhalt von `apps.yaml` in `/addon_configs/a0d7b954_appdaemon/apps/apps.yaml` einfügen.
 
 ### 4. AppDaemon starten
 HA → Add-ons → AppDaemon → Starten
