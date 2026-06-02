@@ -646,9 +646,20 @@ def load_field_names(mapping_path: str | None = None) -> dict[str, str]:
     import json, os
 
     if mapping_path is None:
-        # Suche relativ zu diesem Script
-        base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        mapping_path = os.path.join(base, "data", "cc600_channel_mapping.json")
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        # Suchreihenfolge:
+        # 1. Gleiches Verzeichnis wie dieses Script (AppDaemon-Deployment)
+        # 2. ../data/ relativ zum Script-Verzeichnis (Repository-Struktur)
+        candidates = [
+            os.path.join(script_dir, "cc600_channel_mapping.json"),
+            os.path.join(os.path.dirname(script_dir), "data", "cc600_channel_mapping.json"),
+        ]
+        for candidate in candidates:
+            if os.path.exists(candidate):
+                mapping_path = candidate
+                break
+        if mapping_path is None:
+            mapping_path = candidates[0]  # Für Fehlermeldung
 
     if not os.path.exists(mapping_path):
         logger.warning("cc600_channel_mapping.json nicht gefunden: %s", mapping_path)
