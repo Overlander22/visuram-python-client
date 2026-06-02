@@ -10,7 +10,7 @@
 HA → Einstellungen → Add-ons → Add-on Store → **AppDaemon** suchen → Installieren
 
 ### 2. Dateien kopieren
-Folgende Dateien nach `/config/appdaemon/apps/visuRAM/` kopieren:
+Folgende Dateien nach `/addon_configs/a0d7b954_appdaemon/apps/visuRAM/` kopieren:
 - `visuRAM_app.py` (diese Datei)
 - `visuram_client.py` (aus `../scripts/`)
 - `cc600_channel_mapping.json` (aus `../data/`)
