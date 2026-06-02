@@ -177,6 +177,9 @@ def parse_sensors(raw: str) -> dict[str, dict]:
         inner = m.group(2).strip()
         if not inner or inner == '?':
             continue
+        # Symbol/Icon-Felder (z.B. ~/Vorlagen/Symbole/Leer.gif) ignorieren
+        if '.gif' in inner:
+            continue
         # Trennzeichen '?' (erster Callback) oder ' ' (Folge-Callbacks)
         sep = '?' if '?' in inner else ' '
         parts = inner.split(sep, 1)
