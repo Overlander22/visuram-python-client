@@ -371,3 +371,102 @@ class TestVisuRAMClientConnect:
         result = client.poll()
         assert "Feld28_Feld" in result
         assert result["Feld33_Feld"]["unit"] == "m/s"
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# build_set_value_arg / set_value
+# ─────────────────────────────────────────────────────────────────────────────
+
+from scripts.visuram_client import build_set_value_arg
+
+class TestBuildSetValueArg:
+    """Schreibbefehl-Builder (ChangeCCValue → OnChangeCCValue)."""
+
+    def test_context_ist_on_change_cc_value(self):
+        arg = build_set_value_arg("Feld79", "0191112101", "1")
+        decoded = decode_xml_names(arg)
+        assert "CONTEXT[OnChangeCCValue]" in decoded
+
+    def test_adr_enthalten(self):
+        arg = build_set_value_arg("Feld79", "0191112101", "1")
+        decoded = decode_xml_names(arg)
+        assert "ADR{0191112101}" in decoded
+
+    def test_w1_enthalten(self):
+        arg = build_set_value_arg("Feld79", "0191112101", "1")
+        decoded = decode_xml_names(arg)
+        assert "W1{1}" in decoded
+
+    def test_w1_aus(self):
+        arg = build_set_value_arg("Feld79", "0191112101", "0")
+        decoded = decode_xml_names(arg)
+        assert "W1{0}" in decoded
+        assert "W1{1}" not in decoded
+
+    def test_feld_id_enthalten(self):
+        arg = build_set_value_arg("Feld79", "0191112101", "1")
+        decoded = decode_xml_names(arg)
+        assert "ID{Feld79_Feld}" in decoded
+        assert "ADVISEID{Feld79}" in decoded
+
+    def test_dontcheckrech_true(self):
+        """Permission-Check wird umgangen (wir haben URECHT:2000)."""
+        arg = build_set_value_arg("Feld79", "0191112101", "1")
+        decoded = decode_xml_names(arg)
+        assert "DONTCHECKRECH{true}" in decoded
+
+    def test_function_name_in_arg(self):
+        arg = build_set_value_arg("Feld79", "0191112101", "1")
+        decoded = decode_xml_names(arg)
+        assert "FUNCTION{ChangeCCValue}" in decoded
+
+    def test_bdontwait_true(self):
+        arg = build_set_value_arg("Feld79", "0191112101", "1")
+        decoded = decode_xml_names(arg)
+        assert "BDONTWAIT[true]" in decoded
+
+    def test_w2_leer_standardmaessig(self):
+        arg = build_set_value_arg("Feld79", "0191112101", "1")
+        decoded = decode_xml_names(arg)
+        assert "W2{}" in decoded
+
+    def test_w2_optional_setzbar(self):
+        arg = build_set_value_arg("Feld79", "0191112101", "5:00", "0")
+        decoded = decode_xml_names(arg)
+        assert "W1{5:00}" in decoded
+        assert "W2{0}" in decoded
+
+
+@resp_mock.activate
+class TestVisuRAMClientSetValue:
+
+    def _register_connect_mocks(self):
+        resp_mock.add(resp_mock.GET, f"{BASE_URL}/VisuRAM.aspx",
+                      body=_VISURAMASPX_HTML, status=200, content_type="text/html; charset=utf-8")
+        resp_mock.add(resp_mock.GET, f"{BASE_URL}/VisuRAM.aspx",
+                      body=_VISURAMASPX_HTML, status=200, content_type="text/html; charset=utf-8")
+        resp_mock.add(resp_mock.POST, f"{BASE_URL}/RAMService.asmx/GlobalService",
+                      body=_ONGETRECHTE_RESP, status=200, content_type="application/json; charset=utf-8")
+        resp_mock.add(resp_mock.POST, f"{BASE_URL}/RAMService.asmx/GlobalService",
+                      body=_BINITCALL_RESP_WITH_BPB, status=200, content_type="application/json; charset=utf-8")
+        resp_mock.add(resp_mock.POST, f"{BASE_URL}/VisuRAM.aspx",
+                      body=_GLOBAL_CALLBACK_RESP, status=200, content_type="text/html; charset=utf-8")
+
+    def test_set_value_sendet_on_change_cc_value(self):
+        self._register_connect_mocks()
+        set_resp = (
+            '{"d":"CONTEXT_x005B_OnChangeCCValue_x005D_BDONTWAIT_x005B_true_x005D_'
+            'ARG_x005B_MLDG_x007B__x007D_ROWINFO_x007B_1_x007D_EINHEIT_x007B_false_x007D_'
+            'ID_x007B_Feld79_Feld_x007D_W12_x007B_1_x007D__x005D_"}'
+        )
+        resp_mock.add(resp_mock.POST, f"{BASE_URL}/RAMService.asmx/GlobalService",
+                      body=set_resp, status=200, content_type="application/json; charset=utf-8")
+        client = VisuRAMClient()
+        client.connect()
+        result = client.set_value("Feld79", "0191112101", "1")
+        assert "OnChangeCCValue" in result
+
+    def test_set_value_wirft_fehler_ohne_verbindung(self):
+        client = VisuRAMClient()
+        with pytest.raises(RuntimeError, match="connect"):
+            client.set_value("Feld79", "0191112101", "1")

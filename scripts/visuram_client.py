@@ -150,6 +150,55 @@ def build_poll_arg(counter: int) -> str:
         counter=counter,
     )
 
+def build_set_value_arg(
+    feld_id: str,
+    cc600_adr: str,
+    w1: str,
+    w2: str = "",
+    counter: int = 99,
+) -> str:
+    """
+    Schreibbefehl: setzt einen CC600-Wert via ChangeCCValue.
+
+    Gefunden in Bedienen.js::ChangeCCValue() – ruft GlobalService mit
+    Context 'OnChangeCCValue' auf. ARG verwendet { } als Trenner.
+
+    Protokoll (aus Bedienen.js-Analyse, 02.06.2026):
+      Context:  OnChangeCCValue
+      ARG:      FUNCTION{ChangeCCValue}
+                ADR{CC600-ADRESSE}
+                W1{NEUER-WERT}
+                W2{OPTIONALER-WERT-2}
+                BHGRAMM{false}
+                ID{FeldXX_Feld}
+                EINHEIT{false}
+                DONTCHECKRECH{true}
+                ADVISEID{FeldXX}
+
+    Args:
+        feld_id:    FeldID ohne Suffix, z.B. 'Feld79'
+        cc600_adr:  CC600-Kanaladresse, z.B. '0191112101' (Pumpe Ring)
+        w1:         Neuer Wert für W1, z.B. '1' (ein) oder '0' (aus)
+        w2:         Optionaler zweiter Wert (meist leer)
+        counter:    ServiceCounter (sollte aktuellen session-counter nutzen)
+    """
+    # Innere Key-Value-Paare nutzen { } als Trenner (nicht [ ] wie die äußeren)
+    def kv(key: str, val: str) -> str:
+        return f"{key.upper()}_x007B_{val}_x007D_"
+
+    inner = (
+        kv("function", "ChangeCCValue") +
+        kv("adr",      cc600_adr) +
+        kv("w1",       w1) +
+        kv("w2",       w2) +
+        kv("bhgramm",  "false") +
+        kv("id",       f"{feld_id}_Feld") +
+        kv("einheit",  "false") +
+        kv("dontcheckrech", "true") +
+        kv("adviseid", feld_id)
+    )
+    return _build_arg("OnChangeCCValue", bdontwait=True, arg_body=inner, counter=counter)
+
 # ─────────────────────────────────────────────
 # Antwort-Parsing
 # ─────────────────────────────────────────────
@@ -361,6 +410,111 @@ class VisuRAMClient:
                 logger.warning("HTTP-Fehler: %s – Neuverbindung in %.0fs …", exc, reconnect_wait)
                 self._connected = False
                 time.sleep(reconnect_wait)
+
+    # ── Schreiben / Schalten ──────────────────────────────────────────────
+    def _ensure_write_auth(self, cc600_adr: str, password: str) -> None:
+        """
+        Stellt sicher, dass die Session Schreibrechte hat (Aendern1-Bit, 0x0002).
+
+        Ablauf (aus Kennwort.js analysiert, 02.06.2026):
+          1. OnGetRechte mit ADR:<adresse> → prüft ob User bereits eingeloggt
+          2. Falls uRecht == 0 oder kein User: OnLogin mit KENNWORT:<pw>;ADR:<adresse>
+             → Server setzt Aendern1-Bit in uRecht
+
+        Wird pro Session nur einmal gebraucht; danach haben alle folgenden
+        ChangeCCValue-Calls die nötige Berechtigung.
+        """
+        # Schritt 1: Rechte abfragen
+        raw = self._post(_build_arg(
+            "OnGetRechte", bdontwait=False,
+            arg_body=f"ADR:{cc600_adr};",
+            counter=self.counter,
+        ))
+        self.counter += 1
+        decoded = decode_xml_names(raw)
+
+        # Wenn uRecht > 0 und User gesetzt: Session hat bereits Schreibrechte
+        status = parse_status(raw)
+        u_recht_hex = status.get("URECHT", "0")
+        try:
+            u_recht = int(u_recht_hex, 16)
+        except ValueError:
+            u_recht = 0
+
+        AENDERN1 = 0x0002
+        if u_recht & AENDERN1:
+            logger.debug("Schreibrechte bereits vorhanden (uRecht=0x%X)", u_recht)
+            return
+
+        # Schritt 2: Einloggen mit Passwort
+        logger.info("Schreibrechte fehlen – sende OnLogin mit Passwort …")
+        raw2 = self._post(_build_arg(
+            "OnLogin", bdontwait=False,
+            arg_body=f"KENNWORT:{password};ADR:{cc600_adr};",
+            counter=self.counter,
+        ))
+        self.counter += 1
+        decoded2 = decode_xml_names(raw2)
+        status2 = parse_status(raw2)
+        u_recht2_hex = status2.get("URECHT", "0")
+        try:
+            u_recht2 = int(u_recht2_hex, 16)
+        except ValueError:
+            u_recht2 = 0
+
+        if u_recht2 & AENDERN1:
+            logger.info("OnLogin erfolgreich – Schreibrechte erhalten (uRecht=0x%X)", u_recht2)
+        else:
+            raise PermissionError(
+                f"OnLogin gescheitert – Schreibrechte nicht erhalten "
+                f"(uRecht=0x{u_recht2:04X}). Passwort korrekt?"
+            )
+
+    def set_value(self, feld_id: str, cc600_adr: str, w1: str, w2: str = "",
+                  password: str = "1111") -> str:
+        """
+        Setzt einen CC600-Wert über ChangeCCValue (Context: OnChangeCCValue).
+
+        Für Ein/Aus-Schalter (Magnetventile, Pumpen):
+            w1 = "1" (ein/an) oder "0" (aus)
+        Für Zeitwerte:
+            w1 = "5:00" (min:s) etc.
+        Für Temperaturwerte:
+            w1 = "25,0" (Komma als Dezimaltrenner wie CC600-Konvention)
+
+        Gibt die rohe Server-Antwort zurück. Bei Erfolg enthält sie
+        CONTEXT[OnChangeCCValue] mit aktualisierten Feldwerten.
+
+        Hinweis zu W1/W2:
+            Für Kanäle mit zwei Werten (z.B. Gießdauer/Handstart):
+              - w1 = Gießdauer, z.B. "12:00" (min:s)
+              - w2 = Status:   "1" (ein/öffnen) oder "0" (aus/schließen)
+            Für einfache Ein/Aus-Schalter:
+              - w1 = "1" (ein) oder "0" (aus), w2 = "" (leer)
+            Werte werden OHNE Einheit übergeben (bEinheit=false).
+
+        Raises:
+            RuntimeError:    Nicht verbunden.
+            PermissionError: Login-Passwort falsch oder Rechte fehlen.
+        """
+        if not self._connected:
+            raise RuntimeError("Nicht verbunden – connect() zuerst aufrufen")
+
+        # Schreibrechte sicherstellen (einmalig pro Session)
+        self._ensure_write_auth(cc600_adr, password)
+
+        s_arg = build_set_value_arg(
+            feld_id=feld_id,
+            cc600_adr=cc600_adr,
+            w1=w1,
+            w2=w2,
+            counter=self.counter,
+        )
+        self.counter += 1
+        raw = self._post(s_arg)
+        decoded = decode_xml_names(raw)
+        logger.info("set_value(%s, w1=%r, w2=%r) → %s", feld_id, w1, w2, decoded[:150])
+        return decoded
 
     # ── Interna ────────────────────────────────────────────────────────────
     def _register_session(self) -> None:
