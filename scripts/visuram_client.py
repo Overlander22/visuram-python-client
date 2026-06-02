@@ -631,6 +631,60 @@ class VisuRAMClient:
 
 
 # ─────────────────────────────────────────────
+# Sensor-Mapping aus cc600_channel_mapping.json
+# ─────────────────────────────────────────────
+
+def load_field_names(mapping_path: str | None = None) -> dict[str, str]:
+    """
+    Lädt cc600_channel_mapping.json und gibt ein Dict zurück:
+      { "Feld28_Feld": "Außentemperatur",
+        "Feld33_Feld": "Windgeschwindigkeit / Richtung", ... }
+
+    Args:
+        mapping_path: Pfad zur JSON-Datei. Wird automatisch gefunden wenn None.
+    """
+    import json, os
+
+    if mapping_path is None:
+        # Suche relativ zu diesem Script
+        base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        mapping_path = os.path.join(base, "data", "cc600_channel_mapping.json")
+
+    if not os.path.exists(mapping_path):
+        logger.warning("cc600_channel_mapping.json nicht gefunden: %s", mapping_path)
+        return {}
+
+    with open(mapping_path, encoding="utf-8") as f:
+        channels = json.load(f)
+
+    names: dict[str, str] = {}
+    for ch in channels:
+        desc       = ch.get("desc", "").strip()
+        w1_label   = ch.get("w1_label", "").strip()
+        w2_label   = ch.get("w2_label", "").strip()
+        feld_id_w1 = ch.get("feld_id_w1")
+        feld_id_w2 = ch.get("feld_id_w2")
+        zone       = ch.get("zone", "")
+        kanal      = ch.get("kanal", "")
+
+        # W1-Feld: Beschreibung = w1_label (oder desc wenn kürzer/besser)
+        if feld_id_w1:
+            label = w1_label or desc or f"{zone}.{kanal}"
+            names[f"{feld_id_w1}_Feld"] = label
+
+        # W2-Feld: Beschreibung = "Hauptname / w2_label"
+        if feld_id_w2:
+            if w2_label:
+                label = f"{w1_label or desc} / {w2_label}".strip(" /")
+            else:
+                label = w1_label or desc or f"{zone}.{kanal} W2"
+            names[f"{feld_id_w2}_Feld"] = label
+
+    logger.debug("Feld-Namen geladen: %d Einträge", len(names))
+    return names
+
+
+# ─────────────────────────────────────────────
 # Home Assistant REST API Push
 # ─────────────────────────────────────────────
 
@@ -740,14 +794,20 @@ if __name__ == "__main__":
     pwd = service_password(K_NUMMER, datetime.date.today())
     print(f"Tagespasswort K{K_NUMMER}: {pwd}\n")
 
+    # Sensor-Namen laden
+    field_names = load_field_names()
+    if field_names:
+        print(f"{len(field_names)} Sensor-Namen geladen\n")
+
     def on_sensors(sensors: dict) -> None:
         print(f"{'─'*60}")
         print(f"{len(sensors)} Sensoren empfangen:")
         for k, v in sorted(sensors.items()):
-            print(f"  {k:22s} = {v['value']:>12s}  {v['unit']}")
+            name = field_names.get(k, k)
+            print(f"  {name:45s} = {v['value']:>12s}  {v['unit']}")
         # HA Push wenn konfiguriert
         if HA_URL and HA_TOKEN:
-            push_to_ha(sensors, HA_URL, HA_TOKEN)
+            push_to_ha(sensors, HA_URL, HA_TOKEN, field_mapping=field_names)
 
     client = VisuRAMClient()
     client.run_loop(on_sensors, interval=POLL_INTERVAL)
