@@ -30,6 +30,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 from visuram_client import (  # type: ignore
     VisuRAMClient,
     load_field_names,
+    load_field_lookup,
     VISURAMPC_HOST,
     VISURAMPC_PORT,
     BILD_ID,
@@ -51,6 +52,9 @@ class VisuRAMApp(hass.Hass):
         self._field_names = load_field_names()
         self.log(f"{len(self._field_names)} Sensor-Namen geladen")
 
+        self._field_lookup = load_field_lookup()
+        self.log(f"{len(self._field_lookup)} Kanal-Mappings für Service geladen")
+
         # Einheiten → HA Device Class
         self._UNIT_TO_CLASS = {
             "oC": "temperature", "°C": "temperature",
@@ -61,6 +65,10 @@ class VisuRAMApp(hass.Hass):
 
         # Ersten Poll sofort, dann alle N Sekunden
         self.run_every(self._poll, "now", interval)
+
+        # HA-Service zum Schalten registrieren
+        self.register_service("visuram/set_value", self._handle_set_value)
+        self.log("Service 'visuram/set_value' registriert")
 
     # ── Polling ──────────────────────────────────────────────────────────
     def _poll(self, kwargs) -> None:
@@ -123,3 +131,66 @@ class VisuRAMApp(hass.Hass):
             attributes = {k: v for k, v in attributes.items() if v is not None}
 
             self.set_state(entity_id, state=state, attributes=attributes)
+
+    # ── Service-Handler: Schalten ────────────────────────────────────────
+    def _handle_set_value(self, namespace: str, domain: str, service: str, kwargs: dict) -> None:
+        """
+        HA-Service 'visuram/set_value' – setzt einen CC600-Kanalwert.
+
+        Pflichtparameter:
+          feld_id   – FeldID, z.B. 'Feld92' (cc600_adr wird automatisch ermittelt)
+
+        Optionale Parameter:
+          w1        – W1-Wert, z.B. '12:00' (Gießdauer) oder '2' (Handstart ein)
+          w2        – W2-Wert, z.B. '2' (Handstart ein), '0' (aus), '1' (Automatik)
+          password  – Schreibpasswort, Standard: '1111'
+          cc600_adr – CC600-Adresse (überschreibt Mapping-Lookup)
+
+        Beispiel für Beregnungs-Handstart ein:
+          service: visuram/set_value
+          data:
+            feld_id: "Feld92"
+            w1: "12:00"
+            w2: "2"
+        """
+        feld_id   = kwargs.get("feld_id")
+        w1        = str(kwargs.get("w1", ""))
+        w2        = str(kwargs.get("w2", ""))
+        password  = str(kwargs.get("password", "1111"))
+        cc600_adr = kwargs.get("cc600_adr")
+
+        if not feld_id:
+            self.log("visuram/set_value: Pflichtparameter 'feld_id' fehlt", level="ERROR")
+            return
+
+        if not cc600_adr:
+            entry = self._field_lookup.get(feld_id)
+            if not entry:
+                self.log(
+                    f"visuram/set_value: Kein CC600-Mapping für feld_id={feld_id!r}. "
+                    "Bitte 'cc600_adr' explizit übergeben.",
+                    level="ERROR",
+                )
+                return
+            cc600_adr = entry["cc600_adr"]
+
+        host = self._client.base_url.split("//")[1].split(":")[0]
+        port = int(self._client.base_url.split(":")[-1].split("/")[0])
+
+        self.log(f"set_value: {feld_id} adr={cc600_adr} w1={w1!r} w2={w2!r}")
+        try:
+            client = VisuRAMClient(host=host, port=port)
+            client.connect()
+            result = client.set_value(
+                feld_id=feld_id,
+                cc600_adr=cc600_adr,
+                w1=w1,
+                w2=w2,
+                password=password,
+            )
+            self.log(f"set_value OK – {result[:120]}")
+        except Exception as exc:
+            self.log(
+                f"set_value({feld_id}) FEHLER: {exc}\n{traceback.format_exc()}",
+                level="ERROR",
+            )

@@ -634,6 +634,57 @@ class VisuRAMClient:
 # Sensor-Mapping aus cc600_channel_mapping.json
 # ─────────────────────────────────────────────
 
+def load_field_lookup(mapping_path: str | None = None) -> dict[str, dict]:
+    """
+    Lädt cc600_channel_mapping.json und gibt ein Dict zurück:
+      { "Feld92": {"cc600_adr": "0101500311", "w1_label": "...", "w2_label": "..."},
+        "Feld91": {"cc600_adr": "0101500612", ...}, ... }
+
+    Schlüssel: FeldID ohne '_Feld'-Suffix (z.B. 'Feld92').
+    Wird von set_value() verwendet um cc600_adr aus FeldID abzuleiten.
+    """
+    import json, os
+
+    if mapping_path is None:
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        candidates = [
+            os.path.join(script_dir, "cc600_channel_mapping.json"),
+            os.path.join(os.path.dirname(script_dir), "data", "cc600_channel_mapping.json"),
+        ]
+        for candidate in candidates:
+            if os.path.exists(candidate):
+                mapping_path = candidate
+                break
+        if mapping_path is None:
+            mapping_path = candidates[0]
+
+    if not os.path.exists(mapping_path):
+        logger.warning("cc600_channel_mapping.json nicht gefunden: %s", mapping_path)
+        return {}
+
+    with open(mapping_path, encoding="utf-8") as f:
+        channels = json.load(f)
+
+    lookup: dict[str, dict] = {}
+    for ch in channels:
+        cc600_adr = ch.get("cc600_adr", "")
+        if not cc600_adr:
+            continue
+        info = {
+            "cc600_adr": cc600_adr,
+            "w1_label":  ch.get("w1_label", ""),
+            "w2_label":  ch.get("w2_label", ""),
+            "desc":      ch.get("desc", ""),
+        }
+        if ch.get("feld_id_w1"):
+            lookup[ch["feld_id_w1"]] = info
+        if ch.get("feld_id_w2"):
+            lookup[ch["feld_id_w2"]] = info
+
+    logger.debug("Field-Lookup geladen: %d Einträge", len(lookup))
+    return lookup
+
+
 def load_field_names(mapping_path: str | None = None) -> dict[str, str]:
     """
     Lädt cc600_channel_mapping.json und gibt ein Dict zurück:
