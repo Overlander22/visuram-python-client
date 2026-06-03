@@ -23,7 +23,6 @@ apps.yaml Beispiel:
     interval: 20
 """
 
-import datetime
 import json
 import os
 import sys
@@ -31,13 +30,9 @@ import traceback
 
 import appdaemon.plugins.hass.hassapi as hass
 
-# Zeitzone der Anlage (Nersingen) – für device_class=timestamp (Tageszeiten).
-# ZoneInfo bringt DST automatisch; Fallback auf System-Localtime falls tzdata fehlt.
-try:
-    from zoneinfo import ZoneInfo
-    _ANLAGEN_TZ = ZoneInfo("Europe/Berlin")
-except Exception:  # pragma: no cover - tzdata evtl. nicht im AppDaemon-Image
-    _ANLAGEN_TZ = None
+# Label-Stichwörter, die einen Zeitwert als DAUER (statt Uhrzeit) ausweisen.
+# Greift nur, wenn im JSON kein explizites "wertart" gepflegt ist.
+_DAUER_HINTS = ("dauer", "laufzeit", "anzahl", "einschaltdauer", "zeitintervall")
 
 # visuram_client.py liegt im gleichen Verzeichnis
 sys.path.insert(0, os.path.dirname(__file__))
@@ -198,26 +193,29 @@ class VisuRAMApp(hass.Hass):
 
             friendly     = self._field_names.get(feld_id, feld_id)
 
-            # State + Typ bestimmen. VisuRAM liefert Zeitwerte als String:
-            #   "min:s" = Dauer  (z.B. "15:00" = 15 min) → device_class duration (Sekunden)
-            #   "h:min" = Tageszeit (z.B. "06:23")       → device_class timestamp (ISO heute)
+            # State + Typ bestimmen. VisuRAM liefert Zeitwerte als String mit
+            # Einheit "min:s" oder "h:min". Die Einheit allein sagt aber NICHT,
+            # ob es eine Dauer oder eine Tageszeit ist (z.B. "Gießdauer" kommt
+            # als h:min, ist aber eine Dauer). Klassifizierung daher per
+            # JSON-Override "wertart" bzw. Label-Heuristik (_time_kind):
+            #   Dauer   → device_class=duration, Wert in Sekunden (+ unit s)
+            #   Uhrzeit → reiner Text "10:15" (CC600 liefert bereits lokal,
+            #             KEINE Zeitzonen-/DST-Anpassung; device_class=timestamp
+            #             würde in HA nach UTC wandeln → 2h-Versatz).
             # Alles andere: numerisch (mit Einheit) oder reiner Text.
-            # WICHTIG: Sobald eine unit_of_measurement gesetzt ist, verwirft HA
-            # nicht-numerische States → "unknown". Daher Zeitwerte in echte
-            # HA-Typen wandeln statt als String mit Einheit zu publizieren.
             device_class = None
             ha_unit      = ""
             state        = value
             anzeige      = None  # menschenlesbarer Originalwert ("15:00"/"06:23")
 
-            if unit == "min:s":
-                secs = self._mmss_to_seconds(value)
-                if secs is not None:
-                    state, device_class, ha_unit, anzeige = str(secs), "duration", "s", value
-            elif unit == "h:min":
-                iso = self._hhmm_to_iso(value)
-                if iso:
-                    state, device_class, anzeige = iso, "timestamp", value
+            if unit in ("min:s", "h:min"):
+                if self._time_kind(entry, friendly, unit) == "dauer":
+                    secs = self._time_to_seconds(value, unit)
+                    if secs is not None:
+                        state, device_class, ha_unit, anzeige = str(secs), "duration", "s", value
+                    else:
+                        state = value  # unparsebar → Text
+                # else: Uhrzeit → state bleibt der Original-String (Text)
             else:
                 try:
                     state        = str(float(value.replace(",", ".").split()[0]))
@@ -272,29 +270,35 @@ class VisuRAMApp(hass.Hass):
 
     # ── Zeit-Konvertierung ────────────────────────────────────────────────
     @staticmethod
-    def _mmss_to_seconds(value: str):
-        """'MM:SS' (VisuRAM-Dauer) → Gesamtsekunden (int) oder None."""
-        try:
-            mm, ss = value.strip().split(":")
-            return int(mm) * 60 + int(ss)
-        except (ValueError, AttributeError):
-            return None
+    def _time_kind(entry: dict | None, label: str, unit: str) -> str:
+        """Klassifiziert einen Zeitwert als 'dauer' oder 'uhrzeit'.
+
+        Priorität:
+          1. Explizites JSON-Override `wertart` ('dauer' | 'uhrzeit')
+          2. Einheit 'min:s' → immer Dauer
+          3. Label-Heuristik (_DAUER_HINTS) → Dauer, sonst Uhrzeit
+        """
+        if entry:
+            wa = entry.get("wertart")
+            if wa in ("dauer", "uhrzeit"):
+                return wa
+        if unit == "min:s":
+            return "dauer"
+        lbl = label.lower()
+        if any(h in lbl for h in _DAUER_HINTS):
+            return "dauer"
+        return "uhrzeit"
 
     @staticmethod
-    def _hhmm_to_iso(value: str):
-        """'H:MM' (VisuRAM-Tageszeit) → ISO-8601-Zeitstempel HEUTE (tz-aware)
-        für device_class=timestamp, oder None bei ungültiger/zu großer Zeit
-        (>=24h ist keine Tageszeit → Aufrufer behandelt es als Text)."""
+    def _time_to_seconds(value: str, unit: str):
+        """Zeit-String → Gesamtsekunden (int) oder None.
+        'min:s' interpretiert als MM:SS, 'h:min' als HH:MM."""
         try:
-            hh, mm = value.strip().split(":")
-            h, m = int(hh), int(mm)
+            a, b = value.strip().split(":")
+            a, b = int(a), int(b)
         except (ValueError, AttributeError):
             return None
-        if not (0 <= h < 24 and 0 <= m < 60):
-            return None
-        now = (datetime.datetime.now(_ANLAGEN_TZ) if _ANLAGEN_TZ
-               else datetime.datetime.now().astimezone())
-        return now.replace(hour=h, minute=m, second=0, microsecond=0).isoformat()
+        return a * 3600 + b * 60 if unit == "h:min" else a * 60 + b
 
     # ── MQTT Helper ───────────────────────────────────────────────────────
     def _mqtt_publish(self, topic: str, payload: str,

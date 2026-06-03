@@ -61,6 +61,24 @@ VisuRAM liefert Temperaturen mit Einheit `oC` (Buchstabe o + C). Mit
 mit `oC` still ab → die Entity wird gar nicht angelegt. `visuRAM_app.py`
 normalisiert daher `oC` → `°C` (`_UNIT_TO_HA`).
 
+### Zeitwerte (Dauer vs. Uhrzeit)
+
+VisuRAM liefert Zeitwerte als String mit Einheit `min:s` oder `h:min`. Die
+Einheit sagt aber **nicht**, ob es eine Dauer oder eine Tageszeit ist (z.B.
+„Gießdauer" kommt als `h:min`, ist aber eine Dauer). Klassifizierung in
+`visuRAM_app.py`:
+
+- **Dauer** → `device_class=duration`, Wert in **Sekunden** (+ `unit s`),
+  Originalwert „15:00" als Attribut `anzeige`.
+- **Uhrzeit** → reiner Text „10:15", genau wie vom CC600 geliefert. **Keine**
+  Zeitzonen-/DST-Anpassung – der CC600 liefert bereits lokal. (`device_class=
+  timestamp` würde in HA nach UTC wandeln → scheinbarer 2h-Versatz.)
+
+Erkennung: optionales Feld **`wertart`** pro Kanal in
+`cc600_channel_mapping.json` (`"dauer"` | `"uhrzeit"`) als Override; sonst
+Heuristik (`min:s`→Dauer; Label enthält „dauer/laufzeit/anzahl/…"→Dauer;
+sonst Uhrzeit). Nur Ausnahmen müssen via `wertart` gepflegt werden.
+
 ---
 
 ## Installation
