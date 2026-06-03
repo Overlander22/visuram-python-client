@@ -38,6 +38,18 @@
   {
     "zone": "00",
     "kanal": "00003",
+    "cc600_adr": "0100000031",
+    "feld_id_w1": "Feld59",
+    "feld_id_w2": null,
+    "desc": "Uhrzeit / (Sommerzeit)",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "Uhrzeit",
+    "w2_label": ""
+  },
+  {
+    "zone": "00",
+    "kanal": "00003",
     "cc600_adr": "0100000032",
     "feld_id_w1": "Feld53",
     "feld_id_w2": null,
@@ -85,6 +97,18 @@
   },
   {
     "zone": "00",
+    "kanal": "10001",
+    "cc600_adr": "0100100012",
+    "feld_id_w1": "Feld13",
+    "feld_id_w2": null,
+    "desc": "Außentemperatur",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "Außentemperatur",
+    "w2_label": ""
+  },
+  {
+    "zone": "00",
     "kanal": "10501",
     "cc600_adr": "0100105011",
     "feld_id_w1": null,
@@ -103,6 +127,18 @@
     "feld_id_w2": null,
     "desc": "Außenhelligkeit",
     "w1_value": "6,7 klx",
+    "w2_value": "",
+    "w1_label": "Außenhelligkeit",
+    "w2_label": ""
+  },
+  {
+    "zone": "00",
+    "kanal": "40001",
+    "cc600_adr": "0100400011",
+    "feld_id_w1": "Feld16",
+    "feld_id_w2": null,
+    "desc": "Außenhelligkeit",
+    "w1_value": "",
     "w2_value": "",
     "w1_label": "Außenhelligkeit",
     "w2_label": ""
@@ -133,6 +169,18 @@
   },
   {
     "zone": "00",
+    "kanal": "90000",
+    "cc600_adr": "0100900002",
+    "feld_id_w1": "Feld2",
+    "feld_id_w2": null,
+    "desc": "Windgeschwindigkeit / Richtung",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "Windgeschwindigkeit",
+    "w2_label": ""
+  },
+  {
+    "zone": "00",
     "kanal": "90050",
     "cc600_adr": "0100900501",
     "feld_id_w1": "Feld36",
@@ -142,6 +190,18 @@
     "w2_value": "0 nein",
     "w1_label": "Niederschlag",
     "w2_label": "Schnee"
+  },
+  {
+    "zone": "00",
+    "kanal": "90050",
+    "cc600_adr": "0100900502",
+    "feld_id_w1": "Feld75",
+    "feld_id_w2": null,
+    "desc": "Niederschlag / Schnee",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "Niederschlag",
+    "w2_label": ""
   },
   {
     "zone": "00",
@@ -178,6 +238,18 @@
     "w2_value": "14,0 m/s",
     "w1_label": "Sturmschutz",
     "w2_label": "ab Windgeschw"
+  },
+  {
+    "zone": "00",
+    "kanal": "90302",
+    "cc600_adr": "0100903022",
+    "feld_id_w1": "Feld5",
+    "feld_id_w2": null,
+    "desc": "Vorzugswindrichtung / Umschaltpunkt",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "Vorzugswindrichtung",
+    "w2_label": ""
   },
   {
     "zone": "00",
@@ -518,6 +590,18 @@
   {
     "zone": "01",
     "kanal": "11220",
+    "cc600_adr": "0101112201",
+    "feld_id_w1": "Feld22",
+    "feld_id_w2": null,
+    "desc": "Lufthzg: Einschaltdauer / Ventilator",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "Lufthzg: Einschaltdauer",
+    "w2_label": ""
+  },
+  {
+    "zone": "01",
+    "kanal": "11220",
     "cc600_adr": "0101112203",
     "feld_id_w1": "Feld94",
     "feld_id_w2": null,
@@ -781,6 +865,18 @@
   },
   {
     "zone": "01",
+    "kanal": "12316",
+    "cc600_adr": "0101123162",
+    "feld_id_w1": "Feld46",
+    "feld_id_w2": null,
+    "desc": "D-Lüftg: P-Bereich Lee / Luv",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "D-Lüftg: P-Bereich Lee",
+    "w2_label": ""
+  },
+  {
+    "zone": "01",
     "kanal": "12317",
     "cc600_adr": "0101123171",
     "feld_id_w1": null,
@@ -898,6 +994,18 @@
     "w2_value": "12,0 klx",
     "w1_label": "Schirm: Schaltpunkt Nacht So",
     "w2_label": "Wi"
+  },
+  {
+    "zone": "01",
+    "kanal": "42013",
+    "cc600_adr": "0101420132",
+    "feld_id_w1": "Feld12",
+    "feld_id_w2": null,
+    "desc": "Schirm: Schaltpunkt Tag",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "Schirm: Schaltpunkt Tag",
+    "w2_label": ""
   },
   {
     "zone": "01",
@@ -1033,6 +1141,18 @@
   },
   {
     "zone": "01",
+    "kanal": "50022",
+    "cc600_adr": "0101500221",
+    "feld_id_w1": "Feld26",
+    "feld_id_w2": null,
+    "desc": "Bereg: Gießdauer / Handstart",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "Bereg: Gießdauer",
+    "w2_label": ""
+  },
+  {
+    "zone": "01",
     "kanal": "50029",
     "cc600_adr": "0101500291",
     "feld_id_w1": "Feld27",
@@ -1045,6 +1165,18 @@
   },
   {
     "zone": "01",
+    "kanal": "50029",
+    "cc600_adr": "0101500292",
+    "feld_id_w1": "Feld30",
+    "feld_id_w2": null,
+    "desc": "Bereg: Gießdauer / Handstart",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "Bereg: Gießdauer",
+    "w2_label": ""
+  },
+  {
+    "zone": "01",
     "kanal": "50031",
     "cc600_adr": "0101500311",
     "feld_id_w1": null,
@@ -1054,6 +1186,18 @@
     "w2_value": "0 aus",
     "w1_label": "Bereg: Gießdauer",
     "w2_label": "Handstart"
+  },
+  {
+    "zone": "01",
+    "kanal": "50031",
+    "cc600_adr": "0101500312",
+    "feld_id_w1": "Feld111",
+    "feld_id_w2": null,
+    "desc": "Bereg: Gießdauer / Handstart",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "Bereg: Gießdauer",
+    "w2_label": ""
   },
   {
     "zone": "01",
@@ -1093,6 +1237,18 @@
   },
   {
     "zone": "01",
+    "kanal": "50039",
+    "cc600_adr": "0101500392",
+    "feld_id_w1": "Feld44",
+    "feld_id_w2": null,
+    "desc": "Bereg: Gießdauer / Handstart",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "Bereg: Gießdauer",
+    "w2_label": ""
+  },
+  {
+    "zone": "01",
     "kanal": "50041",
     "cc600_adr": "0101500411",
     "feld_id_w1": "Feld110",
@@ -1105,6 +1261,18 @@
   },
   {
     "zone": "01",
+    "kanal": "50042",
+    "cc600_adr": "0101500421",
+    "feld_id_w1": "Feld80",
+    "feld_id_w2": null,
+    "desc": "Bereg: Gießdauer / Handstart",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "Bereg: Gießdauer",
+    "w2_label": ""
+  },
+  {
+    "zone": "01",
     "kanal": "50049",
     "cc600_adr": "0101500491",
     "feld_id_w1": "Feld23",
@@ -1114,6 +1282,18 @@
     "w2_value": "13:30 h:min",
     "w1_label": "Bereg: Freigabe von(SA)",
     "w2_label": "bis(SU)"
+  },
+  {
+    "zone": "01",
+    "kanal": "50049",
+    "cc600_adr": "0101500492",
+    "feld_id_w1": "Feld37",
+    "feld_id_w2": null,
+    "desc": "Bereg: Gießdauer / Handstart",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "Bereg: Gießdauer",
+    "w2_label": ""
   },
   {
     "zone": "01",
@@ -1174,6 +1354,18 @@
     "w2_value": "22:00 h:min",
     "w1_label": "Bereg: Lichtsumme",
     "w2_label": "Zeitintervall"
+  },
+  {
+    "zone": "01",
+    "kanal": "50069",
+    "cc600_adr": "0101500691",
+    "feld_id_w1": "Feld50",
+    "feld_id_w2": null,
+    "desc": "Bereg: Gießdauer / Handstart",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "Bereg: Gießdauer",
+    "w2_label": ""
   },
   {
     "zone": "01",
@@ -1297,6 +1489,18 @@
   },
   {
     "zone": "01",
+    "kanal": "50220",
+    "cc600_adr": "0101502203",
+    "feld_id_w1": "Feld95",
+    "feld_id_w2": null,
+    "desc": "Bereg: Magnetventil / Bedarf",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "Bereg: Magnetventil",
+    "w2_label": ""
+  },
+  {
+    "zone": "01",
     "kanal": "50221",
     "cc600_adr": "0101502211",
     "feld_id_w1": null,
@@ -1306,6 +1510,18 @@
     "w2_value": "0:00 min:s",
     "w1_label": "Bereg: akt Anzahl",
     "w2_label": "Gießdauer"
+  },
+  {
+    "zone": "01",
+    "kanal": "50221",
+    "cc600_adr": "0101502212",
+    "feld_id_w1": "Feld28",
+    "feld_id_w2": null,
+    "desc": "Bereg: Magnetventil / Bedarf",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "Bereg: Magnetventil",
+    "w2_label": ""
   },
   {
     "zone": "01",
@@ -1357,6 +1573,18 @@
   },
   {
     "zone": "01",
+    "kanal": "50240",
+    "cc600_adr": "0101502403",
+    "feld_id_w1": "Feld96",
+    "feld_id_w2": null,
+    "desc": "Bereg: Magnetventil / Bedarf",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "Bereg: Magnetventil",
+    "w2_label": ""
+  },
+  {
+    "zone": "01",
     "kanal": "50241",
     "cc600_adr": "0101502411",
     "feld_id_w1": null,
@@ -1366,6 +1594,18 @@
     "w2_value": "0:00 min:s",
     "w1_label": "Bereg: akt Anzahl",
     "w2_label": "Gießdauer"
+  },
+  {
+    "zone": "01",
+    "kanal": "50241",
+    "cc600_adr": "0101502412",
+    "feld_id_w1": "Feld25",
+    "feld_id_w2": null,
+    "desc": "Bereg: Magnetventil / Bedarf",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "Bereg: Magnetventil",
+    "w2_label": ""
   },
   {
     "zone": "01",
@@ -1766,6 +2006,18 @@
   {
     "zone": "02",
     "kanal": "11220",
+    "cc600_adr": "0102112201",
+    "feld_id_w1": "Feld29",
+    "feld_id_w2": null,
+    "desc": "Lufthzg: Einschaltdauer / Ventilator",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "Lufthzg: Einschaltdauer",
+    "w2_label": ""
+  },
+  {
+    "zone": "02",
+    "kanal": "11220",
     "cc600_adr": "0102112203",
     "feld_id_w1": "Feld97",
     "feld_id_w2": null,
@@ -2054,6 +2306,18 @@
   {
     "zone": "02",
     "kanal": "12316",
+    "cc600_adr": "0102123161",
+    "feld_id_w1": "Feld64",
+    "feld_id_w2": null,
+    "desc": "D-Lüftg: P-Bereich Lee / Luv",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "D-Lüftg: P-Bereich Lee",
+    "w2_label": ""
+  },
+  {
+    "zone": "02",
+    "kanal": "12316",
     "cc600_adr": "0102123162",
     "feld_id_w1": "Feld73",
     "feld_id_w2": null,
@@ -2170,6 +2434,18 @@
     "w2_value": "+3:00 h:min",
     "w1_label": "Schirm: Nachtfkt von(SU)",
     "w2_label": "bis(SA)"
+  },
+  {
+    "zone": "02",
+    "kanal": "42013",
+    "cc600_adr": "0102420131",
+    "feld_id_w1": "Feld51",
+    "feld_id_w2": null,
+    "desc": "Schirm: Schaltpunkt Tag",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "Schirm: Schaltpunkt Tag",
+    "w2_label": ""
   },
   {
     "zone": "02",
@@ -2293,6 +2569,18 @@
   },
   {
     "zone": "02",
+    "kanal": "50011",
+    "cc600_adr": "0102500112",
+    "feld_id_w1": "Feld113",
+    "feld_id_w2": null,
+    "desc": "Bereg: Gießdauer / Handstart",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "Bereg: Gießdauer",
+    "w2_label": ""
+  },
+  {
+    "zone": "02",
     "kanal": "50012",
     "cc600_adr": "0102500121",
     "feld_id_w1": "Feld38",
@@ -2329,6 +2617,18 @@
   },
   {
     "zone": "02",
+    "kanal": "50019",
+    "cc600_adr": "0102500192",
+    "feld_id_w1": "Feld31",
+    "feld_id_w2": null,
+    "desc": "Bereg: Gießdauer / Handstart",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "Bereg: Gießdauer",
+    "w2_label": ""
+  },
+  {
+    "zone": "02",
     "kanal": "50021",
     "cc600_adr": "0102500211",
     "feld_id_w1": null,
@@ -2338,6 +2638,18 @@
     "w2_value": "0 aus",
     "w1_label": "Bereg: Gießdauer",
     "w2_label": "Handstart"
+  },
+  {
+    "zone": "02",
+    "kanal": "50021",
+    "cc600_adr": "0102500212",
+    "feld_id_w1": "Feld115",
+    "feld_id_w2": null,
+    "desc": "Bereg: Gießdauer / Handstart",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "Bereg: Gießdauer",
+    "w2_label": ""
   },
   {
     "zone": "02",
@@ -2377,6 +2689,18 @@
   },
   {
     "zone": "02",
+    "kanal": "50029",
+    "cc600_adr": "0102500292",
+    "feld_id_w1": "Feld33",
+    "feld_id_w2": null,
+    "desc": "Bereg: Gießdauer / Handstart",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "Bereg: Gießdauer",
+    "w2_label": ""
+  },
+  {
+    "zone": "02",
     "kanal": "50110",
     "cc600_adr": "0102501101",
     "feld_id_w1": null,
@@ -2413,6 +2737,18 @@
   },
   {
     "zone": "02",
+    "kanal": "50210",
+    "cc600_adr": "0102502103",
+    "feld_id_w1": "Feld92",
+    "feld_id_w2": null,
+    "desc": "Bereg: Magnetventil / Bedarf",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "Bereg: Magnetventil",
+    "w2_label": ""
+  },
+  {
+    "zone": "02",
     "kanal": "50211",
     "cc600_adr": "0102502111",
     "feld_id_w1": null,
@@ -2446,6 +2782,18 @@
     "w2_value": "0 nein",
     "w1_label": "Bereg: Magnetventil",
     "w2_label": "Bedarf"
+  },
+  {
+    "zone": "02",
+    "kanal": "50220",
+    "cc600_adr": "0102502203",
+    "feld_id_w1": "Feld91",
+    "feld_id_w2": null,
+    "desc": "Bereg: Magnetventil / Bedarf",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "Bereg: Magnetventil",
+    "w2_label": ""
   },
   {
     "zone": "02",
@@ -2798,6 +3146,18 @@
   {
     "zone": "03",
     "kanal": "11220",
+    "cc600_adr": "0103112201",
+    "feld_id_w1": "Feld21",
+    "feld_id_w2": null,
+    "desc": "Lufthzg: Einschaltdauer / Ventilator",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "Lufthzg: Einschaltdauer",
+    "w2_label": ""
+  },
+  {
+    "zone": "03",
+    "kanal": "11220",
     "cc600_adr": "0103112203",
     "feld_id_w1": "Feld90",
     "feld_id_w2": null,
@@ -3061,6 +3421,18 @@
   },
   {
     "zone": "03",
+    "kanal": "12316",
+    "cc600_adr": "0103123162",
+    "feld_id_w1": "Feld77",
+    "feld_id_w2": null,
+    "desc": "D-Lüftg: P-Bereich Lee / Luv",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "D-Lüftg: P-Bereich Lee",
+    "w2_label": ""
+  },
+  {
+    "zone": "03",
     "kanal": "12317",
     "cc600_adr": "0103123171",
     "feld_id_w1": null,
@@ -3145,6 +3517,18 @@
   },
   {
     "zone": "03",
+    "kanal": "50011",
+    "cc600_adr": "0103500112",
+    "feld_id_w1": "Feld118",
+    "feld_id_w2": null,
+    "desc": "Bereg: Gießdauer / Handstart",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "Bereg: Gießdauer",
+    "w2_label": ""
+  },
+  {
+    "zone": "03",
     "kanal": "50012",
     "cc600_adr": "0103500121",
     "feld_id_w1": "Feld39",
@@ -3170,6 +3554,18 @@
   {
     "zone": "03",
     "kanal": "50019",
+    "cc600_adr": "0103500191",
+    "feld_id_w1": "Feld60",
+    "feld_id_w2": null,
+    "desc": "Bereg: Gießdauer / Handstart",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "Bereg: Gießdauer",
+    "w2_label": ""
+  },
+  {
+    "zone": "03",
+    "kanal": "50019",
     "cc600_adr": "0103500192",
     "feld_id_w1": "Feld62",
     "feld_id_w2": null,
@@ -3190,6 +3586,18 @@
     "w2_value": "0 aus",
     "w1_label": "Bereg: Gießdauer",
     "w2_label": "Handstart"
+  },
+  {
+    "zone": "03",
+    "kanal": "50021",
+    "cc600_adr": "0103500212",
+    "feld_id_w1": "Feld116",
+    "feld_id_w2": null,
+    "desc": "Bereg: Gießdauer / Handstart",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "Bereg: Gießdauer",
+    "w2_label": ""
   },
   {
     "zone": "03",
@@ -3229,6 +3637,18 @@
   },
   {
     "zone": "03",
+    "kanal": "50029",
+    "cc600_adr": "0103500292",
+    "feld_id_w1": "Feld34",
+    "feld_id_w2": null,
+    "desc": "Bereg: Gießdauer / Handstart",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "Bereg: Gießdauer",
+    "w2_label": ""
+  },
+  {
+    "zone": "03",
     "kanal": "50110",
     "cc600_adr": "0103501101",
     "feld_id_w1": null,
@@ -3265,6 +3685,18 @@
   },
   {
     "zone": "03",
+    "kanal": "50210",
+    "cc600_adr": "0103502103",
+    "feld_id_w1": "Feld88",
+    "feld_id_w2": null,
+    "desc": "Bereg: Magnetventil / Bedarf",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "Bereg: Magnetventil",
+    "w2_label": ""
+  },
+  {
+    "zone": "03",
     "kanal": "50211",
     "cc600_adr": "0103502111",
     "feld_id_w1": null,
@@ -3298,6 +3730,18 @@
     "w2_value": "1 ja",
     "w1_label": "Bereg: Magnetventil",
     "w2_label": "Bedarf"
+  },
+  {
+    "zone": "03",
+    "kanal": "50220",
+    "cc600_adr": "0103502203",
+    "feld_id_w1": "Feld93",
+    "feld_id_w2": null,
+    "desc": "Bereg: Magnetventil / Bedarf",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "Bereg: Magnetventil",
+    "w2_label": ""
   },
   {
     "zone": "03",
@@ -3770,6 +4214,18 @@
   {
     "zone": "04",
     "kanal": "12202",
+    "cc600_adr": "0104122021",
+    "feld_id_w1": "Feld43",
+    "feld_id_w2": null,
+    "desc": "Lüftung: akt Raumsollwert",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "Lüftung: akt Raumsollwert",
+    "w2_label": ""
+  },
+  {
+    "zone": "04",
+    "kanal": "12202",
     "cc600_adr": "0104122022",
     "feld_id_w1": null,
     "feld_id_w2": null,
@@ -3874,6 +4330,18 @@
     "w2_value": "0,0 %",
     "w1_label": "D-Lüftg: max Regenstellg Luv",
     "w2_label": "Lee"
+  },
+  {
+    "zone": "04",
+    "kanal": "12316",
+    "cc600_adr": "0104123161",
+    "feld_id_w1": "Feld42",
+    "feld_id_w2": null,
+    "desc": "D-Lüftg: P-Bereich Lee / Luv",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "D-Lüftg: P-Bereich Lee",
+    "w2_label": ""
   },
   {
     "zone": "04",
@@ -4742,6 +5210,18 @@
   {
     "zone": "05",
     "kanal": "10000",
+    "cc600_adr": "0105100001",
+    "feld_id_w1": "Feld61",
+    "feld_id_w2": null,
+    "desc": "Raumtemperatur",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "Raumtemperatur",
+    "w2_label": ""
+  },
+  {
+    "zone": "05",
+    "kanal": "10000",
     "cc600_adr": "0105100002",
     "feld_id_w1": null,
     "feld_id_w2": null,
@@ -5125,6 +5605,18 @@
   },
   {
     "zone": "50",
+    "kanal": "50200",
+    "cc600_adr": "0150502003",
+    "feld_id_w1": "Feld100",
+    "feld_id_w2": null,
+    "desc": "Bewässerung",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "Bewässerung",
+    "w2_label": ""
+  },
+  {
+    "zone": "50",
     "kanal": "50202",
     "cc600_adr": "0150502022",
     "feld_id_w1": null,
@@ -5150,6 +5642,18 @@
   {
     "zone": "50",
     "kanal": "51100",
+    "cc600_adr": "0150511001",
+    "feld_id_w1": "Feld14",
+    "feld_id_w2": null,
+    "desc": "GWasser: Wochentag von / bis",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "GWasser: Wochentag von",
+    "w2_label": ""
+  },
+  {
+    "zone": "50",
+    "kanal": "51100",
     "cc600_adr": "0150511002",
     "feld_id_w1": "Feld78",
     "feld_id_w2": null,
@@ -5158,6 +5662,18 @@
     "w2_value": "5 Fr",
     "w1_label": "GWasser: Wochentag von",
     "w2_label": "bis"
+  },
+  {
+    "zone": "50",
+    "kanal": "51101",
+    "cc600_adr": "0150511011",
+    "feld_id_w1": "Feld15",
+    "feld_id_w2": null,
+    "desc": "GWasser: Wochentag von / bis",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "GWasser: Wochentag von",
+    "w2_label": ""
   },
   {
     "zone": "50",
@@ -5174,6 +5690,18 @@
   {
     "zone": "50",
     "kanal": "51102",
+    "cc600_adr": "0150511021",
+    "feld_id_w1": "Feld11",
+    "feld_id_w2": null,
+    "desc": "GWasser: Wochentag von / bis",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "GWasser: Wochentag von",
+    "w2_label": ""
+  },
+  {
+    "zone": "50",
+    "kanal": "51102",
     "cc600_adr": "0150511022",
     "feld_id_w1": null,
     "feld_id_w2": null,
@@ -5182,6 +5710,18 @@
     "w2_value": "6 Sa",
     "w1_label": "GWasser: Wochentag von",
     "w2_label": "bis"
+  },
+  {
+    "zone": "50",
+    "kanal": "51103",
+    "cc600_adr": "0150511031",
+    "feld_id_w1": "Feld63",
+    "feld_id_w2": null,
+    "desc": "GWasser: Wochentag von / bis",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "GWasser: Wochentag von",
+    "w2_label": ""
   },
   {
     "zone": "50",
@@ -5198,6 +5738,18 @@
   {
     "zone": "50",
     "kanal": "51104",
+    "cc600_adr": "0150511041",
+    "feld_id_w1": "Feld69",
+    "feld_id_w2": null,
+    "desc": "GWasser: Wochentag von / bis",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "GWasser: Wochentag von",
+    "w2_label": ""
+  },
+  {
+    "zone": "50",
+    "kanal": "51104",
     "cc600_adr": "0150511042",
     "feld_id_w1": null,
     "feld_id_w2": null,
@@ -5210,6 +5762,18 @@
   {
     "zone": "50",
     "kanal": "51105",
+    "cc600_adr": "0150511051",
+    "feld_id_w1": "Feld70",
+    "feld_id_w2": null,
+    "desc": "GWasser: Wochentag von / bis",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "GWasser: Wochentag von",
+    "w2_label": ""
+  },
+  {
+    "zone": "50",
+    "kanal": "51105",
     "cc600_adr": "0150511052",
     "feld_id_w1": "Feld79",
     "feld_id_w2": null,
@@ -5218,6 +5782,18 @@
     "w2_value": "13:00 h:min",
     "w1_label": "GWasser: Versorgung von",
     "w2_label": "bis"
+  },
+  {
+    "zone": "91",
+    "kanal": "11210",
+    "cc600_adr": "0191112101",
+    "feld_id_w1": "Feld89",
+    "feld_id_w2": null,
+    "desc": "Pumpe",
+    "w1_value": "",
+    "w2_value": "",
+    "w1_label": "Pumpe",
+    "w2_label": ""
   },
   {
     "zone": "91",
