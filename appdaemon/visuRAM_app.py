@@ -103,14 +103,38 @@ class VisuRAMApp(hass.Hass):
 
     # ── HA Entity Update ─────────────────────────────────────────────────
     def _push_sensors(self, sensors: dict) -> None:
-        """Schreibt alle Sensoren als HA-Entities."""
+        """Schreibt alle Sensoren als HA-Entities.
+
+        Entity-ID-Schema: sensor.nersingen_{cc600_adr}         (W1-Wert)
+                          sensor.nersingen_{cc600_adr}_w2      (W2-Wert)
+        Fallback (kein Mapping): sensor.nersingen_{feld_id_lower}
+        """
         for feld_id, sensor in sensors.items():
             value = sensor.get("value", "")
             unit  = sensor.get("unit", "")
             if not value:
                 continue
 
-            entity_id    = f"sensor.nersingen_{feld_id.lower().replace('_feld', '')}"
+            # cc600_adr aus Lookup ermitteln
+            # feld_id kommt als "Feld92_Feld" → Lookup-Key ist "Feld92"
+            lookup_key = feld_id.replace("_Feld", "")
+            entry = self._field_lookup.get(lookup_key)
+
+            if entry:
+                cc600_adr = entry["cc600_adr"]
+                is_w2     = entry.get("is_w2", False)
+                w2_label  = entry.get("w2_label", "")
+
+                # W2-Entity überspringen wenn kein w2_label → kein sinnvoller Wert
+                if is_w2 and not w2_label:
+                    continue
+
+                suffix    = "_w2" if is_w2 else ""
+                entity_id = f"sensor.nersingen_{cc600_adr}{suffix}"
+            else:
+                # Fallback für Felder ohne Mapping-Eintrag
+                entity_id = f"sensor.nersingen_{feld_id.lower().replace('_feld', '')}"
+
             friendly     = self._field_names.get(feld_id, feld_id)
             device_class = self._UNIT_TO_CLASS.get(unit)
 
@@ -126,6 +150,7 @@ class VisuRAMApp(hass.Hass):
                 "device_class":        device_class,
                 "source":              "VisuRAM CC600",
                 "feld_id":             feld_id,
+                "cc600_adr":           entry["cc600_adr"] if entry else None,
             }
             # None-Werte entfernen
             attributes = {k: v for k, v in attributes.items() if v is not None}

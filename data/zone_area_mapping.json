@@ -1,0 +1,117 @@
+{
+  "_comment": "Zonen → HA Floors/Areas Mapping. Bitte ha_floor und ha_area ausfüllen. Wird vom Script apply_area_mapping.py angewendet.",
+  "_ha_floor_examples": [
+    "Erdgeschoss",
+    "Obergeschoss",
+    "Außen"
+  ],
+  "_ha_area_examples": [
+    "Gewächshaus 01",
+    "Bewässerung",
+    "Wetterstation"
+  ],
+  "zones": [
+    {
+      "zone": "00",
+      "kanal_count": 18,
+      "sample_descriptions": [
+        "Uhrzeit / (Sommerzeit)",
+        "Datum",
+        "Wochentag",
+        "Sonnenaufgang / -untergang",
+        "Alarmmeldung"
+      ],
+      "ha_floor": "",
+      "ha_area": ""
+    },
+    {
+      "zone": "01",
+      "kanal_count": 109,
+      "sample_descriptions": [
+        "Allg Zeitprogramm",
+        "Tagbetrieb von(SA) / bis(SU)",
+        "Temp-Programm 1 / Laufzeit",
+        "Freigabe von / bis Außentemp",
+        "> Heizg: Beginn(SA) / Dauer"
+      ],
+      "ha_floor": "",
+      "ha_area": ""
+    },
+    {
+      "zone": "02",
+      "kanal_count": 89,
+      "sample_descriptions": [
+        "Allg Zeitprogramm",
+        "Tagbetrieb von(SA) / bis(SU)",
+        "Temp-Programm 1 / Laufzeit",
+        "Temp-Programm 2 / Laufzeit",
+        "Umluft-Programm / Funktion"
+      ],
+      "ha_floor": "",
+      "ha_area": ""
+    },
+    {
+      "zone": "03",
+      "kanal_count": 63,
+      "sample_descriptions": [
+        "Allg Zeitprogramm",
+        "Tagbetrieb von(SA) / bis(SU)",
+        "Temp-Programm 1 / Laufzeit",
+        "Temp-Programm 2 / Laufzeit",
+        "Umluft-Programm / Funktion"
+      ],
+      "ha_floor": "",
+      "ha_area": ""
+    },
+    {
+      "zone": "04",
+      "kanal_count": 99,
+      "sample_descriptions": [
+        "Allg Zeitprogramm",
+        "Tagbetrieb von(SA) / bis(SU)",
+        "Temp-Programm 1 / Laufzeit",
+        "Temp-Programm 2 / Laufzeit",
+        "Umluft-Programm / Funktion"
+      ],
+      "ha_floor": "",
+      "ha_area": ""
+    },
+    {
+      "zone": "05",
+      "kanal_count": 48,
+      "sample_descriptions": [
+        "Allg Zeitprogramm",
+        "Ferien vom / bis",
+        "Tagbetrieb Mo von / bis",
+        "Tagbetrieb Di von / bis",
+        "Tagbetrieb Mi von / bis"
+      ],
+      "ha_floor": "",
+      "ha_area": ""
+    },
+    {
+      "zone": "50",
+      "kanal_count": 9,
+      "sample_descriptions": [
+        "Bewässerung",
+        "akt Ventil / Ventil",
+        "Zentral-Halt",
+        "GWasser: Wochentag von / bis",
+        "GWasser: Versorgung von / bis"
+      ],
+      "ha_floor": "",
+      "ha_area": ""
+    },
+    {
+      "zone": "91",
+      "kanal_count": 3,
+      "sample_descriptions": [
+        "Pumpe",
+        "Lichtführung Nacht / Tag",
+        "Betrieb bis Außentemp-Tag / Nacht"
+      ],
+      "ha_floor": "",
+      "ha_area": ""
+    }
+  ]
+}

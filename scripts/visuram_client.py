@@ -637,11 +637,13 @@ class VisuRAMClient:
 def load_field_lookup(mapping_path: str | None = None) -> dict[str, dict]:
     """
     Lädt cc600_channel_mapping.json und gibt ein Dict zurück:
-      { "Feld92": {"cc600_adr": "0101500311", "w1_label": "...", "w2_label": "..."},
-        "Feld91": {"cc600_adr": "0101500612", ...}, ... }
+      { "Feld92": {"cc600_adr": "0101500311", "w1_label": "...", "w2_label": "...",
+                   "desc": "...", "zone": "01", "is_w2": False},
+        "Feld91": {"cc600_adr": "...", ..., "is_w2": True}, ... }
 
     Schlüssel: FeldID ohne '_Feld'-Suffix (z.B. 'Feld92').
-    Wird von set_value() verwendet um cc600_adr aus FeldID abzuleiten.
+    Wird von set_value() und _push_sensors() verwendet.
+    'is_w2' kennzeichnet ob die FeldID den W2-Wert des Kanals repräsentiert.
     """
     import json, os
 
@@ -670,16 +672,17 @@ def load_field_lookup(mapping_path: str | None = None) -> dict[str, dict]:
         cc600_adr = ch.get("cc600_adr", "")
         if not cc600_adr:
             continue
-        info = {
+        base_info = {
             "cc600_adr": cc600_adr,
             "w1_label":  ch.get("w1_label", ""),
             "w2_label":  ch.get("w2_label", ""),
             "desc":      ch.get("desc", ""),
+            "zone":      ch.get("zone", ""),
         }
         if ch.get("feld_id_w1"):
-            lookup[ch["feld_id_w1"]] = info
+            lookup[ch["feld_id_w1"]] = {**base_info, "is_w2": False}
         if ch.get("feld_id_w2"):
-            lookup[ch["feld_id_w2"]] = info
+            lookup[ch["feld_id_w2"]] = {**base_info, "is_w2": True}
 
     logger.debug("Field-Lookup geladen: %d Einträge", len(lookup))
     return lookup
@@ -729,17 +732,15 @@ def load_field_names(mapping_path: str | None = None) -> dict[str, str]:
         zone       = ch.get("zone", "")
         kanal      = ch.get("kanal", "")
 
-        # W1-Feld: Beschreibung = w1_label (oder desc wenn kürzer/besser)
+        # W1-Feld: "{zone}-{w1_label}"
         if feld_id_w1:
-            label = w1_label or desc or f"{zone}.{kanal}"
+            label = f"{zone}-{w1_label}" if w1_label else f"{zone}-{desc or f'{zone}.{kanal}'}"
             names[f"{feld_id_w1}_Feld"] = label
 
-        # W2-Feld: Beschreibung = "Hauptname / w2_label"
-        if feld_id_w2:
-            if w2_label:
-                label = f"{w1_label or desc} / {w2_label}".strip(" /")
-            else:
-                label = w1_label or desc or f"{zone}.{kanal} W2"
+        # W2-Feld: "{zone}-{desc}" – NUR wenn w2_label nicht leer ist
+        # (leeres w2_label = kein sinnvoller W2-Wert vorhanden)
+        if feld_id_w2 and w2_label:
+            label = f"{zone}-{desc}" if desc else f"{zone}-{w1_label} / {w2_label}"
             names[f"{feld_id_w2}_Feld"] = label
 
     logger.debug("Feld-Namen geladen: %d Einträge", len(names))
