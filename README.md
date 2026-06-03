@@ -25,7 +25,7 @@ Session-Aufbau (3 Schritte):
   2. POST /visuram/RAMService.asmx/GlobalService  OnGetRechte  → URECHT:2000
   3. POST /visuram/RAMService.asmx/GlobalService  BINITCALL    → BPB:true
 
-Sensordaten (BildId=3, 77 Kanäle):
+Sensordaten (BildId=3, ~147 Werte pro Callback):
   POST /visuram/VisuRAM.aspx?...&WCFID=<n>   __CALLBACKID=__Page
   → sCONTEXT[OnGetAdviseData]ARG[F0{FeldID,Wert Unit}...NF{n}]
 
@@ -34,6 +34,32 @@ Alle 438 Kanäle (Parameterzeile, Branch feature/parameterzeile-polling):
 ```
 
 Detaillierte Protokolldokumentation: siehe Kommentare in `scripts/visuram_client.py`.
+
+### Zwei Feld-Typen mit Werten (wichtig!)
+
+Der GlobalCallback liefert **zwei** Arten von Feldern, die einen CC600-Wert tragen:
+
+- `FeldXX_Feld` – reguläre Datenfelder/Schalter
+- `ContainerXFeldY_Feld` – Datenfelder innerhalb eines Containers (u.a. **alle
+  Raumtemperaturen**, Mitteltemperaturen, Schirm-/Lüftungs-Stellungen).
+  Nur `ContainerXFeld1` trägt den Wert; `ContainerXFeld2` ist ein Analog-Balken
+  (Füllstand-%) und wird ignoriert.
+
+`parse_sensors` matcht beide: `(?:Feld\d+|Container\d+Feld\d+)_Feld`.
+
+### cc600_adr-Struktur
+
+`01` + `ZZ`(Zone, 2-stellig) + `KKKKK`(Kanal, 5-stellig) + `P`(1=W1, 2=W2).  
+Beispiel `0102100011` → Zone 02, Kanal 10001, W1 (Raumtemp-Nord). Zone+Kanal sind
+eindeutig, daher ist die cc600_adr auch aus dem Tooltip „ZZ Name KKKKK …" herleitbar.
+Jeder JSON-Eintrag hält `feld_id_w1` UND `feld_id_w2`.
+
+### Einheit „oC" → „°C" (HA-Gotcha)
+
+VisuRAM liefert Temperaturen mit Einheit `oC` (Buchstabe o + C). Mit
+`device_class=temperature` **lehnt Home Assistant** die MQTT-Discovery-Config
+mit `oC` still ab → die Entity wird gar nicht angelegt. `visuRAM_app.py`
+normalisiert daher `oC` → `°C` (`_UNIT_TO_HA`).
 
 ---
 
@@ -56,9 +82,11 @@ visuram_python_client/
 │   ├── visuram_client.py         # CC600-Client: Session, Polling, Parsing, Mapping
 │   └── apply_area_mapping.py     # HA-Script: Floors/Areas/Labels zuweisen (lokal ausführen)
 ├── appdaemon/
-│   └── visuRAM_app.py            # AppDaemon-App für Home Assistant (MQTT Discovery)
+│   ├── visuRAM_app.py            # AppDaemon-App für Home Assistant (MQTT Discovery)
+│   ├── area_mapping_app.py       # AppDaemon-App: Floors/Areas/Labels automatisch zuweisen
+│   └── apps.yaml                 # AppDaemon-Konfiguration beider Apps
 ├── data/
-│   ├── cc600_channel_mapping.json  # 438 CC600-Kanäle mit Beschreibungen + FeldID-Mapping
+│   ├── cc600_channel_mapping.json  # 486 CC600-Kanäle (438 Parameterzeile + 48 HTML) mit FeldID-Mapping
 │   ├── all_cc600_channels.json     # Rohdaten aus HAR-Analyse
 │   ├── field_mapping.json          # FeldID → CC600-Adresse Mapping
 │   └── zone_area_mapping.json      # Zonen → HA Floors/Areas/Labels (ausfüllen!)
@@ -84,35 +112,54 @@ CC600 ──RS-232──► VisuRAM-PC (Windows)
                        │  MQTT Discovery
                        ▼
                   Home Assistant (N150)
-                  sensor.nersingen_{cc600_adr}
+                  Gerät „CC600", Entities sensor.cc600_*
 ```
 
 ### Entity-Schema
 
-| Entity-ID | Beschreibung |
+| | Wert |
 |---|---|
-| `sensor.nersingen_{cc600_adr}` | W1-Wert eines CC600-Kanals |
-| `sensor.nersingen_{cc600_adr}_w2` | W2-Wert (nur wenn beschriftet) |
+| **unique_id** | `cc600_{cc600_adr}` (W1) bzw. `cc600_{cc600_adr}_w2` (W2, nur wenn beschriftet) |
+| **entity_id** | `sensor.cc600_<name-slug>`, z.B. `sensor.cc600_01_raumtemperatur` |
+| **Gerät** | „CC600" (HA erzwingt `has_entity_name`-Verhalten → Entities erscheinen unter dem Gerät mit ihrem Kurznamen) |
 
-**Naming:** `{zone}-{w1_label}` für W1, `{zone}-{desc}` für W2  
-**Unique-ID:** via MQTT Discovery → Entities sind im HA Entity-Registry  
-**Gerät:** „CC600 Nersingen (Flora Toskana)" in HA-Geräteansicht
+**Naming (friendly):** `{zone}-{w1_label}` für W1, `{zone}-{desc}` für W2  
+**Felder ohne Mapping** werden NICHT als Entity angelegt, sondern einmalig als
+`WARNING` geloggt (Sicherheitsnetz für neue, noch nicht gemappte Sensoren).
 
 ### Deployment auf HA-Server
+
+Dateien per `curl` aus GitHub (`main`) in das AppDaemon-Verzeichnis holen:
 
 ```bash
 TOKEN="ghp_..."   # GitHub PAT (repo read)
 BASE="https://api.github.com/repos/Overlander22/visuram-python-client/contents"
-DEST="/addon_configs/a0d7b954_appdaemon/apps/visuRAM"
+VDIR="/addon_configs/a0d7b954_appdaemon/apps/visuRAM"
 
-curl -H "Authorization: token $TOKEN" -H "Accept: application/vnd.github.v3.raw" \
-  -Lo $DEST/visuRAM_app.py $BASE/appdaemon/visuRAM_app.py
-
-curl -H "Authorization: token $TOKEN" -H "Accept: application/vnd.github.v3.raw" \
-  -Lo $DEST/visuram_client.py $BASE/scripts/visuram_client.py
+for f in "appdaemon/visuRAM_app.py:$VDIR/visuRAM_app.py" \
+         "appdaemon/area_mapping_app.py:$VDIR/area_mapping_app.py" \
+         "scripts/visuram_client.py:$VDIR/visuram_client.py" \
+         "scripts/apply_area_mapping.py:$VDIR/apply_area_mapping.py" \
+         "data/cc600_channel_mapping.json:$VDIR/cc600_channel_mapping.json"; do
+  src="${f%%:*}"; dst="${f##*:}"
+  curl -fsSL -H "Authorization: token $TOKEN" -H "Accept: application/vnd.github.v3.raw" \
+       -o "$dst" "$BASE/$src" && echo "OK $dst"
+done
 ```
 
-AppDaemon neu starten → Entities erscheinen in HA mit unique_id.
+Danach **AppDaemon komplett neu starten** (Add-on-Restart, NICHT auf den
+Hot-Reload verlassen – der lädt Hilfsmodule/JSON unzuverlässig nach):
+
+```bash
+ha addons restart a0d7b954_appdaemon
+```
+
+**Voraussetzung einmalig:** `websocket-client` als python_package im AppDaemon
+(für `area_mapping_app`).
+
+**Migration bei Prefix-/Geräte-Umbenennung:** Alte MQTT-Entities verschwinden
+nur, wenn ihre retained Discovery-Topics geleert werden
+(`homeassistant/sensor/<alte_unique_id>/config` mit leerem retained Payload).
 
 ### Floors / Areas / Labels zuweisen
 
@@ -144,7 +191,7 @@ pytest tests/ -v
 pytest tests/ -v --cov=scripts --cov-report=term-missing
 ```
 
-91 Tests (Stand 03.06.2026).
+89 Tests (Stand 03.06.2026).
 
 ---
 
@@ -152,7 +199,7 @@ pytest tests/ -v --cov=scripts --cov-report=term-missing
 
 | Branch | Inhalt |
 |---|---|
-| `main` | BildId=3 Polling (77 Kanäle), MQTT Discovery, set_value-Service |
+| `main` | BildId=3 Polling (Feld- + Container-Felder), MQTT Discovery, set_value-Service |
 | `feature/parameterzeile-polling` | Alle 438 Kanäle via Parameterzeile-API (60s Intervall) |
 
 ---

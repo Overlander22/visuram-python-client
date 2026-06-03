@@ -12,28 +12,33 @@ HA → Einstellungen → Add-ons → Add-on Store → **AppDaemon** suchen → I
 ### 2. Dateien kopieren
 Folgende Dateien nach `/addon_configs/a0d7b954_appdaemon/apps/visuRAM/` kopieren:
 - `visuRAM_app.py` (diese Datei)
+- `area_mapping_app.py` (Floors/Areas/Labels-Zuweisung)
 - `visuram_client.py` (aus `../scripts/`)
+- `apply_area_mapping.py` (aus `../scripts/`)
 - `cc600_channel_mapping.json` (aus `../data/`)
+- `zone_area_mapping.json` (aus `../data/`)
 
-```bash
-# Via SSH in HA (Port 22222 mit SSH Add-on):
-mkdir -p /addon_configs/a0d7b954_appdaemon/apps/visuRAM
-# Dateien hochladen (z.B. via scp oder HA File Editor)
-```
+Bevorzugt per `curl` aus GitHub – siehe Abschnitt „Deployment auf HA-Server"
+in der Haupt-`README.md`. `websocket-client` als python_package im AppDaemon
+ist Voraussetzung für `area_mapping_app`.
 
 ### 3. apps.yaml konfigurieren
 Inhalt von `apps.yaml` in `/addon_configs/a0d7b954_appdaemon/apps/apps.yaml` einfügen.
 
-### 4. AppDaemon starten
-HA → Add-ons → AppDaemon → Starten
+### 4. AppDaemon starten / neu starten
+HA → Add-ons → AppDaemon → Starten. Nach einem Datei-Deploy **immer komplett
+neu starten** (`ha addons restart a0d7b954_appdaemon`) – der Hot-Reload lädt
+Hilfsmodule/JSON unzuverlässig nach.
 
 ### 5. Logs prüfen
 HA → Add-ons → AppDaemon → Log – dort sollte erscheinen:
 ```
 VisuRAM App startet – Host: 192.168.178.83:80, Intervall: 20s
-68 Sensor-Namen geladen
+GlobalCallback: ~147 Sensor-Werte empfangen
 ```
+Erwartete `WARNING`s: `ContainerXFeld2_Feld` (Analog-Balken, keine echten
+Messwerte) sowie wenige Duplikat-Felder – harmlos.
 
 ## Entities in HA
-Nach dem ersten erfolgreichen Poll erscheinen die Entities unter:
-`sensor.nersingen_feld28` (Außentemperatur), `sensor.nersingen_feld33` (Wind), etc.
+Nach dem ersten erfolgreichen Poll erscheinen die Entities unter dem Gerät
+„CC600", z.B. `sensor.cc600_00_aussentemperatur`, `sensor.cc600_01_raumtemperatur`.
