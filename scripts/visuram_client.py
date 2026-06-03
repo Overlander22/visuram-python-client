@@ -238,59 +238,6 @@ def parse_sensors(raw: str) -> dict[str, dict]:
             sensors[name] = {"name": name, "value": value, "unit": unit}
     return sensors
 
-def parse_parameterzeile_batch(raw: str, addrs: list[str]) -> list[dict]:
-    """
-    Parst eine Parameterzeile-Batch-Antwort (ein oder mehrere Kanäle).
-
-    Request-Format: ARG[ID:xxx;adr0:XXXXXXXXXX;adr1:YYYYYYYYYY;...]
-    Response-Format pro Index i:
-      ADRTXT{i}:Zone Name ;W1TXT{i}:Label;W2TXT{i}:Label;
-      W1{i}:  value unit  ;W2{i}:  value unit  ;W12_{i}:n;
-
-    Gibt eine Liste zurück (eine Eintrag je Adresse) mit:
-      {cc600_adr, w1_value, w1_unit, w2_value, w2_unit, w1_label, w2_label}
-    Einträge mit leerem w1_value UND leerem w2_value werden übersprungen.
-    """
-    decoded = decode_xml_names(raw)
-    results = []
-
-    for i, adr in enumerate(addrs):
-        # W1-Wert: W1{i}:value unit; — kein Unterstrich vor dem Index
-        # W12_{i}: ist das "Anzahl W-Werte"-Feld → kein Konflikt wegen Unterstrich
-        w1_m   = re.search(rf';W1{i}:([^;]+);', decoded)
-        w2_m   = re.search(rf';W2{i}:([^;]+);', decoded)
-        w1lbl  = re.search(rf'W1TXT{i}:([^;]+);', decoded)
-        w2lbl  = re.search(rf'W2TXT{i}:([^;]+);', decoded)
-
-        def _split(s: str) -> tuple[str, str]:
-            s = s.strip()
-            if not s:
-                return "", ""
-            parts = s.split()
-            return parts[0], " ".join(parts[1:]) if len(parts) > 1 else ""
-
-        w1_value, w1_unit = _split(w1_m.group(1) if w1_m else "")
-        w2_value, w2_unit = _split(w2_m.group(1) if w2_m else "")
-
-        # Gif/Icon-Felder → leere Werte (Liste muss gleich lang wie addrs bleiben)
-        if ".gif" in w1_value:
-            w1_value, w1_unit = "", ""
-        if ".gif" in w2_value:
-            w2_value, w2_unit = "", ""
-
-        results.append({
-            "cc600_adr": adr,
-            "w1_value":  w1_value,
-            "w1_unit":   w1_unit,
-            "w2_value":  w2_value,
-            "w2_unit":   w2_unit,
-            "w1_label":  (w1lbl.group(1).strip() if w1lbl else ""),
-            "w2_label":  (w2lbl.group(1).strip() if w2lbl else ""),
-        })
-
-    return results
-
-
 def parse_status(raw: str) -> dict[str, str]:
     """Parst Status-Felder (CURRENTBILDID, CCZEIT, STOERCSS, …) aus OnCycleTimer-Antwort."""
     decoded = decode_xml_names(raw)
@@ -346,56 +293,7 @@ class VisuRAMClient:
         self._connected = False
         self._trigger_counter = 0  # Anzahl verbleibender TRIGGER:true Polls nach connect()
 
-    # ── Leichtgewichtiger Connect (nur für Parameterzeile-Polling) ───────
-    def connect_lightweight(self) -> None:
-        """
-        Minimaler Verbindungsaufbau für Parameterzeile-Polling:
-          1. VisuRAM.aspx laden → WCFID ermitteln
-          2. OnGetRechte → Session validieren (URECHT:2000)
-
-        Kein BINITCALL, kein BildId-Advise-Subscribe.
-        Reicht für Parameterzeile-Calls und ChangeCCValue.
-        """
-        self._connected = False
-        self.counter = 0
-        self._register_session()
-        raw = self._post(build_get_rechte_arg(self.counter))
-        decoded = decode_xml_names(raw)
-        if "URECHT" not in decoded:
-            raise ConnectionError(f"OnGetRechte fehlgeschlagen: {raw[:200]}")
-        self.counter = 1
-        self._connected = True
-        self._initial_sensors = {}
-
-    def fetch_channels_batch(
-        self,
-        addrs: list[str],
-        batch_id: str = "batch",
-    ) -> list[dict]:
-        """
-        Liest eine Gruppe von CC600-Kanälen via Parameterzeile in einem Call.
-
-        Args:
-            addrs:    Liste von CC600-Adressen (max. ~30 pro Batch empfohlen)
-            batch_id: Beliebige ID-Kennung für den ARG (nur für Logging)
-
-        Returns:
-            Liste von Dicts mit {cc600_adr, w1_value, w1_unit, w2_value, w2_unit,
-                                  w1_label, w2_label}
-        """
-        if not addrs:
-            return []
-        arg_body = (
-            f"ID:{batch_id};"
-            + "".join(f"adr{i}:{adr};" for i, adr in enumerate(addrs))
-        )
-        s_arg = _build_arg("Parameterzeile", bdontwait=True,
-                           arg_body=arg_body, counter=self.counter)
-        self.counter += 1
-        raw = self._post(s_arg)
-        return parse_parameterzeile_batch(raw, addrs)
-
-    # ── Verbindungsaufbau (BildId-Subscription) ──────────────────────────
+    # ── Verbindungsaufbau ────────────────────────────────────────────────
     def connect(self) -> None:
         """
         Vollständiger Verbindungsaufbau:
