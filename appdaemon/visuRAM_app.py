@@ -87,6 +87,9 @@ class VisuRAMApp(hass.Hass):
         # Key: (unique_id, unit) – bei Einheitenänderung neu publizieren
         self._published_discovery: set[tuple[str, str]] = set()
 
+        # FeldIDs ohne CC600-Mapping – einmalig warnen (statt jede 20s zu spammen)
+        self._logged_unknown: set[str] = set()
+
         # MQTT Availability: "online" signalisieren
         self._mqtt_publish(MQTT_AVAIL, "online", retain=True)
 
@@ -161,10 +164,20 @@ class VisuRAMApp(hass.Hass):
                 unique_id = f"cc600_{cc600_adr}{suffix}"
                 object_id = unique_id
             else:
-                # Fallback für Felder ohne Mapping
-                slug      = feld_id.lower().replace("_feld", "")
-                unique_id = f"cc600_{slug}"
-                object_id = unique_id
+                # Kein CC600-Mapping → KEINE Entity anlegen (würde sonst ohne Zone
+                # in HA landen). Stattdessen einmalig warnen, damit ein wirklich
+                # neuer, noch nicht gemappter Sensor auffällt und nicht still
+                # verschwindet. Bekannte Fälle: Duplikat-Felder, die denselben
+                # CC600-Kanal an einer zweiten Bildposition anzeigen.
+                if feld_id not in self._logged_unknown:
+                    self._logged_unknown.add(feld_id)
+                    self.log(
+                        f"FeldID ohne CC600-Mapping übersprungen: {feld_id!r} "
+                        f"(Wert={value!r}). Falls echter Sensor: in "
+                        "cc600_channel_mapping.json ergänzen.",
+                        level="WARNING",
+                    )
+                continue
 
             friendly     = self._field_names.get(feld_id, feld_id)
             device_class = self._UNIT_TO_CLASS.get(unit)
