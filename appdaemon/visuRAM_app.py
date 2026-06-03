@@ -2,13 +2,18 @@
 VisuRAM AppDaemon App – CC600 Gewächshaussteuerung → Home Assistant
 
 Liest Sensordaten vom RAM GmbH CC600 via VisuRAM HTTP/JSON-Protokoll
-und schreibt sie als Sensor-Entities in Home Assistant.
+und schreibt sie als MQTT-Discovery-Entities in Home Assistant.
+
+Durch MQTT Discovery haben alle Entities eine unique_id und können in der
+HA-UI bearbeitet, umbenannt und Bereichen/Ebenen zugewiesen werden.
 
 Installation:
   1. AppDaemon Add-on in HA installieren
-  2. Diese Datei + visuram_client.py nach /config/appdaemon/apps/visuRAM/ kopieren
-  3. apps.yaml konfigurieren (siehe unten)
-  4. AppDaemon neu starten
+  2. Mosquitto MQTT Broker Add-on installieren + MQTT-Integration konfigurieren
+  3. Diese Datei + visuram_client.py + cc600_channel_mapping.json nach
+     /config/appdaemon/apps/visuRAM/ kopieren
+  4. apps.yaml konfigurieren (siehe unten)
+  5. AppDaemon neu starten
 
 apps.yaml Beispiel:
   visuRAM:
@@ -18,8 +23,9 @@ apps.yaml Beispiel:
     interval: 20
 """
 
-import sys
+import json
 import os
+import sys
 import traceback
 
 import appdaemon.plugins.hass.hassapi as hass
@@ -33,12 +39,24 @@ from visuram_client import (  # type: ignore
     load_field_lookup,
     VISURAMPC_HOST,
     VISURAMPC_PORT,
-    BILD_ID,
 )
+
+# MQTT-Basis-Topic für alle VisuRAM-Entities
+MQTT_BASE      = "nersingen"
+MQTT_AVAIL     = f"{MQTT_BASE}/available"
+MQTT_DISCOVERY = "homeassistant"
+
+# HA-Device-Info (erscheint in Geräte-Ansicht)
+DEVICE_INFO = {
+    "identifiers":    ["visuram_cc600_nersingen"],
+    "name":           "CC600 Nersingen (Flora Toskana)",
+    "model":          "CC600",
+    "manufacturer":   "RAM GmbH",
+}
 
 
 class VisuRAMApp(hass.Hass):
-    """AppDaemon App: liest CC600-Sensordaten und schreibt sie in HA."""
+    """AppDaemon App: liest CC600-Sensordaten und schreibt sie via MQTT Discovery in HA."""
 
     # ── Initialisierung ──────────────────────────────────────────────────
     def initialize(self) -> None:
@@ -49,19 +67,28 @@ class VisuRAMApp(hass.Hass):
         self.log(f"VisuRAM App startet – Host: {host}:{port}, Intervall: {interval}s")
 
         self._client = VisuRAMClient(host=host, port=port)
-        self._field_names = load_field_names()
-        self.log(f"{len(self._field_names)} Sensor-Namen geladen")
-
+        self._field_names  = load_field_names()
         self._field_lookup = load_field_lookup()
-        self.log(f"{len(self._field_lookup)} Kanal-Mappings für Service geladen")
+
+        self.log(f"{len(self._field_names)} Sensor-Namen geladen")
+        self.log(f"{len(self._field_lookup)} Kanal-Mappings geladen")
 
         # Einheiten → HA Device Class
         self._UNIT_TO_CLASS = {
-            "oC": "temperature", "°C": "temperature",
+            "oC":  "temperature",
+            "°C":  "temperature",
             "m/s": "wind_speed",
-            "W": "power", "kW": "power",
-            "%": "humidity",
+            "W":   "power",
+            "kW":  "power",
+            "%":   "humidity",
         }
+
+        # Welche MQTT-Discovery-Configs wurden schon gepublisht?
+        # Key: (unique_id, unit) – bei Einheitenänderung neu publizieren
+        self._published_discovery: set[tuple[str, str]] = set()
+
+        # MQTT Availability: "online" signalisieren
+        self._mqtt_publish(MQTT_AVAIL, "online", retain=True)
 
         # Ersten Poll sofort, dann alle N Sekunden
         self.run_every(self._poll, "now", interval)
@@ -72,28 +99,25 @@ class VisuRAMApp(hass.Hass):
 
     # ── Polling ──────────────────────────────────────────────────────────
     def _poll(self, kwargs) -> None:
-        """Stellt Verbindung her, liest Sensordaten, schreibt HA-Entities."""
+        """Verbindet mit VisuRAM, liest Sensordaten, schreibt via MQTT in HA."""
         try:
-            # Stateless: jedes Mal neue Session (vermeidet VisuRAM-Ruhemodus)
             client = VisuRAMClient(
                 host=self._client.base_url.split("//")[1].split(":")[0],
                 port=int(self._client.base_url.split(":")[-1].split("/")[0]),
             )
             client.connect()
 
-            # Initiale Sensordaten direkt nach BINITCALL
             sensors = dict(client._initial_sensors)
             client._initial_sensors = {}
 
-            # Ein Polling-Zyklus für BPB-Updates
             for _ in range(5):
                 s = client.poll()
                 if s:
                     sensors.update(s)
 
             if sensors:
-                self._push_sensors(sensors)
-                self.log(f"{len(sensors)} Sensoren → HA", level="DEBUG")
+                self._push_sensors_mqtt(sensors)
+                self.log(f"{len(sensors)} Sensoren → MQTT", level="DEBUG")
             else:
                 self.log("Keine Sensordaten empfangen", level="WARNING")
 
@@ -101,13 +125,18 @@ class VisuRAMApp(hass.Hass):
             self.log(f"Fehler beim Polling: {exc}\n{traceback.format_exc()}",
                      level="ERROR")
 
-    # ── HA Entity Update ─────────────────────────────────────────────────
-    def _push_sensors(self, sensors: dict) -> None:
-        """Schreibt alle Sensoren als HA-Entities.
+    # ── MQTT Entity Update ────────────────────────────────────────────────
+    def _push_sensors_mqtt(self, sensors: dict) -> None:
+        """
+        Schreibt alle Sensoren via MQTT Discovery in HA.
 
-        Entity-ID-Schema: sensor.nersingen_{cc600_adr}         (W1-Wert)
-                          sensor.nersingen_{cc600_adr}_w2      (W2-Wert)
-        Fallback (kein Mapping): sensor.nersingen_{feld_id_lower}
+        Für jede Entity:
+          1. Discovery-Config publizieren (einmalig, mit retain)
+          2. State publizieren (bei jedem Poll)
+
+        Entity-ID-Schema in HA:
+          sensor.nersingen_{cc600_adr}       (W1-Wert)
+          sensor.nersingen_{cc600_adr}_w2    (W2-Wert)
         """
         for feld_id, sensor in sensors.items():
             value = sensor.get("value", "")
@@ -115,8 +144,7 @@ class VisuRAMApp(hass.Hass):
             if not value:
                 continue
 
-            # cc600_adr aus Lookup ermitteln
-            # feld_id kommt als "Feld92_Feld" → Lookup-Key ist "Feld92"
+            # cc600_adr + Typ ermitteln
             lookup_key = feld_id.replace("_Feld", "")
             entry = self._field_lookup.get(lookup_key)
 
@@ -125,15 +153,18 @@ class VisuRAMApp(hass.Hass):
                 is_w2     = entry.get("is_w2", False)
                 w2_label  = entry.get("w2_label", "")
 
-                # W2-Entity überspringen wenn kein w2_label → kein sinnvoller Wert
+                # W2-Entity überspringen wenn kein Label → kein sinnvoller Wert
                 if is_w2 and not w2_label:
                     continue
 
                 suffix    = "_w2" if is_w2 else ""
-                entity_id = f"sensor.nersingen_{cc600_adr}{suffix}"
+                unique_id = f"nersingen_{cc600_adr}{suffix}"
+                object_id = unique_id
             else:
-                # Fallback für Felder ohne Mapping-Eintrag
-                entity_id = f"sensor.nersingen_{feld_id.lower().replace('_feld', '')}"
+                # Fallback für Felder ohne Mapping
+                slug      = feld_id.lower().replace("_feld", "")
+                unique_id = f"nersingen_{slug}"
+                object_id = unique_id
 
             friendly     = self._field_names.get(feld_id, feld_id)
             device_class = self._UNIT_TO_CLASS.get(unit)
@@ -144,21 +175,61 @@ class VisuRAMApp(hass.Hass):
             except (ValueError, IndexError):
                 state = value
 
-            attributes = {
-                "friendly_name":       friendly,
-                "unit_of_measurement": unit or None,
-                "device_class":        device_class,
-                "source":              "VisuRAM CC600",
-                "feld_id":             feld_id,
-                "cc600_adr":           entry["cc600_adr"] if entry else None,
-            }
-            # None-Werte entfernen
-            attributes = {k: v for k, v in attributes.items() if v is not None}
+            state_topic = f"{MQTT_BASE}/sensor/{object_id}/state"
+            attr_topic  = f"{MQTT_BASE}/sensor/{object_id}/attributes"
 
-            self.set_state(entity_id, state=state, attributes=attributes)
+            # ── Discovery-Config (nur wenn neu oder Einheit geändert) ────
+            discovery_key = (unique_id, unit)
+            if discovery_key not in self._published_discovery:
+                config: dict = {
+                    "name":                 friendly,
+                    "unique_id":            unique_id,
+                    "object_id":            object_id,
+                    "state_topic":          state_topic,
+                    "availability_topic":   MQTT_AVAIL,
+                    "json_attributes_topic": attr_topic,
+                    "device":               DEVICE_INFO,
+                }
+                if unit:
+                    config["unit_of_measurement"] = unit
+                if device_class:
+                    config["device_class"] = device_class
+
+                self._mqtt_publish(
+                    f"{MQTT_DISCOVERY}/sensor/{unique_id}/config",
+                    json.dumps(config),
+                    retain=True,
+                )
+                self._published_discovery.add(discovery_key)
+
+            # ── State publizieren ────────────────────────────────────────
+            self._mqtt_publish(state_topic, state, retain=False)
+
+            # ── Attributes publizieren ───────────────────────────────────
+            attrs: dict = {"source": "VisuRAM CC600", "feld_id": feld_id}
+            if entry:
+                attrs["cc600_adr"] = entry["cc600_adr"]
+                attrs["zone"]      = entry.get("zone", "")
+            self._mqtt_publish(attr_topic, json.dumps(attrs), retain=False)
+
+    # ── MQTT Helper ───────────────────────────────────────────────────────
+    def _mqtt_publish(self, topic: str, payload: str,
+                      retain: bool = False, qos: int = 1) -> None:
+        """Publiziert eine MQTT-Nachricht via HA mqtt.publish Service."""
+        try:
+            self.call_service(
+                "mqtt/publish",
+                topic=topic,
+                payload=payload,
+                retain=retain,
+                qos=qos,
+            )
+        except Exception as exc:
+            self.log(f"MQTT publish fehlgeschlagen ({topic}): {exc}", level="ERROR")
 
     # ── Service-Handler: Schalten ────────────────────────────────────────
-    def _handle_set_value(self, namespace: str, domain: str, service: str, kwargs: dict) -> None:
+    def _handle_set_value(self, namespace: str, domain: str, service: str,
+                          kwargs: dict) -> None:
         """
         HA-Service 'visuram/set_value' – setzt einen CC600-Kanalwert.
 
