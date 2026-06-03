@@ -25,10 +25,15 @@ apps.yaml Beispiel:
 
 import json
 import os
+import re
 import sys
 import traceback
 
 import appdaemon.plugins.hass.hassapi as hass
+
+# Zeitwert-Muster "MM:SS" / "HH:MM" – erkennt Dauern/Uhrzeiten auch dann, wenn
+# VisuRAM keine Einheit (min:s/h:min) mitliefert (kommt bei einzelnen Feldern vor).
+_TIME_RE = re.compile(r"^\d+:\d{2}$")
 
 # Label-Stichwörter, die einen Zeitwert als DAUER (statt Uhrzeit) ausweisen.
 # Greift nur, wenn im JSON kein explizites "wertart" gepflegt ist.
@@ -215,7 +220,8 @@ class VisuRAMApp(hass.Hass):
             state        = value
             anzeige      = None  # menschenlesbarer Originalwert ("15:00"/"06:23")
 
-            if unit in ("min:s", "h:min"):
+            if unit in ("min:s", "h:min") or _TIME_RE.match(value.strip()):
+                # Zeitwert – auch wenn die Einheit fehlt (Muster "MM:SS"/"HH:MM").
                 if self._time_kind(entry, friendly, unit) == "dauer":
                     secs = self._time_to_seconds(value, unit)
                     if secs is not None:

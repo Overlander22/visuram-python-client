@@ -101,6 +101,12 @@ class AreaMappingApp(hass.Hass):
             # ── Schritt 2: WebSocket für Schreiboperationen ───────────────
             ws = HAWebSocket(ha_url, ha_token)
 
+            # ── Schritt 2b: Entity-IDs auf adress-basiertes Schema bringen ──
+            # HA leitet die MQTT-Entity-ID aus dem Namen ab (ignoriert object_id),
+            # daher sind neu erstellte Entities namensbasiert. Hier normalisieren
+            # wir sie auf sensor.<unique_id> = sensor.cc600_<adr> (stabil/eindeutig).
+            self._normalize_entity_ids(ws)
+
             # ── Schritt 3: Zonen → IDs auflösen (ggf. anlegen) ───────────
             zone_to_area:   dict[str, str | None] = {}
             zone_to_labels: dict[str, list[str]]  = {}
@@ -168,6 +174,43 @@ class AreaMappingApp(hass.Hass):
                 f"Fehler beim Area-Mapping: {exc}\n{traceback.format_exc()}",
                 level="ERROR",
             )
+
+    # ── Entity-ID-Normalisierung ──────────────────────────────────────────
+    def _normalize_entity_ids(self, ws) -> None:
+        """Benennt alle CC600-Entities auf adress-basiertes Schema um:
+        entity_id = sensor.<unique_id>  (= sensor.cc600_<adr>[_w2]).
+
+        Hintergrund: HA bildet die MQTT-Entity-ID aus dem (Anzeige-)Namen und
+        ignoriert object_id, daher sind neu erstellte Entities namensbasiert
+        (driften bei Label-Änderungen, kollidieren bei gleichen Labels). Die
+        unique_id ist dagegen stabil/eindeutig. Idempotent – benennt nur um,
+        was noch nicht passt.
+        """
+        try:
+            entries = ws.command("config/entity_registry/list")
+        except Exception as exc:
+            self.log(f"Entity-ID-Normalisierung übersprungen: {exc}", level="WARNING")
+            return
+
+        existing = {e["entity_id"] for e in entries}
+        renamed = 0
+        for e in entries:
+            uid = str(e.get("unique_id", ""))
+            if not uid.startswith("cc600_"):
+                continue
+            target = f"sensor.{uid}"
+            if e["entity_id"] == target or target in existing:
+                continue
+            try:
+                ws.command("config/entity_registry/update",
+                           entity_id=e["entity_id"], new_entity_id=target)
+                existing.discard(e["entity_id"])
+                existing.add(target)
+                renamed += 1
+            except Exception as exc:
+                self.log(f"Umbenennen {e['entity_id']} → {target}: {exc}", level="WARNING")
+        if renamed:
+            self.log(f"Entity-IDs auf adress-basiertes Schema normalisiert: {renamed}")
 
     # ── Hilfsmethoden ────────────────────────────────────────────────────
     def _get_ha_credentials(self) -> tuple[str, str]:
