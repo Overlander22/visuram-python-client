@@ -1,12 +1,20 @@
 ---
 # AppDaemon Konfiguration für VisuRAM CC600 Integration
-# Kopieren nach: /config/appdaemon/apps/apps.yaml
-# (oder in bestehende apps.yaml einbinden)
+# Kopieren nach: /addon_configs/a0d7b954_appdaemon/apps/visuRAM/apps.yaml
 
 visuRAM:
   module: visuRAM_app
   class: VisuRAMApp
-  # IP des Windows-PCs mit VisuRAM/DataCom45
   visurampc_host: "192.168.178.83"
-  # Abfrageintervall in Sekunden (20s = guter Kompromiss)
   interval: 20
+
+area_mapping:
+  module: area_mapping_app
+  class: AreaMappingApp
+  # Sekunden nach AppDaemon-Start bis Mapping ausgeführt wird
+  # (Wartezeit damit MQTT-Entities sicher registriert sind)
+  startup_delay: 60
+  # ha_url und ha_token werden automatisch aus AppDaemon-Konfig gelesen.
+  # Nur manuell setzen wenn AppDaemon nicht auf demselben Host läuft:
+  # ha_url: "http://192.168.178.102:8123"
+  # ha_token: "eyJ..."
