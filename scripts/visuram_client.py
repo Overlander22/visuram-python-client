@@ -217,11 +217,17 @@ def parse_sensors(raw: str) -> dict[str, dict]:
     Trennzeichen zwischen Wert und Einheit: '?' (beim ersten BINITCALL-Callback)
     oder ' ' (Leerzeichen, bei nachfolgenden Callbacks).
     Felder mit Wert '?' (noch nicht von DataCom45 befüllt) werden übersprungen.
-    Nur 'FeldXX_Feld'-Felder werden zurückgegeben (keine Container-/Symbol-Felder).
+
+    Erfasst werden zwei Feld-Typen (beide tragen einen CC600-Wert):
+      - 'FeldXX_Feld'             – reguläre Datenfelder (Datenfeld/Schalter)
+      - 'ContainerXFeldY_Feld'    – Datenfelder innerhalb eines Containers
+        (z.B. Raumtemperaturen, Mitteltemperaturen, Schirm-/Lüftungs-Stellungen).
+        Diese fehlten früher in HA, weil der Regex sie ignorierte.
+    Symbol-/Icon-Felder (.gif) werden weiterhin übersprungen.
     """
     decoded = decode_xml_names(raw)
     sensors: dict[str, dict] = {}
-    for m in re.finditer(r'F\d+\{(Feld\d+_Feld),([^}]*)\}', decoded):
+    for m in re.finditer(r'F\d+\{((?:Feld\d+|Container\d+Feld\d+)_Feld),([^}]*)\}', decoded):
         name  = m.group(1)
         inner = m.group(2).strip()
         if not inner or inner == '?':

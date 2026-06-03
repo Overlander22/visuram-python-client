@@ -153,14 +153,18 @@ class TestParseSensors:
         assert "Feld28_Feld" not in sensors
         assert "Feld33_Feld" in sensors
 
-    def test_container_felder_werden_ignoriert(self):
-        """ContainerXFeldY_Feld-Felder sind UI-State, keine Sensorwerte."""
+    def test_container_felder_werden_erfasst(self):
+        """ContainerXFeldY_Feld-Felder tragen echte CC600-Werte (z.B. Raumtemperaturen)
+        und müssen erfasst werden – sie haben im BildId=3-HTML eine TOOLTIPADR."""
         raw = self._make_raw([
-            ("Container5Feld1_Feld", "28_x002C_4?oC"),
+            ("Container17Feld1_Feld", "28_x002C_3?oC"),   # Raumtemperatur Zone 01
+            ("Container29Feld1_Feld", "28_x002C_6 oC"),   # Raumtemp-Nord Zone 02
             ("Feld28_Feld", "28_x002C_4?oC"),
         ])
         sensors = parse_sensors(raw)
-        assert "Container5Feld1_Feld" not in sensors
+        assert sensors["Container17Feld1_Feld"]["value"] == "28,3"
+        assert sensors["Container17Feld1_Feld"]["unit"] == "oC"
+        assert sensors["Container29Feld1_Feld"]["value"] == "28,6"
         assert "Feld28_Feld" in sensors
 
     def test_gif_felder_werden_ignoriert(self):
