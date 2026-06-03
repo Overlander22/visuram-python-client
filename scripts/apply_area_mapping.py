@@ -1,20 +1,20 @@
 """
 apply_area_mapping.py – Weist HA-Entities automatisch Floors, Areas und Labels zu.
 
-Voraussetzung: Mosquitto MQTT Broker Add-on installiert + MQTT-Integration in HA
-               konfiguriert, damit Entities eine unique_id haben und im Entity-Registry
-               verwaltet werden können.
+Voraussetzung:
+  - Mosquitto MQTT Broker Add-on installiert + MQTT-Integration konfiguriert
+  - pip install -r requirements.txt  (websocket-client)
 
 Ablauf:
-  1. Liest data/zone_area_mapping.json  (bitte ha_floor, ha_area, ha_labels ausfüllen)
-  2. Legt fehlende Floors, Areas und Labels in HA an  (Idempotent: vorhandene bleiben)
-  3. Liest alle HA-Entities mit "nersingen"-Prefix
-  4. Ermittelt die Zone aus dem Attribut "zone" (oder aus cc600_adr)
-  5. Weist jeder Entity die passende Area + Labels zu
+  1. Liest data/zone_area_mapping.json (ha_floor, ha_area, ha_labels pro Zone)
+  2. Liest vorhandene Areas/Floors/Labels aus HA via Template-API
+  3. Legt fehlende Floors, Areas, Labels via WebSocket an (idempotent)
+  4. Liest alle HA-Entities mit "nersingen"-Prefix via REST
+  5. Weist jeder Entity die passende Area + Labels via WebSocket zu
 
 Aufruf:
   python3 scripts/apply_area_mapping.py
-  python3 scripts/apply_area_mapping.py --dry-run    # nur ausgeben, nichts schreiben
+  python3 scripts/apply_area_mapping.py --dry-run    # Vorschau ohne Schreiben
   python3 scripts/apply_area_mapping.py --ha-url http://192.168.178.102:8123 --token <TOKEN>
 """
 
@@ -28,14 +28,16 @@ import urllib.request
 import urllib.error
 from typing import Any
 
+import websocket  # pip install websocket-client
+
 
 # ─────────────────────────────────────────────────────────────────────────────
-# HA REST API
+# HA REST (nur für read-only Operationen: /api/states, /api/template)
 # ─────────────────────────────────────────────────────────────────────────────
 
-def ha_request(method: str, path: str, ha_url: str, token: str,
-               body: dict | None = None) -> Any:
-    """HTTP-Request gegen die HA REST API. Gibt geparste JSON-Antwort zurück."""
+def ha_rest(method: str, path: str, ha_url: str, token: str,
+            body: dict | None = None) -> Any:
+    """REST-Request gegen die HA API."""
     url = f"{ha_url.rstrip('/')}{path}"
     data = json.dumps(body).encode() if body is not None else None
     req = urllib.request.Request(
@@ -49,129 +51,150 @@ def ha_request(method: str, path: str, ha_url: str, token: str,
         raise RuntimeError(f"HTTP {e.code} {method} {path}: {e.read().decode(errors='replace')}") from e
 
 
+def ha_template(template_str: str, ha_url: str, token: str) -> str:
+    """Rendert ein Jinja2-Template via POST /api/template. Gibt Rohtext zurück."""
+    result = ha_rest("POST", "/api/template", ha_url, token, {"template": template_str})
+    # HA gibt hier einen String zurück (nicht JSON-eingebettet)
+    return result if isinstance(result, str) else json.dumps(result)
+
+
 # ─────────────────────────────────────────────────────────────────────────────
-# Registry-Helpers (alle idempotent: laden erst, legen nur an wenn fehlend)
+# HA WebSocket (für Registry-Lesen + Schreiben)
 # ─────────────────────────────────────────────────────────────────────────────
 
-def load_existing_floors(ha_url: str, token: str) -> dict[str, str]:
-    """Lädt alle vorhandenen Floors. Gibt {name → floor_id} zurück."""
-    try:
-        floors = ha_request("GET", "/api/config/floor_registry", ha_url, token)
-        return {f["name"]: f["floor_id"] for f in floors}
-    except RuntimeError as e:
-        print(f"  WARNUNG: Floors konnten nicht geladen werden: {e}")
-        return {}
+class HAWebSocket:
+    """Einfacher synchroner HA WebSocket Client."""
+
+    def __init__(self, ha_url: str, token: str):
+        ws_url = ha_url.rstrip("/").replace("http://", "ws://").replace("https://", "wss://")
+        ws_url += "/api/websocket"
+        self._ws = websocket.create_connection(ws_url, timeout=15)
+        self._msg_id = 0
+
+        # Handshake: auth_required → auth → auth_ok
+        auth_req = json.loads(self._ws.recv())
+        if auth_req.get("type") != "auth_required":
+            raise RuntimeError(f"Unerwartete WS-Antwort: {auth_req}")
+        self._ws.send(json.dumps({"type": "auth", "access_token": token}))
+        auth_resp = json.loads(self._ws.recv())
+        if auth_resp.get("type") != "auth_ok":
+            raise RuntimeError(f"WS-Auth fehlgeschlagen: {auth_resp}")
+
+    def command(self, cmd_type: str, **kwargs) -> Any:
+        """Sendet ein WS-Kommando und gibt das `result`-Feld zurück."""
+        self._msg_id += 1
+        msg = {"type": cmd_type, "id": self._msg_id, **kwargs}
+        self._ws.send(json.dumps(msg))
+        resp = json.loads(self._ws.recv())
+        if not resp.get("success"):
+            raise RuntimeError(f"WS {cmd_type} fehlgeschlagen: {resp.get('error')}")
+        return resp.get("result")
+
+    def close(self) -> None:
+        try:
+            self._ws.close()
+        except Exception:
+            pass
 
 
-def load_existing_areas(ha_url: str, token: str) -> dict[str, str]:
-    """Lädt alle vorhandenen Areas. Gibt {name → area_id} zurück."""
-    try:
-        areas = ha_request("GET", "/api/config/area_registry", ha_url, token)
-        return {a["name"]: a["area_id"] for a in areas}
-    except RuntimeError as e:
-        print(f"  WARNUNG: Areas konnten nicht geladen werden: {e}")
-        return {}
+# ─────────────────────────────────────────────────────────────────────────────
+# Registry-Lesen (via Template-API)
+# ─────────────────────────────────────────────────────────────────────────────
+
+def load_area_name_to_id(ha_url: str, token: str) -> dict[str, str]:
+    """Gibt {area_name: area_id} für alle Areas zurück."""
+    ids   = json.loads(ha_template("{{ areas() | tojson }}", ha_url, token))
+    names = json.loads(ha_template("{{ areas() | map('area_name') | list | tojson }}", ha_url, token))
+    return {name: aid for name, aid in zip(names, ids) if name}
 
 
-def load_existing_labels(ha_url: str, token: str) -> dict[str, str]:
-    """Lädt alle vorhandenen Labels. Gibt {name → label_id} zurück."""
-    try:
-        labels = ha_request("GET", "/api/config/label_registry", ha_url, token)
-        return {l["name"]: l["label_id"] for l in labels}
-    except RuntimeError as e:
-        print(f"  WARNUNG: Labels konnten nicht geladen werden: {e}")
-        return {}
+def load_floor_name_to_id(ha_url: str, token: str) -> dict[str, str]:
+    """Gibt {floor_name: floor_id} für alle Floors zurück."""
+    ids   = json.loads(ha_template("{{ floors() | tojson }}", ha_url, token))
+    names = json.loads(ha_template("{{ floors() | map('floor_name') | list | tojson }}", ha_url, token))
+    return {name: fid for name, fid in zip(names, ids) if name}
 
 
-def get_or_create_floor(name: str, ha_url: str, token: str,
+def load_label_name_to_id(ha_url: str, token: str) -> dict[str, str]:
+    """Gibt {label_name: label_id} für alle Labels zurück."""
+    ids   = json.loads(ha_template("{{ labels() | tojson }}", ha_url, token))
+    names = json.loads(ha_template("{{ labels() | map('label_name') | list | tojson }}", ha_url, token))
+    return {name: lid for name, lid in zip(names, ids) if name}
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Registry-Schreiben (via WebSocket)
+# ─────────────────────────────────────────────────────────────────────────────
+
+def get_or_create_floor(name: str, ws: HAWebSocket,
                          cache: dict[str, str]) -> str | None:
-    """Gibt floor_id zurück. Legt Floor an falls noch nicht vorhanden."""
     if not name:
         return None
     if name in cache:
         return cache[name]
-    try:
-        resp = ha_request("POST", "/api/config/floor_registry", ha_url, token, {"name": name})
-        fid = resp["floor_id"]
-        cache[name] = fid
-        print(f"  [NEU] Floor: '{name}' → {fid}")
-        return fid
-    except RuntimeError as e:
-        print(f"  WARNUNG: Floor '{name}' konnte nicht angelegt werden: {e}")
-        return None
+    result = ws.command("config/floor_registry/create", name=name)
+    fid = result["floor_id"]
+    cache[name] = fid
+    print(f"  [NEU] Floor: '{name}' → {fid}")
+    return fid
 
 
-def get_or_create_area(name: str, floor_id: str | None,
-                        ha_url: str, token: str, cache: dict[str, str]) -> str | None:
-    """Gibt area_id zurück. Legt Area an falls noch nicht vorhanden."""
+def get_or_create_area(name: str, floor_id: str | None, ws: HAWebSocket,
+                        cache: dict[str, str]) -> str | None:
     if not name:
         return None
     if name in cache:
         return cache[name]
-    body: dict = {"name": name}
+    kwargs: dict = {"name": name}
     if floor_id:
-        body["floor_id"] = floor_id
-    try:
-        resp = ha_request("POST", "/api/config/area_registry", ha_url, token, body)
-        aid = resp["area_id"]
-        cache[name] = aid
-        print(f"  [NEU] Area: '{name}' (floor={floor_id or '–'}) → {aid}")
-        return aid
-    except RuntimeError as e:
-        print(f"  WARNUNG: Area '{name}' konnte nicht angelegt werden: {e}")
-        return None
+        kwargs["floor_id"] = floor_id
+    result = ws.command("config/area_registry/create", **kwargs)
+    aid = result["area_id"]
+    cache[name] = aid
+    print(f"  [NEU] Area: '{name}' → {aid}")
+    return aid
 
 
-def get_or_create_label(name: str, ha_url: str, token: str,
+def get_or_create_label(name: str, ws: HAWebSocket,
                          cache: dict[str, str]) -> str | None:
-    """Gibt label_id zurück. Legt Label an falls noch nicht vorhanden."""
     if not name:
         return None
     if name in cache:
         return cache[name]
-    try:
-        resp = ha_request("POST", "/api/config/label_registry", ha_url, token, {"name": name})
-        lid = resp["label_id"]
-        cache[name] = lid
-        print(f"  [NEU] Label: '{name}' → {lid}")
-        return lid
-    except RuntimeError as e:
-        print(f"  WARNUNG: Label '{name}' konnte nicht angelegt werden: {e}")
-        return None
+    result = ws.command("config/label_registry/create", name=name)
+    lid = result["label_id"]
+    cache[name] = lid
+    print(f"  [NEU] Label: '{name}' → {lid}")
+    return lid
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Entity-Registry-Zuweisung
+# Entity-Zuweisung (via WebSocket)
 # ─────────────────────────────────────────────────────────────────────────────
 
 def assign_entity(entity_id: str, area_id: str | None, label_ids: list[str],
-                   ha_url: str, token: str) -> str:
+                   ws: HAWebSocket) -> str:
     """
-    Weist der Entity Area und/oder Labels zu.
-    Labels werden gemergt (bestehende bleiben erhalten).
-
-    Returns: "ok" | "no_uid" | "skip"
+    Weist Entity Area + Labels zu. Labels werden gemergt.
+    Returns: "ok" | "no_uid" | "skip" | "no_change"
     """
     if not area_id and not label_ids:
         return "skip"
 
-    # Aktuellen Registry-Eintrag lesen (prüft ob unique_id vorhanden)
+    # Aktuellen Registry-Eintrag via WS lesen
     try:
-        current = ha_request("GET", f"/api/config/entity_registry/{entity_id}",
-                              ha_url, token)
+        current = ws.command("config/entity_registry/get", entity_id=entity_id)
     except RuntimeError as e:
-        if "404" in str(e):
+        if "not found" in str(e).lower() or "unknown" in str(e).lower():
             return "no_uid"
-        print(f"  WARNUNG: Registry-Lesen für {entity_id}: {e}")
+        print(f"  WARNUNG: Registry-Lesen {entity_id}: {e}")
         return "no_uid"
 
     patch: dict = {}
 
-    # Area setzen (nur wenn nicht schon korrekt)
     if area_id and current.get("area_id") != area_id:
         patch["area_id"] = area_id
 
-    # Labels mergen (neue hinzufügen, bestehende nicht entfernen)
     if label_ids:
         existing = set(current.get("labels", []))
         merged   = existing | set(label_ids)
@@ -179,14 +202,13 @@ def assign_entity(entity_id: str, area_id: str | None, label_ids: list[str],
             patch["labels"] = sorted(merged)
 
     if not patch:
-        return "ok"  # Bereits korrekt, nichts zu tun
+        return "no_change"
 
     try:
-        ha_request("PATCH", f"/api/config/entity_registry/{entity_id}",
-                   ha_url, token, patch)
+        ws.command("config/entity_registry/update", entity_id=entity_id, **patch)
         return "ok"
     except RuntimeError as e:
-        print(f"  WARNUNG: PATCH für {entity_id}: {e}")
+        print(f"  WARNUNG: Update {entity_id}: {e}")
         return "skip"
 
 
@@ -195,33 +217,21 @@ def assign_entity(entity_id: str, area_id: str | None, label_ids: list[str],
 # ─────────────────────────────────────────────────────────────────────────────
 
 def zone_from_cc600_adr(cc600_adr: str) -> str:
-    """
-    Extrahiert die Zone aus der CC600-Adresse.
-
-    Format: 01ZZKKKKPP  (10 Ziffern)
-    Zone   = Stellen 2–3 (0-indiziert), z.B. "0101500311" → "01"
-    """
+    """Extrahiert Zone aus CC600-Adresse: 01ZZKKKKPP → ZZ."""
     if len(cc600_adr) >= 4:
         return cc600_adr[2:4]
     return ""
 
 
 def zone_from_entity_attrs(attrs: dict) -> str:
-    """
-    Liest Zone aus den Entity-Attributen.
-    Bevorzugt 'zone'-Attribut, fällt zurück auf cc600_adr-Extraktion.
-    """
+    """Liest Zone aus Attributen. Bevorzugt 'zone', fällt zurück auf cc600_adr."""
     zone = attrs.get("zone", "")
     if zone:
         return str(zone).zfill(2)
-    cc600_adr = attrs.get("cc600_adr", "")
-    if cc600_adr:
-        return zone_from_cc600_adr(str(cc600_adr))
-    return ""
+    return zone_from_cc600_adr(str(attrs.get("cc600_adr", "")))
 
 
 def load_config() -> tuple[str, str]:
-    """Lädt HA_URL + HA_TOKEN aus config_local.py (Repository-Root)."""
     script_dir = os.path.dirname(os.path.abspath(__file__))
     config_path = os.path.join(os.path.dirname(script_dir), "config_local.py")
     if not os.path.exists(config_path):
@@ -252,13 +262,12 @@ def main() -> None:
     parser = argparse.ArgumentParser(
         description="HA-Entities Floors/Areas/Labels zuweisen (idempotent)"
     )
-    parser.add_argument("--ha-url",   default=None)
-    parser.add_argument("--token",    default=None)
-    parser.add_argument("--dry-run",  action="store_true",
+    parser.add_argument("--ha-url",  default=None)
+    parser.add_argument("--token",   default=None)
+    parser.add_argument("--dry-run", action="store_true",
                         help="Nur ausgeben, nichts in HA schreiben")
     args = parser.parse_args()
 
-    # Credentials
     if args.ha_url and args.token:
         ha_url, token = args.ha_url, args.token
     else:
@@ -282,10 +291,7 @@ def main() -> None:
                     if c.get("ha_area") or c.get("ha_floor") or c.get("ha_labels")}
 
     if not configured:
-        print(
-            "⚠️  Keine Zonen konfiguriert!\n"
-            f"Bitte {mapping_path} öffnen und ha_floor/ha_area/ha_labels ausfüllen."
-        )
+        print(f"⚠️  Keine Zonen konfiguriert!\nBitte {mapping_path} ausfüllen.")
         sys.exit(0)
 
     print(f"HA-URL: {ha_url}")
@@ -293,14 +299,25 @@ def main() -> None:
     if args.dry_run:
         print("DRY-RUN – keine Änderungen werden vorgenommen\n")
 
-    # ── Schritt 1: Vorhandene Einträge laden ──────────────────────────────────
-    print("\n── Bestehende Einträge in HA laden ───────────────────────────────")
-    floor_cache = {} if args.dry_run else load_existing_floors(ha_url, token)
-    area_cache  = {} if args.dry_run else load_existing_areas(ha_url, token)
-    label_cache = {} if args.dry_run else load_existing_labels(ha_url, token)
+    # ── Schritt 1: Vorhandene Registries aus HA lesen ─────────────────────────
+    print("\n── Vorhandene Einträge aus HA laden ──────────────────────────────")
+    floor_cache = load_floor_name_to_id(ha_url, token)
+    area_cache  = load_area_name_to_id(ha_url, token)
+    label_cache = load_label_name_to_id(ha_url, token)
     print(f"  Floors: {len(floor_cache)} | Areas: {len(area_cache)} | Labels: {len(label_cache)}")
 
-    # ── Schritt 2: Floors, Areas, Labels anlegen ──────────────────────────────
+    # ── Schritt 2: WebSocket-Verbindung aufbauen ──────────────────────────────
+    ws: HAWebSocket | None = None
+    if not args.dry_run:
+        print("\n── WebSocket verbinden ───────────────────────────────────────────")
+        try:
+            ws = HAWebSocket(ha_url, token)
+            print("  ✓ Verbunden")
+        except Exception as e:
+            print(f"  FEHLER: WebSocket-Verbindung fehlgeschlagen: {e}")
+            sys.exit(1)
+
+    # ── Schritt 3: Floors, Areas, Labels anlegen (nur fehlende) ──────────────
     print("\n── Floors / Areas / Labels anlegen (nur fehlende) ────────────────")
     zone_to_area:   dict[str, str | None] = {}
     zone_to_labels: dict[str, list[str]]  = {}
@@ -317,28 +334,29 @@ def main() -> None:
 
         if args.dry_run:
             print(f"  Zone {zone}: Floor='{floor_name}' Area='{area_name}' Labels={label_names}")
-            zone_to_area[zone]   = f"dry_run_{zone}"
+            zone_to_area[zone]   = area_name or None
             zone_to_labels[zone] = label_names
             continue
 
-        floor_id = get_or_create_floor(floor_name, ha_url, token, floor_cache) if floor_name else None
-        area_id  = get_or_create_area(area_name, floor_id, ha_url, token, area_cache) if area_name else None
+        assert ws is not None
+        floor_id = get_or_create_floor(floor_name, ws, floor_cache) if floor_name else None
+        area_id  = get_or_create_area(area_name, floor_id, ws, area_cache) if area_name else None
         label_ids = [
             lid for name in label_names
-            if (lid := get_or_create_label(name, ha_url, token, label_cache)) is not None
+            if (lid := get_or_create_label(name, ws, label_cache)) is not None
         ]
         zone_to_area[zone]   = area_id
         zone_to_labels[zone] = label_ids
 
-    # ── Schritt 3: Entities laden ─────────────────────────────────────────────
+    # ── Schritt 4: Entities laden ─────────────────────────────────────────────
     print("\n── HA-Entities laden ─────────────────────────────────────────────")
-    all_states = ha_request("GET", "/api/states", ha_url, token)
+    all_states = ha_rest("GET", "/api/states", ha_url, token)
     nersingen  = [s for s in all_states if "nersingen" in s["entity_id"]]
     print(f"  {len(nersingen)} nersingen-Entities gefunden")
 
-    # ── Schritt 4: Zuweisen ───────────────────────────────────────────────────
+    # ── Schritt 5: Zuweisen ───────────────────────────────────────────────────
     print("\n── Area / Labels zuweisen ────────────────────────────────────────")
-    stats: dict[str, int] = {"ok": 0, "already_ok": 0, "no_uid": 0, "no_zone": 0, "skip": 0}
+    stats: dict[str, int] = {"ok": 0, "no_change": 0, "no_uid": 0, "no_zone": 0, "skip": 0}
 
     for state in nersingen:
         eid   = state["entity_id"]
@@ -361,30 +379,28 @@ def main() -> None:
                 stats["skip"] += 1
             continue
 
-        result = assign_entity(eid, area_id, label_ids, ha_url, token)
-        if result == "ok":
-            stats["ok"] += 1
-        elif result == "no_uid":
-            stats["no_uid"] += 1
-        elif result == "already_ok":
-            stats["already_ok"] += 1
-        else:
-            stats["skip"] += 1
+        assert ws is not None
+        result = assign_entity(eid, area_id, label_ids, ws)
+        stats[result] = stats.get(result, 0) + 1
+
+    # ── Aufräumen ─────────────────────────────────────────────────────────────
+    if ws:
+        ws.close()
 
     # ── Ergebnis ──────────────────────────────────────────────────────────────
     print(f"\n── Ergebnis ───────────────────────────────────────────────────────")
-    print(f"  Zugewiesen / aktualisiert: {stats['ok']}")
-    print(f"  Bereits korrekt:           {stats.get('already_ok', 0)}")
-    print(f"  Keine Zone im Attribut:    {stats['no_zone']}")
-    print(f"  Zone nicht konfiguriert:   {stats['skip']}")
+    print(f"  Zugewiesen / aktualisiert:  {stats['ok']}")
+    print(f"  Bereits korrekt (kein Patch):{stats.get('no_change', 0)}")
+    print(f"  Keine Zone im Attribut:     {stats['no_zone']}")
+    print(f"  Zone nicht konfiguriert:    {stats['skip']}")
     if not args.dry_run:
-        print(f"  Keine unique_id (MQTT?):   {stats['no_uid']}")
+        print(f"  Keine unique_id (MQTT?):    {stats.get('no_uid', 0)}")
 
-    if stats["no_uid"] > 0:
+    if stats.get("no_uid", 0) > 0:
         print(
-            f"\n⚠️  {stats['no_uid']} Entities haben keine unique_id.\n"
-            "   → HA → Einstellungen → Geräte & Dienste → MQTT konfigurieren,\n"
-            "     dann AppDaemon neu starten und dieses Script erneut ausführen."
+            f"\n⚠️  {stats['no_uid']} Entities ohne unique_id.\n"
+            "   → MQTT Integration konfigurieren, AppDaemon neu starten,\n"
+            "     dann dieses Script erneut ausführen."
         )
 
 

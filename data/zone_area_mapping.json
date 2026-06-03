@@ -1,101 +1,113 @@
 {
-  "_comment": "Zonen → HA Floors / Areas / Labels. Bitte ausfüllen und apply_area_mapping.py ausführen.",
+  "_comment": "Zonen → HA Floors / Areas / Labels. ha_floor/ha_area/ha_labels ausfüllen, dann apply_area_mapping.py ausführen.",
   "_instructions": {
-    "ha_floor": "Name des HA-Stockwerks (Ebene). Mehrere Zonen können dasselbe Stockwerk teilen. Leer = kein Stockwerk.",
-    "ha_area": "Name des HA-Bereichs. Jede Zone bekommt genau einen Bereich. Leer = Zone nicht zuweisen.",
-    "ha_labels": "Liste von Label-Namen für alle Entities dieser Zone. Leer = keine Labels. Beispiel: [\"Gewächshaus\", \"Sensoren\"]"
+    "ha_floor": "Name des HA-Stockwerks (Ebene). Leer = kein Stockwerk. Muss exakt einem der Einträge aus _ha_reference.floors entsprechen.",
+    "ha_area": "Name des HA-Bereichs. Leer = Zone nicht zuweisen. Muss exakt einem der Einträge aus _ha_reference.areas entsprechen.",
+    "ha_labels": "Liste von Label-Namen. Muss exakt den Einträgen aus _ha_reference.labels entsprechen. Neue Labels werden automatisch angelegt."
+  },
+  "_ha_reference": {
+    "_comment": "Automatisch aus HA ausgelesen (Stand 03.06.2026). Bitte Namen 1:1 in ha_floor/ha_area/ha_labels übernehmen.",
+    "floors": [
+      {"id": "gewachshaus", "name": "Gewächshaus"},
+      {"id": "wohnung",     "name": "Wohnung"},
+      {"id": "buro",        "name": "Nebenräume"},
+      {"id": "aussen",      "name": "Außen"}
+    ],
+    "areas": [
+      {"id": "abteil_1",        "name": "Abteil 1"},
+      {"id": "abteil_22",       "name": "Abteil 2"},
+      {"id": "abteil_2",        "name": "Abteil 3"},
+      {"id": "abteil_4",        "name": "Abteil 4"},
+      {"id": "wetter",          "name": "Wetter"},
+      {"id": "controlroom",     "name": "Controlroom"},
+      {"id": "wohnzimmer",      "name": "Wohnzimmer"},
+      {"id": "kuche",           "name": "Küche"},
+      {"id": "schlafzimmer",    "name": "Schlafzimmer"},
+      {"id": "bad",             "name": "Bad"},
+      {"id": "buro",            "name": "Büro"},
+      {"id": "heizungsraum",    "name": "Heizungsraum"},
+      {"id": "lagerraum",       "name": "Lagerraum"},
+      {"id": "schildkrotenraum","name": "Schildkrötenraum"},
+      {"id": "innenhof",        "name": "Innenhof"},
+      {"id": "wiese_und_teich", "name": "Wiese und Teich"},
+      {"id": "hofflache_ost",   "name": "Hoffläche Ost"},
+      {"id": "pv_anlage",       "name": "PV Anlage"},
+      {"id": "vorrat",          "name": "Vorrat"},
+      {"id": "hausdach",        "name": "Hausdach"}
+    ],
+    "labels": [
+      {"id": "bewasserung", "name": "Bewässerung"}
+    ]
   },
   "zones": [
     {
       "zone": "00",
       "kanal_count": 18,
       "sample_descriptions": [
-        "Uhrzeit / (Sommerzeit)",
-        "Datum",
-        "Wochentag",
-        "Sonnenaufgang / -untergang",
-        "Alarmmeldung",
-        "Außentemp: Alarmgw-Min",
-        "Niederschlag / Schnee",
+        "Uhrzeit / (Sommerzeit)", "Datum", "Wochentag",
+        "Sonnenaufgang / -untergang", "Alarmmeldung",
+        "Außentemp: Alarmgw-Min", "Niederschlag / Schnee",
         "Windgeschwindigkeit / Richtung"
       ],
-      "ha_floor": "",
-      "ha_area": "",
+      "ha_floor": "Außen",
+      "ha_area": "Wetter",
       "ha_labels": []
     },
     {
       "zone": "01",
       "kanal_count": 109,
       "sample_descriptions": [
-        "Allg Zeitprogramm",
-        "Tagbetrieb von(SA) / bis(SU)",
-        "Raumtemperatur",
+        "Allg Zeitprogramm", "Raumtemperatur",
         "Heizung: Raumsollwert-Tag / Nacht",
         "Lüftung: Raumsollwert-Tag / Nacht",
         "D-Lüftg: Stellung-Ost / West",
-        "Bereg: Gießdauer / Handstart",
-        "Schirm: Schaltverzögg Tag Zu"
+        "Bereg: Gießdauer / Handstart"
       ],
-      "ha_floor": "",
-      "ha_area": "",
+      "ha_floor": "Gewächshaus",
+      "ha_area": "Abteil 1",
       "ha_labels": []
     },
     {
       "zone": "02",
       "kanal_count": 89,
       "sample_descriptions": [
-        "Allg Zeitprogramm",
-        "Tagbetrieb von(SA) / bis(SU)",
-        "Temp-Programm 1 / Laufzeit",
-        "Raumsollwert Heizung / Lüftung",
-        "D-Lüftg: Stellung-Ost / West",
-        "Bereg: Handstart",
-        "Schirm: Funktion"
+        "Allg Zeitprogramm", "Raumsollwert Heizung / Lüftung",
+        "D-Lüftg: Stellung-Ost / West", "Bereg: Handstart"
       ],
-      "ha_floor": "",
-      "ha_area": "",
+      "ha_floor": "Gewächshaus",
+      "ha_area": "Abteil 2",
       "ha_labels": []
     },
     {
       "zone": "03",
       "kanal_count": 63,
       "sample_descriptions": [
-        "Allg Zeitprogramm",
-        "Tagbetrieb von(SA) / bis(SU)",
-        "Temp-Programm 1 / Laufzeit",
-        "Raumsollwert Heizung / Lüftung",
-        "Bereg: Handstart",
-        "Schirm: Funktion"
+        "Allg Zeitprogramm", "Raumsollwert Heizung / Lüftung",
+        "Bereg: Handstart", "Schirm: Funktion"
       ],
-      "ha_floor": "",
-      "ha_area": "",
+      "ha_floor": "Gewächshaus",
+      "ha_area": "Abteil 3",
       "ha_labels": []
     },
     {
       "zone": "04",
       "kanal_count": 99,
       "sample_descriptions": [
-        "Allg Zeitprogramm",
-        "Tagbetrieb von(SA) / bis(SU)",
-        "Temp-Programm 1 / Laufzeit",
-        "Raumsollwert Heizung / Lüftung",
-        "Lufthzg: Ventilstellg / Pumpe",
-        "Bereg: Handstart",
-        "Schirm: Funktion"
+        "Allg Zeitprogramm", "Raumsollwert Heizung / Lüftung",
+        "Lufthzg: Ventilstellg / Pumpe", "Bereg: Handstart"
       ],
-      "ha_floor": "",
-      "ha_area": "",
+      "ha_floor": "Gewächshaus",
+      "ha_area": "Abteil 4",
       "ha_labels": []
     },
     {
       "zone": "05",
       "kanal_count": 48,
       "sample_descriptions": [
-        "Allg Zeitprogramm",
-        "Ferien vom / bis",
+        "Allg Zeitprogramm", "Ferien vom / bis",
         "Tagbetrieb Mo–So von / bis"
       ],
-      "ha_floor": "",
+      "ha_floor": "Gewächshaus",
       "ha_area": "",
       "ha_labels": []
     },
@@ -103,25 +115,21 @@
       "zone": "50",
       "kanal_count": 9,
       "sample_descriptions": [
-        "Bewässerung",
-        "akt Ventil / Ventil",
-        "Zentral-Halt",
-        "GWasser: Wochentag von / bis",
-        "GWasser: Versorgung von / bis"
+        "Bewässerung", "akt Ventil / Ventil", "Zentral-Halt",
+        "GWasser: Wochentag von / bis"
       ],
-      "ha_floor": "",
+      "ha_floor": "Gewächshaus",
       "ha_area": "",
-      "ha_labels": []
+      "ha_labels": ["Bewässerung"]
     },
     {
       "zone": "91",
       "kanal_count": 3,
       "sample_descriptions": [
-        "Pumpe",
-        "Lichtführung Nacht / Tag",
+        "Pumpe", "Lichtführung Nacht / Tag",
         "Betrieb bis Außentemp-Tag / Nacht"
       ],
-      "ha_floor": "",
+      "ha_floor": "Gewächshaus",
       "ha_area": "",
       "ha_labels": []
     }
