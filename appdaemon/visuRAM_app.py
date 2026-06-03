@@ -188,6 +188,7 @@ class VisuRAMApp(hass.Hass):
                     "state_topic":          state_topic,
                     "availability_topic":   MQTT_AVAIL,
                     "json_attributes_topic": attr_topic,
+                    "has_entity_name":      False,   # Gerätename NICHT voranstellen
                     "device":               DEVICE_INFO,
                 }
                 if unit:
