@@ -77,15 +77,19 @@ class VisuRAMApp(hass.Hass):
         self.log(f"{len(self._field_names)} Sensor-Namen geladen")
         self.log(f"{len(self._field_lookup)} Kanal-Mappings geladen")
 
-        # Einheiten → HA Device Class
+        # Einheiten → HA Device Class.
+        # Bewusst OHNE "m/s"→wind_speed: HA würde wind_speed sonst je nach
+        # Einheitensystem auf km/h umrechnen. Wir wollen m/s wie vom CC600.
         self._UNIT_TO_CLASS = {
             "oC":  "temperature",
             "°C":  "temperature",
-            "m/s": "wind_speed",
-            "W":   "power",
-            "kW":  "power",
             "%":   "humidity",
         }
+
+        # Windrichtungen: VisuRAM liefert "<code 1-8> <Himmelsrichtung>", z.B.
+        # "6 W" (West). Als Text publizieren (sonst zeigt HA "6.0" mit Einheit
+        # "W"). Im Datensatz gibt es kein Watt-"W", daher keine Verwechslung.
+        self._HIMMELSRICHTUNGEN = {"N", "NO", "O", "SO", "S", "SW", "W", "NW"}
 
         # VisuRAM-Einheit → HA-gültige Einheit. KRITISCH: VisuRAM liefert "oC"
         # (Buchstabe o + C). Mit device_class=temperature lehnt HA "oC" als
@@ -208,7 +212,11 @@ class VisuRAMApp(hass.Hass):
             state        = value
             anzeige      = None  # menschenlesbarer Originalwert ("15:00"/"06:23")
 
-            if unit in ("min:s", "h:min"):
+            if unit in self._HIMMELSRICHTUNGEN:
+                # Windrichtung: "6 W" → Text "W" (Code 1-8 ist redundant zur
+                # Himmelsrichtung). Keine Einheit, keine device_class.
+                state = unit
+            elif unit in ("min:s", "h:min"):
                 if self._time_kind(entry, friendly, unit) == "dauer":
                     secs = self._time_to_seconds(value, unit)
                     if secs is not None:

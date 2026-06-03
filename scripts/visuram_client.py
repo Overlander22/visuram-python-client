@@ -737,17 +737,20 @@ def load_field_names(mapping_path: str | None = None) -> dict[str, str]:
         feld_id_w2 = ch.get("feld_id_w2")
         zone       = ch.get("zone", "")
         kanal      = ch.get("kanal", "")
+        # Kuratierte HA-Labels (aus dem Label-Review) haben Vorrang vor der
+        # automatischen Ableitung. Enthalten bereits den Zonen-Präfix.
+        ha_label_w1 = ch.get("ha_label_w1")
+        ha_label_w2 = ch.get("ha_label_w2")
 
-        # W1-Feld: "{zone}-{w1_label}"
+        # W1-Feld: kuratiertes Label, sonst "{zone}-{w1_label}"
         if feld_id_w1:
-            label = f"{zone}-{w1_label}" if w1_label else f"{zone}-{desc or f'{zone}.{kanal}'}"
-            names[f"{feld_id_w1}_Feld"] = label
+            names[f"{feld_id_w1}_Feld"] = ha_label_w1 or (
+                f"{zone}-{w1_label}" if w1_label else f"{zone}-{desc or f'{zone}.{kanal}'}")
 
-        # W2-Feld: "{zone}-{desc}" – NUR wenn w2_label nicht leer ist
-        # (leeres w2_label = kein sinnvoller W2-Wert vorhanden)
-        if feld_id_w2 and w2_label:
-            label = f"{zone}-{desc}" if desc else f"{zone}-{w1_label} / {w2_label}"
-            names[f"{feld_id_w2}_Feld"] = label
+        # W2-Feld: kuratiertes Label, sonst "{zone}-{desc}" (nur wenn beschriftet)
+        if feld_id_w2 and (ha_label_w2 or w2_label):
+            names[f"{feld_id_w2}_Feld"] = ha_label_w2 or (
+                f"{zone}-{desc}" if desc else f"{zone}-{w1_label} / {w2_label}")
 
     logger.debug("Feld-Namen geladen: %d Einträge", len(names))
     return names
