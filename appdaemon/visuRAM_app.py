@@ -49,8 +49,8 @@ MQTT_DISCOVERY = "homeassistant"
 # HA-Device-Info (erscheint in Geräte-Ansicht)
 DEVICE_INFO = {
     "identifiers":    ["visuram_cc600_nersingen"],
-    "name":           "CC600 Nersingen (Flora Toskana)",
-    "model":          "CC600",
+    "name":           "CC600",
+    "model":          "CC600 (Flora Toskana / Nersingen)",
     "manufacturer":   "RAM GmbH",
 }
 
@@ -135,8 +135,8 @@ class VisuRAMApp(hass.Hass):
           2. State publizieren (bei jedem Poll)
 
         Entity-ID-Schema in HA:
-          sensor.nersingen_{cc600_adr}       (W1-Wert)
-          sensor.nersingen_{cc600_adr}_w2    (W2-Wert)
+          sensor.cc600_{cc600_adr}       (W1-Wert)
+          sensor.cc600_{cc600_adr}_w2    (W2-Wert)
         """
         for feld_id, sensor in sensors.items():
             value = sensor.get("value", "")
@@ -158,12 +158,12 @@ class VisuRAMApp(hass.Hass):
                     continue
 
                 suffix    = "_w2" if is_w2 else ""
-                unique_id = f"nersingen_{cc600_adr}{suffix}"
+                unique_id = f"cc600_{cc600_adr}{suffix}"
                 object_id = unique_id
             else:
                 # Fallback für Felder ohne Mapping
                 slug      = feld_id.lower().replace("_feld", "")
-                unique_id = f"nersingen_{slug}"
+                unique_id = f"cc600_{slug}"
                 object_id = unique_id
 
             friendly     = self._field_names.get(feld_id, feld_id)

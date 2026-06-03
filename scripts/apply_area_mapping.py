@@ -351,8 +351,8 @@ def main() -> None:
     # ── Schritt 4: Entities laden ─────────────────────────────────────────────
     print("\n── HA-Entities laden ─────────────────────────────────────────────")
     all_states = ha_rest("GET", "/api/states", ha_url, token)
-    nersingen  = [s for s in all_states if "nersingen" in s["entity_id"]]
-    print(f"  {len(nersingen)} nersingen-Entities gefunden")
+    nersingen  = [s for s in all_states if s["entity_id"].startswith("sensor.cc600_")]
+    print(f"  {len(nersingen)} CC600-Entities gefunden")
 
     # ── Schritt 5: Zuweisen ───────────────────────────────────────────────────
     print("\n── Area / Labels zuweisen ────────────────────────────────────────")

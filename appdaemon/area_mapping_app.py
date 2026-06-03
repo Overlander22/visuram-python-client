@@ -124,15 +124,15 @@ class AreaMappingApp(hass.Hass):
                 zone_to_area[zone]   = area_id
                 zone_to_labels[zone] = label_ids
 
-            # ── Schritt 4: nersingen-Entities laden ───────────────────────
+            # ── Schritt 4: CC600-Entities laden ──────────────────────────────
             all_states = ha_rest("GET", "/api/states", ha_url, ha_token)
-            nersingen  = [s for s in all_states if "nersingen" in s["entity_id"]]
-            self.log(f"{len(nersingen)} nersingen-Entities gefunden")
+            cc600_ents = [s for s in all_states if s["entity_id"].startswith("sensor.cc600_")]
+            self.log(f"{len(cc600_ents)} CC600-Entities gefunden")
 
             # ── Schritt 5: Zuweisungen durchführen ────────────────────────
             stats: dict[str, int] = {"ok": 0, "no_change": 0, "no_uid": 0, "no_zone": 0, "skip": 0}
 
-            for state in nersingen:
+            for state in cc600_ents:
                 eid   = state["entity_id"]
                 attrs = state.get("attributes", {})
                 zone  = zone_from_entity_attrs(attrs)
