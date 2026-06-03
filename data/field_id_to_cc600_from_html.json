@@ -1,0 +1,710 @@
+{
+  "Feld118": {
+    "feld_id": "Feld118",
+    "tooltip_adr": "0103500112",
+    "hadr_list": []
+  },
+  "Feld117": {
+    "feld_id": "Feld117",
+    "tooltip_adr": "0101500211",
+    "hadr_list": []
+  },
+  "Feld116": {
+    "feld_id": "Feld116",
+    "tooltip_adr": "0103500212",
+    "hadr_list": []
+  },
+  "Feld115": {
+    "feld_id": "Feld115",
+    "tooltip_adr": "0102500212",
+    "hadr_list": []
+  },
+  "Feld114": {
+    "feld_id": "Feld114",
+    "tooltip_adr": "0101500612",
+    "hadr_list": []
+  },
+  "Feld113": {
+    "feld_id": "Feld113",
+    "tooltip_adr": "0102500112",
+    "hadr_list": []
+  },
+  "Feld112": {
+    "feld_id": "Feld112",
+    "tooltip_adr": "0100903011",
+    "hadr_list": []
+  },
+  "Feld111": {
+    "feld_id": "Feld111",
+    "tooltip_adr": "0101500312",
+    "hadr_list": []
+  },
+  "Feld110": {
+    "feld_id": "Feld110",
+    "tooltip_adr": "0101500411",
+    "hadr_list": []
+  },
+  "Feld100": {
+    "feld_id": "Feld100",
+    "tooltip_adr": "0150502003",
+    "hadr_list": [
+      "0150502001",
+      "0150502001"
+    ]
+  },
+  "Feld99": {
+    "feld_id": "Feld99",
+    "tooltip_adr": "0101502603",
+    "hadr_list": [
+      "0101502601",
+      "0101502601"
+    ]
+  },
+  "Feld98": {
+    "feld_id": "Feld98",
+    "tooltip_adr": "0101502303",
+    "hadr_list": [
+      "0101502301",
+      "0101502301"
+    ]
+  },
+  "Feld97": {
+    "feld_id": "Feld97",
+    "tooltip_adr": "0102112203",
+    "hadr_list": [
+      "0102112202",
+      "0102112202"
+    ]
+  },
+  "Feld96": {
+    "feld_id": "Feld96",
+    "tooltip_adr": "0101502403",
+    "hadr_list": [
+      "0101502401",
+      "0101502401"
+    ]
+  },
+  "Feld95": {
+    "feld_id": "Feld95",
+    "tooltip_adr": "0101502203",
+    "hadr_list": [
+      "0101502201",
+      "0101502201"
+    ]
+  },
+  "Feld94": {
+    "feld_id": "Feld94",
+    "tooltip_adr": "0101112203",
+    "hadr_list": [
+      "0101112202",
+      "0101112202"
+    ]
+  },
+  "Feld93": {
+    "feld_id": "Feld93",
+    "tooltip_adr": "0103502203",
+    "hadr_list": [
+      "0103502201",
+      "0103502201"
+    ]
+  },
+  "Feld92": {
+    "feld_id": "Feld92",
+    "tooltip_adr": "0102502103",
+    "hadr_list": [
+      "0102502101",
+      "0102502101"
+    ]
+  },
+  "Feld91": {
+    "feld_id": "Feld91",
+    "tooltip_adr": "0102502203",
+    "hadr_list": [
+      "0102502201",
+      "0102502201"
+    ]
+  },
+  "Feld90": {
+    "feld_id": "Feld90",
+    "tooltip_adr": "0103112203",
+    "hadr_list": [
+      "0103112202",
+      "0103112202"
+    ]
+  },
+  "Feld89": {
+    "feld_id": "Feld89",
+    "tooltip_adr": "0191112101",
+    "hadr_list": [
+      "0191112101"
+    ]
+  },
+  "Feld88": {
+    "feld_id": "Feld88",
+    "tooltip_adr": "0103502103",
+    "hadr_list": [
+      "0103502101",
+      "0103502101"
+    ]
+  },
+  "Feld80": {
+    "feld_id": "Feld80",
+    "tooltip_adr": "0101500421",
+    "hadr_list": [
+      "0101500421"
+    ]
+  },
+  "Feld79": {
+    "feld_id": "Feld79",
+    "tooltip_adr": "0150511052",
+    "hadr_list": [
+      "0150511052"
+    ]
+  },
+  "Feld78": {
+    "feld_id": "Feld78",
+    "tooltip_adr": "0150511002",
+    "hadr_list": [
+      "0150511002"
+    ]
+  },
+  "Feld77": {
+    "feld_id": "Feld77",
+    "tooltip_adr": "0103123162",
+    "hadr_list": [
+      "0103123162"
+    ]
+  },
+  "Feld76": {
+    "feld_id": "Feld76",
+    "tooltip_adr": "0103122021",
+    "hadr_list": [
+      "0103122021"
+    ]
+  },
+  "Feld75": {
+    "feld_id": "Feld75",
+    "tooltip_adr": "0100900502",
+    "hadr_list": [
+      "0100900502"
+    ]
+  },
+  "Feld74": {
+    "feld_id": "Feld74",
+    "tooltip_adr": "0101420101",
+    "hadr_list": [
+      "0101420101"
+    ]
+  },
+  "Feld73": {
+    "feld_id": "Feld73",
+    "tooltip_adr": "0102123162",
+    "hadr_list": [
+      "0102123162"
+    ]
+  },
+  "Feld72": {
+    "feld_id": "Feld72",
+    "tooltip_adr": "0101123161",
+    "hadr_list": [
+      "0101123161"
+    ]
+  },
+  "Feld71": {
+    "feld_id": "Feld71",
+    "tooltip_adr": "0104123162",
+    "hadr_list": [
+      "0104123162"
+    ]
+  },
+  "Feld70": {
+    "feld_id": "Feld70",
+    "tooltip_adr": "0150511051",
+    "hadr_list": [
+      "0150511051"
+    ]
+  },
+  "Feld69": {
+    "feld_id": "Feld69",
+    "tooltip_adr": "0150511041",
+    "hadr_list": [
+      "0150511041"
+    ]
+  },
+  "Feld68": {
+    "feld_id": "Feld68",
+    "tooltip_adr": "0150511032",
+    "hadr_list": [
+      "0150511032"
+    ]
+  },
+  "Feld67": {
+    "feld_id": "Feld67",
+    "tooltip_adr": "0102112021",
+    "hadr_list": [
+      "0102112021"
+    ]
+  },
+  "Feld66": {
+    "feld_id": "Feld66",
+    "tooltip_adr": "0100100011",
+    "hadr_list": [
+      "0100100011"
+    ]
+  },
+  "Feld65": {
+    "feld_id": "Feld65",
+    "tooltip_adr": "0100400012",
+    "hadr_list": [
+      "0100400012"
+    ]
+  },
+  "Feld64": {
+    "feld_id": "Feld64",
+    "tooltip_adr": "0102123161",
+    "hadr_list": [
+      "0102123161"
+    ]
+  },
+  "Feld63": {
+    "feld_id": "Feld63",
+    "tooltip_adr": "0150511031",
+    "hadr_list": [
+      "0150511031"
+    ]
+  },
+  "Feld62": {
+    "feld_id": "Feld62",
+    "tooltip_adr": "0103500192",
+    "hadr_list": [
+      "0103500192"
+    ]
+  },
+  "Feld61": {
+    "feld_id": "Feld61",
+    "tooltip_adr": "0105100001",
+    "hadr_list": [
+      "0105100001"
+    ]
+  },
+  "Feld60": {
+    "feld_id": "Feld60",
+    "tooltip_adr": "0103500191",
+    "hadr_list": [
+      "0103500191"
+    ]
+  },
+  "Feld59": {
+    "feld_id": "Feld59",
+    "tooltip_adr": "0100000031",
+    "hadr_list": [
+      "0100000031"
+    ]
+  },
+  "Feld58": {
+    "feld_id": "Feld58",
+    "tooltip_adr": "0101122021",
+    "hadr_list": [
+      "0101122021"
+    ]
+  },
+  "Feld57": {
+    "feld_id": "Feld57",
+    "tooltip_adr": "0101502612",
+    "hadr_list": [
+      "0101502612"
+    ]
+  },
+  "Feld56": {
+    "feld_id": "Feld56",
+    "tooltip_adr": "0103123161",
+    "hadr_list": [
+      "0103123161"
+    ]
+  },
+  "Feld55": {
+    "feld_id": "Feld55",
+    "tooltip_adr": "0101420131",
+    "hadr_list": [
+      "0101420131"
+    ]
+  },
+  "Feld54": {
+    "feld_id": "Feld54",
+    "tooltip_adr": "0102122021",
+    "hadr_list": [
+      "0102122021"
+    ]
+  },
+  "Feld53": {
+    "feld_id": "Feld53",
+    "tooltip_adr": "0100000032",
+    "hadr_list": [
+      "0100000032"
+    ]
+  },
+  "Feld52": {
+    "feld_id": "Feld52",
+    "tooltip_adr": "0101112021",
+    "hadr_list": [
+      "0101112021"
+    ]
+  },
+  "Feld51": {
+    "feld_id": "Feld51",
+    "tooltip_adr": "0102420131",
+    "hadr_list": [
+      "0102420131"
+    ]
+  },
+  "Feld50": {
+    "feld_id": "Feld50",
+    "tooltip_adr": "0101500691",
+    "hadr_list": [
+      "0101500691"
+    ]
+  },
+  "Feld49": {
+    "feld_id": "Feld49",
+    "tooltip_adr": "0102420132",
+    "hadr_list": [
+      "0102420132"
+    ]
+  },
+  "Feld48": {
+    "feld_id": "Feld48",
+    "tooltip_adr": "0101500692",
+    "hadr_list": [
+      "0101500692"
+    ]
+  },
+  "Feld47": {
+    "feld_id": "Feld47",
+    "tooltip_adr": "0101500391",
+    "hadr_list": [
+      "0101500391"
+    ]
+  },
+  "Feld46": {
+    "feld_id": "Feld46",
+    "tooltip_adr": "0101123162",
+    "hadr_list": [
+      "0101123162"
+    ]
+  },
+  "Feld45": {
+    "feld_id": "Feld45",
+    "tooltip_adr": "0102420101",
+    "hadr_list": [
+      "0102420101"
+    ]
+  },
+  "Feld44": {
+    "feld_id": "Feld44",
+    "tooltip_adr": "0101500392",
+    "hadr_list": [
+      "0101500392"
+    ]
+  },
+  "Feld43": {
+    "feld_id": "Feld43",
+    "tooltip_adr": "0104122021",
+    "hadr_list": [
+      "0104122021"
+    ]
+  },
+  "Feld42": {
+    "feld_id": "Feld42",
+    "tooltip_adr": "0104123161",
+    "hadr_list": [
+      "0104123161"
+    ]
+  },
+  "Feld41": {
+    "feld_id": "Feld41",
+    "tooltip_adr": "0101500621",
+    "hadr_list": [
+      "0101500621"
+    ]
+  },
+  "Feld40": {
+    "feld_id": "Feld40",
+    "tooltip_adr": "0103500221",
+    "hadr_list": [
+      "0103500221"
+    ]
+  },
+  "Feld39": {
+    "feld_id": "Feld39",
+    "tooltip_adr": "0103500121",
+    "hadr_list": [
+      "0103500121"
+    ]
+  },
+  "Feld38": {
+    "feld_id": "Feld38",
+    "tooltip_adr": "0102500121",
+    "hadr_list": [
+      "0102500121"
+    ]
+  },
+  "Feld37": {
+    "feld_id": "Feld37",
+    "tooltip_adr": "0101500492",
+    "hadr_list": [
+      "0101500492"
+    ]
+  },
+  "Feld36": {
+    "feld_id": "Feld36",
+    "tooltip_adr": "0100900501",
+    "hadr_list": [
+      "0100900501"
+    ]
+  },
+  "Feld35": {
+    "feld_id": "Feld35",
+    "tooltip_adr": "0102500291",
+    "hadr_list": [
+      "0102500291"
+    ]
+  },
+  "Feld34": {
+    "feld_id": "Feld34",
+    "tooltip_adr": "0103500292",
+    "hadr_list": [
+      "0103500292"
+    ]
+  },
+  "Feld33": {
+    "feld_id": "Feld33",
+    "tooltip_adr": "0102500292",
+    "hadr_list": [
+      "0102500292"
+    ]
+  },
+  "Feld32": {
+    "feld_id": "Feld32",
+    "tooltip_adr": "0102500191",
+    "hadr_list": [
+      "0102500191"
+    ]
+  },
+  "Feld31": {
+    "feld_id": "Feld31",
+    "tooltip_adr": "0102500192",
+    "hadr_list": [
+      "0102500192"
+    ]
+  },
+  "Feld30": {
+    "feld_id": "Feld30",
+    "tooltip_adr": "0101500292",
+    "hadr_list": [
+      "0101500292"
+    ]
+  },
+  "Feld29": {
+    "feld_id": "Feld29",
+    "tooltip_adr": "0102112201",
+    "hadr_list": [
+      "0102112201"
+    ]
+  },
+  "Feld28": {
+    "feld_id": "Feld28",
+    "tooltip_adr": "0101502212",
+    "hadr_list": [
+      "0101502212"
+    ]
+  },
+  "Feld27": {
+    "feld_id": "Feld27",
+    "tooltip_adr": "0101500291",
+    "hadr_list": [
+      "0101500291"
+    ]
+  },
+  "Feld26": {
+    "feld_id": "Feld26",
+    "tooltip_adr": "0101500221",
+    "hadr_list": [
+      "0101500221"
+    ]
+  },
+  "Feld25": {
+    "feld_id": "Feld25",
+    "tooltip_adr": "0101502412",
+    "hadr_list": [
+      "0101502412"
+    ]
+  },
+  "Feld24": {
+    "feld_id": "Feld24",
+    "tooltip_adr": "0101500321",
+    "hadr_list": [
+      "0101500321"
+    ]
+  },
+  "Feld23": {
+    "feld_id": "Feld23",
+    "tooltip_adr": "0101500491",
+    "hadr_list": [
+      "0101500491"
+    ]
+  },
+  "Feld22": {
+    "feld_id": "Feld22",
+    "tooltip_adr": "0101112201",
+    "hadr_list": [
+      "0101112201"
+    ]
+  },
+  "Feld21": {
+    "feld_id": "Feld21",
+    "tooltip_adr": "0103112201",
+    "hadr_list": [
+      "0103112201"
+    ]
+  },
+  "Feld20": {
+    "feld_id": "Feld20",
+    "tooltip_adr": "0102420132",
+    "hadr_list": [
+      "0102420132"
+    ]
+  },
+  "Feld19": {
+    "feld_id": "Feld19",
+    "tooltip_adr": "0103112021",
+    "hadr_list": [
+      "0103112021"
+    ]
+  },
+  "Feld18": {
+    "feld_id": "Feld18",
+    "tooltip_adr": "0102420131",
+    "hadr_list": [
+      "0102420131"
+    ]
+  },
+  "Feld17": {
+    "feld_id": "Feld17",
+    "tooltip_adr": "0101502312",
+    "hadr_list": [
+      "0101502312"
+    ]
+  },
+  "Feld16": {
+    "feld_id": "Feld16",
+    "tooltip_adr": "0100400011",
+    "hadr_list": [
+      "0100400011"
+    ]
+  },
+  "Feld15": {
+    "feld_id": "Feld15",
+    "tooltip_adr": "0150511011",
+    "hadr_list": [
+      "0150511011"
+    ]
+  },
+  "Feld14": {
+    "feld_id": "Feld14",
+    "tooltip_adr": "0150511001",
+    "hadr_list": [
+      "0150511001"
+    ]
+  },
+  "Feld13": {
+    "feld_id": "Feld13",
+    "tooltip_adr": "0100100012",
+    "hadr_list": [
+      "0100100012"
+    ]
+  },
+  "Feld12": {
+    "feld_id": "Feld12",
+    "tooltip_adr": "0101420132",
+    "hadr_list": [
+      "0101420132"
+    ]
+  },
+  "Feld11": {
+    "feld_id": "Feld11",
+    "tooltip_adr": "0150511021",
+    "hadr_list": [
+      "0150511021"
+    ]
+  },
+  "Feld10": {
+    "feld_id": "Feld10",
+    "tooltip_adr": "0150511012",
+    "hadr_list": [
+      "0150511012"
+    ]
+  },
+  "Feld9": {
+    "feld_id": "Feld9",
+    "tooltip_adr": "0100400001",
+    "hadr_list": [
+      "0100400001"
+    ]
+  },
+  "Feld8": {
+    "feld_id": "Feld8",
+    "tooltip_adr": "0100900001",
+    "hadr_list": [
+      "0100900001"
+    ]
+  },
+  "Feld7": {
+    "feld_id": "Feld7",
+    "tooltip_adr": "0103500291",
+    "hadr_list": [
+      "0103500291"
+    ]
+  },
+  "Feld6": {
+    "feld_id": "Feld6",
+    "tooltip_adr": "0102500221",
+    "hadr_list": [
+      "0102500221"
+    ]
+  },
+  "Feld5": {
+    "feld_id": "Feld5",
+    "tooltip_adr": "0100903022",
+    "hadr_list": [
+      "0100903022"
+    ]
+  },
+  "Feld4": {
+    "feld_id": "Feld4",
+    "tooltip_adr": "0102420101",
+    "hadr_list": [
+      "0102420101"
+    ]
+  },
+  "Feld3": {
+    "feld_id": "Feld3",
+    "tooltip_adr": "0100100001",
+    "hadr_list": [
+      "0100100001"
+    ]
+  },
+  "Feld2": {
+    "feld_id": "Feld2",
+    "tooltip_adr": "0100900002",
+    "hadr_list": [
+      "0100900002"
+    ]
+  },
+  "Feld1": {
+    "feld_id": "Feld1",
+    "tooltip_adr": "0100903021",
+    "hadr_list": [
+      "0100903021"
+    ]
+  }
+}
