@@ -36,7 +36,8 @@
       {"id": "hausdach",        "name": "Hausdach"}
     ],
     "labels": [
-      {"id": "bewasserung", "name": "Bewässerung"}
+      {"id": "bewasserung", "name": "Bewässerung"},
+      {"id": "heizung", "name": "Heizung"}
     ]
   },
   "zones": [
@@ -107,8 +108,8 @@
         "Allg Zeitprogramm", "Ferien vom / bis",
         "Tagbetrieb Mo–So von / bis"
       ],
-      "ha_floor": "Gewächshaus",
-      "ha_area": "",
+      "ha_floor": "Nebenräume",
+      "ha_area": "Hausdach",
       "ha_labels": []
     },
     {
@@ -129,9 +130,9 @@
         "Pumpe", "Lichtführung Nacht / Tag",
         "Betrieb bis Außentemp-Tag / Nacht"
       ],
-      "ha_floor": "Gewächshaus",
-      "ha_area": "",
-      "ha_labels": []
+      "ha_floor": "Nebenräume",
+      "ha_area": "Heizungsraum",
+      "ha_labels": ["Heizung"]
     }
   ]
 }
