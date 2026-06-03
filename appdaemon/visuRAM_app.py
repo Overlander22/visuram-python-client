@@ -23,12 +23,21 @@ apps.yaml Beispiel:
     interval: 20
 """
 
+import datetime
 import json
 import os
 import sys
 import traceback
 
 import appdaemon.plugins.hass.hassapi as hass
+
+# Zeitzone der Anlage (Nersingen) – für device_class=timestamp (Tageszeiten).
+# ZoneInfo bringt DST automatisch; Fallback auf System-Localtime falls tzdata fehlt.
+try:
+    from zoneinfo import ZoneInfo
+    _ANLAGEN_TZ = ZoneInfo("Europe/Berlin")
+except Exception:  # pragma: no cover - tzdata evtl. nicht im AppDaemon-Image
+    _ANLAGEN_TZ = None
 
 # visuram_client.py liegt im gleichen Verzeichnis
 sys.path.insert(0, os.path.dirname(__file__))
@@ -189,20 +198,33 @@ class VisuRAMApp(hass.Hass):
 
             friendly     = self._field_names.get(feld_id, feld_id)
 
-            # Numerischen Wert extrahieren. Nicht-numerische Werte (Uhrzeiten
-            # "06:23", Dauern "12:00", Texte "0 aus", Datum, Wochentag) als
-            # reinen Text-Sensor behandeln: Sobald eine unit_of_measurement
-            # gesetzt ist, verwirft HA nicht-numerische States → "unknown".
-            try:
-                state = str(float(value.replace(",", ".").split()[0]))
-                is_numeric = True
-            except (ValueError, IndexError):
-                state = value
-                is_numeric = False
+            # State + Typ bestimmen. VisuRAM liefert Zeitwerte als String:
+            #   "min:s" = Dauer  (z.B. "15:00" = 15 min) → device_class duration (Sekunden)
+            #   "h:min" = Tageszeit (z.B. "06:23")       → device_class timestamp (ISO heute)
+            # Alles andere: numerisch (mit Einheit) oder reiner Text.
+            # WICHTIG: Sobald eine unit_of_measurement gesetzt ist, verwirft HA
+            # nicht-numerische States → "unknown". Daher Zeitwerte in echte
+            # HA-Typen wandeln statt als String mit Einheit zu publizieren.
+            device_class = None
+            ha_unit      = ""
+            state        = value
+            anzeige      = None  # menschenlesbarer Originalwert ("15:00"/"06:23")
 
-            # Einheit + numerische device_class nur für numerische Werte.
-            device_class = self._UNIT_TO_CLASS.get(unit) if is_numeric else None
-            ha_unit      = self._UNIT_TO_HA.get(unit, unit) if is_numeric else ""
+            if unit == "min:s":
+                secs = self._mmss_to_seconds(value)
+                if secs is not None:
+                    state, device_class, ha_unit, anzeige = str(secs), "duration", "s", value
+            elif unit == "h:min":
+                iso = self._hhmm_to_iso(value)
+                if iso:
+                    state, device_class, anzeige = iso, "timestamp", value
+            else:
+                try:
+                    state        = str(float(value.replace(",", ".").split()[0]))
+                    device_class = self._UNIT_TO_CLASS.get(unit)
+                    ha_unit      = self._UNIT_TO_HA.get(unit, unit)
+                except (ValueError, IndexError):
+                    state = value  # nicht-numerischer Text → Sensor ohne Einheit
 
             state_topic = f"{MQTT_BASE}/sensor/{object_id}/state"
             attr_topic  = f"{MQTT_BASE}/sensor/{object_id}/attributes"
@@ -240,11 +262,39 @@ class VisuRAMApp(hass.Hass):
             if entry:
                 attrs["cc600_adr"] = entry["cc600_adr"]
                 attrs["zone"]      = entry.get("zone", "")
-            # Roh-Einheit erhalten, wenn sie nicht als unit_of_measurement
-            # dient (Text-Sensoren wie Uhrzeit "h:min", Dauer "min:s").
-            if unit and not is_numeric:
+            # Menschenlesbaren Originalwert mitgeben (z.B. "15:00" zur Dauer in
+            # Sekunden, "06:23" zur Uhrzeit) bzw. Roh-Einheit bei Text-Sensoren.
+            if anzeige is not None:
+                attrs["anzeige"] = anzeige
+            elif unit and not ha_unit:
                 attrs["einheit"] = unit
             self._mqtt_publish(attr_topic, json.dumps(attrs), retain=False)
+
+    # ── Zeit-Konvertierung ────────────────────────────────────────────────
+    @staticmethod
+    def _mmss_to_seconds(value: str):
+        """'MM:SS' (VisuRAM-Dauer) → Gesamtsekunden (int) oder None."""
+        try:
+            mm, ss = value.strip().split(":")
+            return int(mm) * 60 + int(ss)
+        except (ValueError, AttributeError):
+            return None
+
+    @staticmethod
+    def _hhmm_to_iso(value: str):
+        """'H:MM' (VisuRAM-Tageszeit) → ISO-8601-Zeitstempel HEUTE (tz-aware)
+        für device_class=timestamp, oder None bei ungültiger/zu großer Zeit
+        (>=24h ist keine Tageszeit → Aufrufer behandelt es als Text)."""
+        try:
+            hh, mm = value.strip().split(":")
+            h, m = int(hh), int(mm)
+        except (ValueError, AttributeError):
+            return None
+        if not (0 <= h < 24 and 0 <= m < 60):
+            return None
+        now = (datetime.datetime.now(_ANLAGEN_TZ) if _ANLAGEN_TZ
+               else datetime.datetime.now().astimezone())
+        return now.replace(hour=h, minute=m, second=0, microsecond=0).isoformat()
 
     # ── MQTT Helper ───────────────────────────────────────────────────────
     def _mqtt_publish(self, topic: str, payload: str,
