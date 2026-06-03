@@ -86,10 +86,13 @@ class VisuRAMApp(hass.Hass):
             "%":   "humidity",
         }
 
-        # Windrichtungen: VisuRAM liefert "<code 1-8> <Himmelsrichtung>", z.B.
-        # "6 W" (West). Als Text publizieren (sonst zeigt HA "6.0" mit Einheit
-        # "W"). Im Datensatz gibt es kein Watt-"W", daher keine Verwechslung.
-        self._HIMMELSRICHTUNGEN = {"N", "NO", "O", "SO", "S", "SW", "W", "NW"}
+        # Physikalische Einheiten → bleiben numerisch (mit unit_of_measurement).
+        # Jede ANDERE nicht-leere "Einheit" ist in Wahrheit eine Enumeration/
+        # ein Status-Text (z.B. "0 aus", "2 ein", "1 Mo", "6 W" = Himmelsricht.).
+        # Solche Werte werden als Text "<Zahl> <Text>" publiziert (sonst zeigt
+        # HA "0.0" mit Pseudo-Einheit "aus"). Zeit-Einheiten (min:s/h:min)
+        # werden separat behandelt.
+        self._REAL_UNITS = {"%", "oC", "°C", "klx", "klxh", "m/s", "K", "K/K", "d"}
 
         # VisuRAM-Einheit → HA-gültige Einheit. KRITISCH: VisuRAM liefert "oC"
         # (Buchstabe o + C). Mit device_class=temperature lehnt HA "oC" als
@@ -212,11 +215,7 @@ class VisuRAMApp(hass.Hass):
             state        = value
             anzeige      = None  # menschenlesbarer Originalwert ("15:00"/"06:23")
 
-            if unit in self._HIMMELSRICHTUNGEN:
-                # Windrichtung: "6 W" → Text "W" (Code 1-8 ist redundant zur
-                # Himmelsrichtung). Keine Einheit, keine device_class.
-                state = unit
-            elif unit in ("min:s", "h:min"):
+            if unit in ("min:s", "h:min"):
                 if self._time_kind(entry, friendly, unit) == "dauer":
                     secs = self._time_to_seconds(value, unit)
                     if secs is not None:
@@ -224,6 +223,10 @@ class VisuRAMApp(hass.Hass):
                     else:
                         state = value  # unparsebar → Text
                 # else: Uhrzeit → state bleibt der Original-String (Text)
+            elif unit and unit not in self._REAL_UNITS:
+                # Enumeration/Status/Himmelsrichtung → Text "<Zahl> <Text>",
+                # z.B. "0 aus", "2 ein", "1 Mo", "6 W". Keine Einheit/device_class.
+                state = f"{value} {unit}".strip()
             else:
                 try:
                     state        = str(float(value.replace(",", ".").split()[0]))
