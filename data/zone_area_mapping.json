@@ -1,15 +1,10 @@
 {
-  "_comment": "Zonen → HA Floors/Areas Mapping. Bitte ha_floor und ha_area ausfüllen. Wird vom Script apply_area_mapping.py angewendet.",
-  "_ha_floor_examples": [
-    "Erdgeschoss",
-    "Obergeschoss",
-    "Außen"
-  ],
-  "_ha_area_examples": [
-    "Gewächshaus 01",
-    "Bewässerung",
-    "Wetterstation"
-  ],
+  "_comment": "Zonen → HA Floors / Areas / Labels. Bitte ausfüllen und apply_area_mapping.py ausführen.",
+  "_instructions": {
+    "ha_floor": "Name des HA-Stockwerks (Ebene). Mehrere Zonen können dasselbe Stockwerk teilen. Leer = kein Stockwerk.",
+    "ha_area": "Name des HA-Bereichs. Jede Zone bekommt genau einen Bereich. Leer = Zone nicht zuweisen.",
+    "ha_labels": "Liste von Label-Namen für alle Entities dieser Zone. Leer = keine Labels. Beispiel: [\"Gewächshaus\", \"Sensoren\"]"
+  },
   "zones": [
     {
       "zone": "00",
@@ -19,10 +14,14 @@
         "Datum",
         "Wochentag",
         "Sonnenaufgang / -untergang",
-        "Alarmmeldung"
+        "Alarmmeldung",
+        "Außentemp: Alarmgw-Min",
+        "Niederschlag / Schnee",
+        "Windgeschwindigkeit / Richtung"
       ],
       "ha_floor": "",
-      "ha_area": ""
+      "ha_area": "",
+      "ha_labels": []
     },
     {
       "zone": "01",
@@ -30,12 +29,16 @@
       "sample_descriptions": [
         "Allg Zeitprogramm",
         "Tagbetrieb von(SA) / bis(SU)",
-        "Temp-Programm 1 / Laufzeit",
-        "Freigabe von / bis Außentemp",
-        "> Heizg: Beginn(SA) / Dauer"
+        "Raumtemperatur",
+        "Heizung: Raumsollwert-Tag / Nacht",
+        "Lüftung: Raumsollwert-Tag / Nacht",
+        "D-Lüftg: Stellung-Ost / West",
+        "Bereg: Gießdauer / Handstart",
+        "Schirm: Schaltverzögg Tag Zu"
       ],
       "ha_floor": "",
-      "ha_area": ""
+      "ha_area": "",
+      "ha_labels": []
     },
     {
       "zone": "02",
@@ -44,11 +47,14 @@
         "Allg Zeitprogramm",
         "Tagbetrieb von(SA) / bis(SU)",
         "Temp-Programm 1 / Laufzeit",
-        "Temp-Programm 2 / Laufzeit",
-        "Umluft-Programm / Funktion"
+        "Raumsollwert Heizung / Lüftung",
+        "D-Lüftg: Stellung-Ost / West",
+        "Bereg: Handstart",
+        "Schirm: Funktion"
       ],
       "ha_floor": "",
-      "ha_area": ""
+      "ha_area": "",
+      "ha_labels": []
     },
     {
       "zone": "03",
@@ -57,11 +63,13 @@
         "Allg Zeitprogramm",
         "Tagbetrieb von(SA) / bis(SU)",
         "Temp-Programm 1 / Laufzeit",
-        "Temp-Programm 2 / Laufzeit",
-        "Umluft-Programm / Funktion"
+        "Raumsollwert Heizung / Lüftung",
+        "Bereg: Handstart",
+        "Schirm: Funktion"
       ],
       "ha_floor": "",
-      "ha_area": ""
+      "ha_area": "",
+      "ha_labels": []
     },
     {
       "zone": "04",
@@ -70,11 +78,14 @@
         "Allg Zeitprogramm",
         "Tagbetrieb von(SA) / bis(SU)",
         "Temp-Programm 1 / Laufzeit",
-        "Temp-Programm 2 / Laufzeit",
-        "Umluft-Programm / Funktion"
+        "Raumsollwert Heizung / Lüftung",
+        "Lufthzg: Ventilstellg / Pumpe",
+        "Bereg: Handstart",
+        "Schirm: Funktion"
       ],
       "ha_floor": "",
-      "ha_area": ""
+      "ha_area": "",
+      "ha_labels": []
     },
     {
       "zone": "05",
@@ -82,12 +93,11 @@
       "sample_descriptions": [
         "Allg Zeitprogramm",
         "Ferien vom / bis",
-        "Tagbetrieb Mo von / bis",
-        "Tagbetrieb Di von / bis",
-        "Tagbetrieb Mi von / bis"
+        "Tagbetrieb Mo–So von / bis"
       ],
       "ha_floor": "",
-      "ha_area": ""
+      "ha_area": "",
+      "ha_labels": []
     },
     {
       "zone": "50",
@@ -100,7 +110,8 @@
         "GWasser: Versorgung von / bis"
       ],
       "ha_floor": "",
-      "ha_area": ""
+      "ha_area": "",
+      "ha_labels": []
     },
     {
       "zone": "91",
@@ -111,7 +122,8 @@
         "Betrieb bis Außentemp-Tag / Nacht"
       ],
       "ha_floor": "",
-      "ha_area": ""
+      "ha_area": "",
+      "ha_labels": []
     }
   ]
 }

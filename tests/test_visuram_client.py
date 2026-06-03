@@ -10,6 +10,7 @@ Oder mit Coverage-Report:
 """
 
 import datetime
+import json
 import re
 import sys
 import os
@@ -29,6 +30,8 @@ from scripts.visuram_client import (
     build_binitcall_arg,
     build_poll_arg,
     _build_arg,
+    load_field_names,
+    load_field_lookup,
     VisuRAMClient,
     VISURAMPC_HOST,
     VISURAMPC_PORT,
@@ -493,3 +496,146 @@ class TestHandstartValues:
         arg = build_set_value_arg("Feld92", "0101500311", w1="12:00", w2="1")
         decoded = decode_xml_names(arg)
         assert "W2{1}" in decoded
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Fixture: minimales cc600_channel_mapping.json für Naming-Tests
+# ─────────────────────────────────────────────────────────────────────────────
+
+MINIMAL_MAPPING = [
+    # Zone 00 – Nur W1, kein W2-Label
+    {
+        "zone": "00", "kanal": "00000", "cc600_adr": "0100000001",
+        "feld_id_w1": "Feld1", "feld_id_w2": None,
+        "desc": "Uhrzeit / (Sommerzeit)", "w1_label": "Uhrzeit", "w2_label": "",
+        "w1_value": "17:07", "w2_value": "",
+    },
+    # Zone 00 – W1 + W2 beide vorhanden
+    {
+        "zone": "00", "kanal": "00001", "cc600_adr": "0100000032",
+        "feld_id_w1": "Feld2", "feld_id_w2": "Feld3",
+        "desc": "Sonnenaufgang / -untergang", "w1_label": "Sonnenaufgang", "w2_label": "-untergang",
+        "w1_value": "05:32", "w2_value": "21:10",
+    },
+    # Zone 01 – W1 ohne W2
+    {
+        "zone": "01", "kanal": "00010", "cc600_adr": "0101100001",
+        "feld_id_w1": "Feld4", "feld_id_w2": None,
+        "desc": "Raumtemperatur", "w1_label": "Raumtemperatur", "w2_label": "",
+        "w1_value": "23.4", "w2_value": "",
+    },
+    # Zone 01 – W2 mit leerem Label (→ kein W2-Eintrag in names)
+    {
+        "zone": "01", "kanal": "00020", "cc600_adr": "0101200001",
+        "feld_id_w1": "Feld5", "feld_id_w2": "Feld6",
+        "desc": "Heizung: Raumsollwert-Tag / Nacht", "w1_label": "Heizung: Raumsollwert-Tag", "w2_label": "",
+        "w1_value": "20.0", "w2_value": "18.0",
+    },
+    # Zone 01 – kein feld_id_w1/w2 (Kanal nicht auf BildId=3 sichtbar)
+    {
+        "zone": "01", "kanal": "00030", "cc600_adr": "0101300001",
+        "feld_id_w1": None, "feld_id_w2": None,
+        "desc": "Interne Info", "w1_label": "Info", "w2_label": "",
+        "w1_value": "", "w2_value": "",
+    },
+]
+
+
+@pytest.fixture
+def mapping_file(tmp_path):
+    """Schreibt MINIMAL_MAPPING als temporäre JSON-Datei."""
+    p = tmp_path / "cc600_channel_mapping.json"
+    p.write_text(json.dumps(MINIMAL_MAPPING), encoding="utf-8")
+    return str(p)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# load_field_names
+# ─────────────────────────────────────────────────────────────────────────────
+
+class TestLoadFieldNames:
+    """Naming-Formel: W1 → '{zone}-{w1_label}', W2 → '{zone}-{desc}' (nur wenn w2_label)."""
+
+    def test_w1_name_zone_prefix(self, mapping_file):
+        names = load_field_names(mapping_file)
+        assert names["Feld1_Feld"] == "00-Uhrzeit"
+
+    def test_w1_name_zone01(self, mapping_file):
+        names = load_field_names(mapping_file)
+        assert names["Feld4_Feld"] == "01-Raumtemperatur"
+
+    def test_w2_name_verwendet_desc(self, mapping_file):
+        """W2-Label nicht leer → friendly_name = '{zone}-{desc}'."""
+        names = load_field_names(mapping_file)
+        assert names["Feld3_Feld"] == "00-Sonnenaufgang / -untergang"
+
+    def test_w1_name_wenn_w2_auch_vorhanden(self, mapping_file):
+        """W1-Eintrag bleibt eigenständig, auch wenn W2 existiert."""
+        names = load_field_names(mapping_file)
+        assert names["Feld2_Feld"] == "00-Sonnenaufgang"
+
+    def test_w2_wird_uebersprungen_wenn_label_leer(self, mapping_file):
+        """Leeres w2_label → kein W2-Eintrag in names."""
+        names = load_field_names(mapping_file)
+        assert "Feld6_Feld" not in names
+
+    def test_kein_eintrag_ohne_feld_id(self, mapping_file):
+        """Kanal ohne feld_id_w1/w2 erzeugt keinen Eintrag."""
+        names = load_field_names(mapping_file)
+        for key in names:
+            assert "Feld" in key  # alle Keys haben FeldID-Basis
+
+    def test_anzahl_eintraege(self, mapping_file):
+        """5 Kanäle im Fixture → 5 Einträge:
+        Feld1(W1), Feld2(W1), Feld3(W2), Feld4(W1), Feld5(W1)
+        Kein Feld6 (w2_label leer), kein Eintrag für Kanal ohne feld_id."""
+        names = load_field_names(mapping_file)
+        assert len(names) == 5
+
+    def test_datei_nicht_gefunden_gibt_leeres_dict(self):
+        names = load_field_names("/tmp/existiert_nicht_xyz.json")
+        assert names == {}
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# load_field_lookup
+# ─────────────────────────────────────────────────────────────────────────────
+
+class TestLoadFieldLookup:
+    """Lookup: FeldID → {cc600_adr, zone, is_w2, w1_label, w2_label, desc}"""
+
+    def test_w1_eintrag_is_w2_false(self, mapping_file):
+        lookup = load_field_lookup(mapping_file)
+        assert lookup["Feld2"]["is_w2"] is False
+
+    def test_w2_eintrag_is_w2_true(self, mapping_file):
+        lookup = load_field_lookup(mapping_file)
+        assert lookup["Feld3"]["is_w2"] is True
+
+    def test_gleiche_cc600_adr_fuer_w1_und_w2(self, mapping_file):
+        """W1 und W2 desselben Kanals teilen die cc600_adr."""
+        lookup = load_field_lookup(mapping_file)
+        assert lookup["Feld2"]["cc600_adr"] == lookup["Feld3"]["cc600_adr"]
+
+    def test_zone_vorhanden(self, mapping_file):
+        lookup = load_field_lookup(mapping_file)
+        assert lookup["Feld4"]["zone"] == "01"
+        assert lookup["Feld1"]["zone"] == "00"
+
+    def test_kein_eintrag_ohne_feld_id(self, mapping_file):
+        """Kanal ohne feld_id_w1/w2 erscheint nicht im Lookup."""
+        lookup = load_field_lookup(mapping_file)
+        # cc600_adr "0101300001" hat keine feld_ids → nicht im Lookup
+        adrs = [v["cc600_adr"] for v in lookup.values()]
+        assert "0101300001" not in adrs
+
+    def test_w2_label_leer_trotzdem_im_lookup(self, mapping_file):
+        """W2-Eintrag auch bei leerem w2_label im Lookup (für entity-skip-Logik)."""
+        lookup = load_field_lookup(mapping_file)
+        assert "Feld6" in lookup
+        assert lookup["Feld6"]["w2_label"] == ""
+        assert lookup["Feld6"]["is_w2"] is True
+
+    def test_datei_nicht_gefunden_gibt_leeres_dict(self):
+        lookup = load_field_lookup("/tmp/existiert_nicht_xyz.json")
+        assert lookup == {}
