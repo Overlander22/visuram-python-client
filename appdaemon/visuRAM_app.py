@@ -83,12 +83,13 @@ class VisuRAMApp(hass.Hass):
         self.log(f"{len(self._field_lookup)} Kanal-Mappings geladen")
 
         # Einheiten → HA Device Class.
-        # Bewusst OHNE "m/s"→wind_speed: HA würde wind_speed sonst je nach
-        # Einheitensystem auf km/h umrechnen. Wir wollen m/s wie vom CC600.
+        # Bewusst OHNE "m/s"→wind_speed (HA würde sonst auf km/h umrechnen) und
+        # OHNE "%"→humidity: die CC600-%-Werte sind Stellungen/Einschaltdauern,
+        # KEINE Luftfeuchte. Mit device_class=humidity bekämen sie ein falsches
+        # Feuchte-Symbol/-Statistik.
         self._UNIT_TO_CLASS = {
             "oC":  "temperature",
             "°C":  "temperature",
-            "%":   "humidity",
         }
 
         # Physikalische Einheiten → bleiben numerisch (mit unit_of_measurement).
