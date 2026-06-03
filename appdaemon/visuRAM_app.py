@@ -188,14 +188,21 @@ class VisuRAMApp(hass.Hass):
                 continue
 
             friendly     = self._field_names.get(feld_id, feld_id)
-            device_class = self._UNIT_TO_CLASS.get(unit)
-            ha_unit      = self._UNIT_TO_HA.get(unit, unit)  # "oC" → "°C" für HA
 
-            # Numerischen Wert extrahieren
+            # Numerischen Wert extrahieren. Nicht-numerische Werte (Uhrzeiten
+            # "06:23", Dauern "12:00", Texte "0 aus", Datum, Wochentag) als
+            # reinen Text-Sensor behandeln: Sobald eine unit_of_measurement
+            # gesetzt ist, verwirft HA nicht-numerische States → "unknown".
             try:
                 state = str(float(value.replace(",", ".").split()[0]))
+                is_numeric = True
             except (ValueError, IndexError):
                 state = value
+                is_numeric = False
+
+            # Einheit + numerische device_class nur für numerische Werte.
+            device_class = self._UNIT_TO_CLASS.get(unit) if is_numeric else None
+            ha_unit      = self._UNIT_TO_HA.get(unit, unit) if is_numeric else ""
 
             state_topic = f"{MQTT_BASE}/sensor/{object_id}/state"
             attr_topic  = f"{MQTT_BASE}/sensor/{object_id}/attributes"
@@ -233,6 +240,10 @@ class VisuRAMApp(hass.Hass):
             if entry:
                 attrs["cc600_adr"] = entry["cc600_adr"]
                 attrs["zone"]      = entry.get("zone", "")
+            # Roh-Einheit erhalten, wenn sie nicht als unit_of_measurement
+            # dient (Text-Sensoren wie Uhrzeit "h:min", Dauer "min:s").
+            if unit and not is_numeric:
+                attrs["einheit"] = unit
             self._mqtt_publish(attr_topic, json.dumps(attrs), retain=False)
 
     # ── MQTT Helper ───────────────────────────────────────────────────────
