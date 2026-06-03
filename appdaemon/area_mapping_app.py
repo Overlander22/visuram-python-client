@@ -173,19 +173,46 @@ class AreaMappingApp(hass.Hass):
     def _get_ha_credentials(self) -> tuple[str, str]:
         """
         Ermittelt HA-URL und Token.
-        Reihenfolge: apps.yaml-Args → AppDaemon-Plugin-Config.
+
+        Reihenfolge:
+          1. apps.yaml-Args (expliziter Override)
+          2. AppDaemon-Plugin-Config (verschiedene Pfade je nach AD-Version)
+          3. SUPERVISOR_TOKEN Umgebungsvariable (Standard für alle HA-Add-ons)
         """
+        import os
+
         ha_url   = self.args.get("ha_url",   "")
         ha_token = self.args.get("ha_token", "")
 
+        # Versuch 2: AppDaemon-interne Plugin-Config (Pfad variiert je nach AD-Version)
         if not ha_url or not ha_token:
-            # Aus AppDaemon-internem HASS-Plugin-Config lesen
-            try:
-                plugin_cfg = self.AD.plugins["HASS"].config
-                ha_url   = ha_url   or plugin_cfg.get("ha_url",  "")
-                ha_token = ha_token or plugin_cfg.get("ha_key",  "")
-            except Exception:
-                pass
+            for get_cfg in [
+                lambda: self.AD.plugins.plugins["HASS"].config,
+                lambda: self.AD.plugins["HASS"].config,
+                lambda: self.AD.config["plugins"]["HASS"],
+            ]:
+                try:
+                    cfg      = get_cfg()
+                    ha_url   = ha_url   or cfg.get("ha_url", "")
+                    ha_token = ha_token or cfg.get("ha_key", "")
+                    if ha_url and ha_token:
+                        break
+                except Exception:
+                    continue
+
+        # Versuch 3: Supervisor-Token (in jedem HA-Add-on als Umgebungsvariable verfügbar)
+        if not ha_token:
+            supervisor_token = os.environ.get("SUPERVISOR_TOKEN", "")
+            if supervisor_token:
+                ha_token = supervisor_token
+                ha_url   = ha_url or "http://supervisor/core"
+                self.log("Nutze SUPERVISOR_TOKEN für HA-Zugriff")
+
+        if not ha_url or not ha_token:
+            self.log(
+                "Kein HA-Token gefunden. Bitte ha_url + ha_token in apps.yaml eintragen.",
+                level="ERROR"
+            )
 
         return ha_url.rstrip("/"), ha_token
 
