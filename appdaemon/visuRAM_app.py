@@ -83,6 +83,14 @@ class VisuRAMApp(hass.Hass):
             "%":   "humidity",
         }
 
+        # VisuRAM-Einheit → HA-gültige Einheit. KRITISCH: VisuRAM liefert "oC"
+        # (Buchstabe o + C). Mit device_class=temperature lehnt HA "oC" als
+        # ungültige Einheit ab und legt die Entity GAR NICHT an → alle
+        # Temperaturen fehlten. HA verlangt "°C".
+        self._UNIT_TO_HA = {
+            "oC": "°C",
+        }
+
         # Welche MQTT-Discovery-Configs wurden schon gepublisht?
         # Key: (unique_id, unit) – bei Einheitenänderung neu publizieren
         self._published_discovery: set[tuple[str, str]] = set()
@@ -181,6 +189,7 @@ class VisuRAMApp(hass.Hass):
 
             friendly     = self._field_names.get(feld_id, feld_id)
             device_class = self._UNIT_TO_CLASS.get(unit)
+            ha_unit      = self._UNIT_TO_HA.get(unit, unit)  # "oC" → "°C" für HA
 
             # Numerischen Wert extrahieren
             try:
@@ -204,8 +213,8 @@ class VisuRAMApp(hass.Hass):
                     "has_entity_name":      False,   # Gerätename NICHT voranstellen
                     "device":               DEVICE_INFO,
                 }
-                if unit:
-                    config["unit_of_measurement"] = unit
+                if ha_unit:
+                    config["unit_of_measurement"] = ha_unit
                 if device_class:
                     config["device_class"] = device_class
 
