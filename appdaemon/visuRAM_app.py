@@ -82,6 +82,15 @@ class VisuRAMApp(hass.Hass):
         self.log(f"{len(self._field_names)} Sensor-Namen geladen")
         self.log(f"{len(self._field_lookup)} Kanal-Mappings geladen")
 
+        # cc600_adrs die bereits durch ein Mapping abgedeckt sind (W1 oder W2).
+        # Wird genutzt um stille Duplikate von echten neuen Sensoren zu trennen.
+        self._covered_adrs: set[str] = {
+            entry["cc600_adr"] for entry in self._field_lookup.values()
+        }
+        # TOOLTIPADR-Lookup aus VisuRAM.aspx HTML: feld_id → cc600_adr.
+        # Felder ohne TOOLTIPADR (Analogsymbol) sind nicht enthalten.
+        self._html_adr_map: dict[str, str] = self._fetch_html_feld_adrs(host, port)
+
         # Einheiten → HA Device Class.
         # Bewusst OHNE "m/s"→wind_speed (HA würde sonst auf km/h umrechnen) und
         # OHNE "%"→humidity: die CC600-%-Werte sind Stellungen/Einschaltdauern,
@@ -124,6 +133,54 @@ class VisuRAMApp(hass.Hass):
         # HA-Service zum Schalten registrieren
         self.register_service("visuram/set_value", self._handle_set_value)
         self.log("Service 'visuram/set_value' registriert")
+
+    # ── HTML-Analyse ──────────────────────────────────────────────────────
+    def _fetch_html_feld_adrs(self, host: str, port: int) -> dict[str, str]:
+        """
+        Lädt VisuRAM.aspx einmalig beim Start und extrahiert für jede FeldID
+        die TOOLTIPADR (= cc600_adr) aus dem InitFeld()-Aufruf im JavaScript.
+
+        Felder ohne TOOLTIPADR (FELDART:Analogsymbol) sind im Ergebnis nicht
+        enthalten – sie können damit lautlos übersprungen werden.
+
+        Gibt dict zurück: { "ContainerXFeldY" → "0102422101", "FeldXX" → ... }
+        """
+        import requests as _req
+        try:
+            session = _req.Session()
+            session.headers.update({
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:138.0) "
+                              "Gecko/20100101 Firefox/138.0",
+            })
+            url    = f"http://{host}:{port}/visuram/VisuRAM.aspx"
+            params = {"ClientY": 1080, "ClientX": 1920, "BodyX": 1854,
+                      "BildId": 3}
+
+            r1 = session.get(url, params=params, timeout=10)
+            r1.raise_for_status()
+            m = re.search(r"'&WCFID=(\d+)&BildId=", r1.text)
+            if not m:
+                self.log("HTML-Analyse: WCFID nicht gefunden", level="WARNING")
+                return {}
+            r2 = session.get(url, params={**params, "WCFID": m.group(1)},
+                             timeout=10)
+            r2.raise_for_status()
+
+            result: dict[str, str] = {}
+            for fm in re.finditer(
+                r'InitFeld\("([^"]+_Feld)",\s*"([^"]*?)"', r2.text
+            ):
+                ta = re.search(r"TOOLTIPADR:([^;]+)", fm.group(2))
+                if ta:
+                    fid = fm.group(1).replace("_Feld", "")
+                    result[fid] = ta.group(1).strip()
+
+            self.log(f"HTML-Analyse: {len(result)} FeldIDs mit TOOLTIPADR geladen")
+            return result
+
+        except Exception as exc:
+            self.log(f"HTML-Analyse fehlgeschlagen: {exc}", level="WARNING")
+            return {}
 
     # ── Polling ──────────────────────────────────────────────────────────
     def _poll(self, kwargs) -> None:
@@ -196,12 +253,17 @@ class VisuRAMApp(hass.Hass):
                 # CC600-Kanal an einer zweiten Bildposition anzeigen.
                 if feld_id not in self._logged_unknown:
                     self._logged_unknown.add(feld_id)
-                    self.log(
-                        f"FeldID ohne CC600-Mapping übersprungen: {feld_id!r} "
-                        f"(Wert={value!r}). Falls echter Sensor: in "
-                        "cc600_channel_mapping.json ergänzen.",
-                        level="WARNING",
-                    )
+                    html_adr = self._html_adr_map.get(feld_id.replace("_Feld", ""), "")
+                    if html_adr and html_adr not in self._covered_adrs:
+                        # Echte neue cc600_adr – noch kein Entity dafür
+                        self.log(
+                            f"Unbekannter Sensor: {feld_id!r} "
+                            f"(cc600_adr={html_adr}, Wert={value!r}). "
+                            "In cc600_channel_mapping.json ergänzen.",
+                            level="WARNING",
+                        )
+                    # else: Analogsymbol (kein TOOLTIPADR), Duplikat oder
+                    # cc600_adr bereits durch anderes FeldID gemappt → still
                 continue
 
             friendly     = self._field_names.get(feld_id, feld_id)
