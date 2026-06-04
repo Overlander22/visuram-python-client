@@ -1,0 +1,96 @@
+{
+  "_anleitung": "Neue Kanäle, die HP auf BildID 3 ergänzt hat und die noch keine HA-Entity haben (warnen je 1× im AppDaemon-Log). Bitte je Eintrag 'ha_label_w1' prüfen/korrigieren und '_hp_bestaetigt' auf true setzen. Einträge mit '???' brauchen HPs Eingabe (Bedeutung des Kanals). Felder mit '_' davor sind nur Review-Hilfe und werden vor dem Merge entfernt. Danach zurück an Olly/Claude → wird ins cc600_channel_mapping.json übernommen und deployed. Unter Option B genügt cc600_adr + ha_label_w1; jeder Kanal wird eine eigenständige Entity sensor.cc600_<adr>.",
+  "_stand": "2026-06-04",
+  "kanaele": [
+    {
+      "cc600_adr": "0101112202",
+      "zone": "01",
+      "kanal": "11220",
+      "ha_label_w1": "01-Lufthzg: Ventilator",
+      "_live_wert": "0 aus",
+      "_hinweis": "Geschwister 0101112201 = 'Lufthzg: Einschaltdauer / Ventilator' (P=2 = Ventilator-Teil)",
+      "_hp_bestaetigt": false
+    },
+    {
+      "cc600_adr": "0101500212",
+      "zone": "01",
+      "kanal": "50021",
+      "ha_label_w1": "01-Bereg: Handstart",
+      "_live_wert": "0",
+      "_hinweis": "Geschwister 0101500211 = 'Bereg: Gießdauer / Handstart' (P=2 = Handstart)",
+      "_hp_bestaetigt": false
+    },
+    {
+      "cc600_adr": "0101500412",
+      "zone": "01",
+      "kanal": "50041",
+      "ha_label_w1": "01-Bereg: Handstart",
+      "_live_wert": "0",
+      "_hinweis": "HPs Review-Sheet Zeile 24 nennt diese adr ausdrücklich '01-Bereg: Handstart'",
+      "_hp_bestaetigt": false
+    },
+    {
+      "cc600_adr": "0101500611",
+      "zone": "01",
+      "kanal": "50061",
+      "ha_label_w1": "01-Bereg: Gießdauer",
+      "_live_wert": "60:00 min:s",
+      "_hinweis": "Geschwister 0101500612 = 'Bereg: Gießdauer / Handstart'; P=1 + Dauer 60:00 → Gießdauer",
+      "_hp_bestaetigt": false
+    },
+    {
+      "cc600_adr": "0101502301",
+      "zone": "01",
+      "kanal": "50230",
+      "ha_label_w1": "01-Bereg: ??? (Meldung)",
+      "_live_wert": "0 aus",
+      "_hinweis": "FELDART:Meldesymbol (Status/Alarm), Beregnungs-Bereich. Bedeutung von Kanal 50230 bitte HP angeben.",
+      "_hp_bestaetigt": false
+    },
+    {
+      "cc600_adr": "0101502601",
+      "zone": "01",
+      "kanal": "50260",
+      "ha_label_w1": "01-Bereg: ??? (Meldung)",
+      "_live_wert": "0 aus",
+      "_hinweis": "FELDART:Meldesymbol (Status/Alarm), Beregnungs-Bereich. Bedeutung von Kanal 50260 bitte HP angeben.",
+      "_hp_bestaetigt": false
+    },
+    {
+      "cc600_adr": "0102112202",
+      "zone": "02",
+      "kanal": "11220",
+      "ha_label_w1": "02-Lufthzg: Ventilator",
+      "_live_wert": "0 aus",
+      "_hinweis": "Geschwister 0102112201 = 'Lufthzg: Einschaltdauer / Ventilator' (P=2 = Ventilator)",
+      "_hp_bestaetigt": false
+    },
+    {
+      "cc600_adr": "0102510112",
+      "zone": "02",
+      "kanal": "51011",
+      "ha_label_w1": "02-SpNebel: Handstart",
+      "_live_wert": "0",
+      "_hinweis": "Geschwister 0102510111 = 'SpNebel: Sprühdauer / Handstart' (P=2 = Handstart)",
+      "_hp_bestaetigt": false
+    },
+    {
+      "cc600_adr": "0103112202",
+      "zone": "03",
+      "kanal": "11220",
+      "ha_label_w1": "03-Lufthzg: Ventilator",
+      "_live_wert": "0 aus",
+      "_hinweis": "Geschwister 0103112201 = 'Lufthzg: Einschaltdauer / Ventilator' (P=2 = Ventilator)",
+      "_hp_bestaetigt": false
+    },
+    {
+      "cc600_adr": "0150502001",
+      "zone": "50",
+      "kanal": "50200",
+      "ha_label_w1": "50-Bewässerung ???",
+      "_live_wert": "0 aus",
+      "_hinweis": "Geschwister 0150502002 = 'Bewässerung'. Genaue Bedeutung (P=1) + Zuordnung im Rahmen der Zone-50-Klärung mit HP.",
+      "_hp_bestaetigt": false
+    }
+  ]
+}
