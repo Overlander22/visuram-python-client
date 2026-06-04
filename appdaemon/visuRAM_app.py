@@ -46,6 +46,7 @@ from visuram_client import (  # type: ignore
     VisuRAMClient,
     load_field_names,
     load_field_lookup,
+    load_adr_lookup,
     VISURAMPC_HOST,
     VISURAMPC_PORT,
 )
@@ -77,19 +78,20 @@ class VisuRAMApp(hass.Hass):
 
         self._client = VisuRAMClient(host=host, port=port)
         self._field_names  = load_field_names()
-        self._field_lookup = load_field_lookup()
+        self._field_lookup = load_field_lookup()   # feld_id→entry (nur noch set_value)
+        self._adr_lookup   = load_adr_lookup()     # cc600_adr→Entity (Lesepfad, drift-immun)
 
         self.log(f"{len(self._field_names)} Sensor-Namen geladen")
-        self.log(f"{len(self._field_lookup)} Kanal-Mappings geladen")
+        self.log(f"{len(self._adr_lookup)} Adress-Mappings geladen")
 
-        # cc600_adrs die bereits durch ein Mapping abgedeckt sind (W1 oder W2).
-        # Wird genutzt um stille Duplikate von echten neuen Sensoren zu trennen.
-        self._covered_adrs: set[str] = {
-            entry["cc600_adr"] for entry in self._field_lookup.values()
-        }
-        # TOOLTIPADR-Lookup aus VisuRAM.aspx HTML: feld_id → cc600_adr.
+        # TOOLTIPADR-Lookup aus VisuRAM.aspx HTML: feld_id → cc600_adr (LIVE-Wahrheit).
+        # Damit ist die Zuordnung immun gegen FeldID-Umnummerierungen (BildID 3):
+        # feld_id → cc600_adr (hier, live) → Entity (self._adr_lookup, stabil).
         # Felder ohne TOOLTIPADR (Analogsymbol) sind nicht enthalten.
         self._html_adr_map: dict[str, str] = self._fetch_html_feld_adrs(host, port)
+        # cc600_adrs die eine Entity haben (= Schlüssel des Adr-Lookups). Für die
+        # Warnlogik: nur echte neue, ungemappte cc600_adr sollen warnen.
+        self._covered_adrs: set[str] = set(self._adr_lookup.keys())
 
         # Einheiten → HA Device Class.
         # Bewusst OHNE "m/s"→wind_speed (HA würde sonst auf km/h umrechnen) und
@@ -229,44 +231,33 @@ class VisuRAMApp(hass.Hass):
             if not value:
                 continue
 
-            # cc600_adr + Typ ermitteln
-            lookup_key = feld_id.replace("_Feld", "")
-            entry = self._field_lookup.get(lookup_key)
+            # feld_id → cc600_adr LIVE aus dem HTML auflösen (immun gegen FeldID-
+            # Umnummerierung in BildID 3!), dann per STABILER Adresse die Ziel-
+            # Entity nachschlagen. So landet der Wert immer bei der richtigen Entity,
+            # egal welche FeldID VisuRAM dem Kanal aktuell zugewiesen hat.
+            cc600_adr = self._html_adr_map.get(feld_id.replace("_Feld", ""))
+            entry     = self._adr_lookup.get(cc600_adr) if cc600_adr else None
 
             if entry:
-                cc600_adr = entry["cc600_adr"]
-                is_w2     = entry.get("is_w2", False)
-                w2_label  = entry.get("w2_label", "")
-
-                # W2-Entity überspringen wenn kein Label → kein sinnvoller Wert
-                if is_w2 and not w2_label:
-                    continue
-
-                suffix    = "_w2" if is_w2 else ""
-                unique_id = f"cc600_{cc600_adr}{suffix}"
+                unique_id = entry["unique_id"]
                 object_id = unique_id
             else:
-                # Kein CC600-Mapping → KEINE Entity anlegen (würde sonst ohne Zone
-                # in HA landen). Stattdessen einmalig warnen, damit ein wirklich
-                # neuer, noch nicht gemappter Sensor auffällt und nicht still
-                # verschwindet. Bekannte Fälle: Duplikat-Felder, die denselben
-                # CC600-Kanal an einer zweiten Bildposition anzeigen.
+                # Kein Eintrag → KEINE Entity. Einmalig warnen, aber nur wenn es eine
+                # echte neue, ungemappte cc600_adr ist (nicht für Analogsymbole ohne
+                # TOOLTIPADR und nicht für bereits abgedeckte Adressen).
                 if feld_id not in self._logged_unknown:
                     self._logged_unknown.add(feld_id)
-                    html_adr = self._html_adr_map.get(feld_id.replace("_Feld", ""), "")
-                    if html_adr and html_adr not in self._covered_adrs:
-                        # Echte neue cc600_adr – noch kein Entity dafür
+                    if cc600_adr and cc600_adr not in self._covered_adrs:
                         self.log(
                             f"Unbekannter Sensor: {feld_id!r} "
-                            f"(cc600_adr={html_adr}, Wert={value!r}). "
+                            f"(cc600_adr={cc600_adr}, Wert={value!r}). "
                             "In cc600_channel_mapping.json ergänzen.",
                             level="WARNING",
                         )
-                    # else: Analogsymbol (kein TOOLTIPADR), Duplikat oder
-                    # cc600_adr bereits durch anderes FeldID gemappt → still
+                    # else: Analogsymbol (kein TOOLTIPADR) → still
                 continue
 
-            friendly     = self._field_names.get(feld_id, feld_id)
+            friendly     = entry["label"]
 
             # State + Typ bestimmen. VisuRAM liefert Zeitwerte als String mit
             # Einheit "min:s" oder "h:min". Die Einheit allein sagt aber NICHT,
@@ -336,10 +327,8 @@ class VisuRAMApp(hass.Hass):
             self._mqtt_publish(state_topic, state, retain=False)
 
             # ── Attributes publizieren ───────────────────────────────────
-            attrs: dict = {"source": "VisuRAM CC600", "feld_id": feld_id}
-            if entry:
-                attrs["cc600_adr"] = entry["cc600_adr"]
-                attrs["zone"]      = entry.get("zone", "")
+            attrs: dict = {"source": "VisuRAM CC600", "feld_id": feld_id,
+                           "cc600_adr": cc600_adr, "zone": entry.get("zone", "")}
             # Menschenlesbaren Originalwert mitgeben (z.B. "15:00" zur Dauer in
             # Sekunden, "06:23" zur Uhrzeit) bzw. Roh-Einheit bei Text-Sensoren.
             if anzeige is not None:
@@ -428,15 +417,19 @@ class VisuRAMApp(hass.Hass):
             return
 
         if not cc600_adr:
-            entry = self._field_lookup.get(feld_id)
-            if not entry:
+            # Bevorzugt LIVE aus dem HTML auflösen (immun gegen FeldID-Drift),
+            # sonst statischer feld_id→adr-Fallback aus dem Mapping.
+            cc600_adr = self._html_adr_map.get(feld_id.replace("_Feld", ""))
+            if not cc600_adr:
+                entry = self._field_lookup.get(feld_id)
+                cc600_adr = entry["cc600_adr"] if entry else None
+            if not cc600_adr:
                 self.log(
                     f"visuram/set_value: Kein CC600-Mapping für feld_id={feld_id!r}. "
                     "Bitte 'cc600_adr' explizit übergeben.",
                     level="ERROR",
                 )
                 return
-            cc600_adr = entry["cc600_adr"]
 
         host = self._client.base_url.split("//")[1].split(":")[0]
         port = int(self._client.base_url.split(":")[-1].split("/")[0])

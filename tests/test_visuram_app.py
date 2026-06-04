@@ -17,6 +17,7 @@ Ausführen:
     pytest tests/ -v
 """
 
+import json
 import os
 import sys
 import types
@@ -173,7 +174,7 @@ class TestWarnungUnterdrueckung:
 
     def _app(self):
         app = _make_app()
-        app._field_lookup    = {}            # alles ungemappt → else-Zweig
+        app._adr_lookup      = {}            # keine cc600_adr gemappt → else-Zweig
         app._logged_unknown  = set()
         app._covered_adrs    = {"0102420101"}  # diese adr ist bereits abgedeckt
         app._html_adr_map = {
@@ -241,3 +242,80 @@ class TestWarnungUnterdrueckung:
         })
         assert _warnings(app) == []
         assert "Feld99_Feld" not in app._logged_unknown
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Adr-basierte Auflösung (Option B): feld_id → cc600_adr (live HTML) → Entity
+# ─────────────────────────────────────────────────────────────────────────────
+
+def _make_full_app(adr_lookup, html_adr_map):
+    """App mit MQTT-Recorder + Einheiten-Dicts für den vollständigen Push-Pfad."""
+    app = _make_app()
+    app._adr_lookup   = adr_lookup
+    app._html_adr_map = html_adr_map
+    app._covered_adrs = set(adr_lookup)
+    app._logged_unknown    = set()
+    app._published_discovery = set()
+    app._UNIT_TO_CLASS = {"oC": "temperature", "°C": "temperature"}
+    app._REAL_UNITS    = {"%", "oC", "°C", "klx", "klxh", "m/s", "K", "K/K", "d"}
+    app._UNIT_TO_HA    = {"oC": "°C"}
+    published: list[tuple] = []
+    app._mqtt_publish = lambda topic, payload, retain=False, qos=1: published.append(
+        (topic, payload, retain))
+    app._published = published
+    return app
+
+
+def _entry(uid, label, is_w2=False, zone="01"):
+    return {"unique_id": uid, "base_adr": uid.replace("cc600_", "").replace("_w2", ""),
+            "is_w2": is_w2, "label": label, "zone": zone, "wertart": ""}
+
+
+class TestAdrResolution:
+    """Der Wert einer FeldID landet bei der Entity ihrer cc600_adr (Live-HTML)."""
+
+    def test_w1_wert_landet_bei_richtiger_entity(self):
+        app = _make_full_app(
+            adr_lookup={"0101123162": _entry("cc600_0101123162", "01-Wind Lee")},
+            html_adr_map={"Feld12": "0101123162"},
+        )
+        app._push_sensors_mqtt({"Feld12_Feld": {"value": "12,0", "unit": "m/s"}})
+
+        states = [p for p in app._published if p[0].endswith("/state")]
+        assert ("nersingen/sensor/cc600_0101123162/state", "12.0", False) in states
+        # Discovery-Config trägt das adr-basierte Label
+        cfgs = [json.loads(p[1]) for p in app._published if p[0].endswith("/config")]
+        assert any(c["name"] == "01-Wind Lee"
+                   and c["unique_id"] == "cc600_0101123162"
+                   and c.get("unit_of_measurement") == "m/s" for c in cfgs)
+
+    def test_drift_immunitaet_andere_feldid_gleiche_adr(self):
+        # Selbe cc600_adr, aber VisuRAM hat sie umnummeriert (Feld999 statt Feld12)
+        app = _make_full_app(
+            adr_lookup={"0101123162": _entry("cc600_0101123162", "01-Wind Lee")},
+            html_adr_map={"Feld999": "0101123162"},
+        )
+        app._push_sensors_mqtt({"Feld999_Feld": {"value": "12,0", "unit": "m/s"}})
+        states = [p[0] for p in app._published if p[0].endswith("/state")]
+        # Trotz anderer FeldID landet der Wert bei derselben Entity
+        assert "nersingen/sensor/cc600_0101123162/state" in states
+
+    def test_w2_entity_wird_aus_w2_adr_erzeugt(self):
+        app = _make_full_app(
+            adr_lookup={"0101122102": _entry("cc600_0101122101_w2",
+                                             "01-D-Lüftg: Stellung-West", is_w2=True)},
+            html_adr_map={"FeldX": "0101122102"},
+        )
+        app._push_sensors_mqtt({"FeldX_Feld": {"value": "0,0", "unit": "%"}})
+        states = [p[0] for p in app._published if p[0].endswith("/state")]
+        assert "nersingen/sensor/cc600_0101122101_w2/state" in states
+
+    def test_feldid_ohne_html_adr_erzeugt_keine_entity(self):
+        # Feld ohne TOOLTIPADR (Analogsymbol) → nicht im html_adr_map → still
+        app = _make_full_app(
+            adr_lookup={"0101123162": _entry("cc600_0101123162", "01-Wind Lee")},
+            html_adr_map={},
+        )
+        app._push_sensors_mqtt({"Container9Feld2_Feld": {"value": "50", "unit": "%"}})
+        assert [p for p in app._published if p[0].endswith("/state")] == []
+        assert _warnings(app) == []

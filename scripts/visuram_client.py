@@ -694,6 +694,83 @@ def load_field_lookup(mapping_path: str | None = None) -> dict[str, dict]:
     return lookup
 
 
+def load_adr_lookup(mapping_path: str | None = None) -> dict[str, dict]:
+    """
+    Lädt cc600_channel_mapping.json und gibt ein Dict zurück, das per VOLLER
+    cc600_adr (= TOOLTIPADR aus dem Live-HTML) auf die Ziel-Entity abbildet:
+
+      { "0101122101": {"unique_id": "cc600_0101122101", "base_adr": "0101122101",
+                       "is_w2": False, "label": "01-D-Lüftg: Stellung-Ost",
+                       "zone": "01", "wertart": ""},
+        "0101122102": {"unique_id": "cc600_0101122101_w2", "base_adr": "0101122101",
+                       "is_w2": True, "label": "01-D-Lüftg: Stellung-West", ...}, ... }
+
+    Schlüssel ist die STABILE CC600-Punktadresse, NICHT die FeldID. Damit ist die
+    Auflösung immun gegen FeldID-Umnummerierungen in VisuRAM (BildID 3): visuRAM_app
+    löst feld_id→cc600_adr live aus dem HTML auf und schlägt hier per Adresse nach.
+
+      W1 (Arbeitswert 1): Schlüssel = entry["cc600_adr"].
+      W2 (Arbeitswert 2): Schlüssel = entry["cc600_adr_w2"] (explizit gepflegt),
+                          nur wenn ein W2-Label existiert.
+
+    Label-Ableitung identisch zu load_field_names (kuratiertes ha_label_* bevorzugt).
+    """
+    import json, os
+
+    if mapping_path is None:
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        candidates = [
+            os.path.join(script_dir, "cc600_channel_mapping.json"),
+            os.path.join(os.path.dirname(script_dir), "data", "cc600_channel_mapping.json"),
+        ]
+        for candidate in candidates:
+            if os.path.exists(candidate):
+                mapping_path = candidate
+                break
+        if mapping_path is None:
+            mapping_path = candidates[0]
+
+    if not os.path.exists(mapping_path):
+        logger.warning("cc600_channel_mapping.json nicht gefunden: %s", mapping_path)
+        return {}
+
+    with open(mapping_path, encoding="utf-8") as f:
+        channels = json.load(f)
+
+    lookup: dict[str, dict] = {}
+    for ch in channels:
+        A = ch.get("cc600_adr", "")
+        if not A:
+            continue
+        zone     = ch.get("zone", "")
+        kanal    = ch.get("kanal", "")
+        desc     = ch.get("desc", "").strip()
+        w1_label = ch.get("w1_label", "").strip()
+        w2_label = ch.get("w2_label", "").strip()
+        wertart  = ch.get("wertart", "")
+
+        # W1: kuratiertes Label bevorzugt, sonst "{zone}-{w1_label}" (wie load_field_names)
+        label_w1 = ch.get("ha_label_w1") or (
+            f"{zone}-{w1_label}" if w1_label else f"{zone}-{desc or f'{zone}.{kanal}'}")
+        lookup.setdefault(A, {
+            "unique_id": f"cc600_{A}", "base_adr": A, "is_w2": False,
+            "label": label_w1, "zone": zone, "wertart": wertart,
+        })
+
+        # W2: nur wenn explizite cc600_adr_w2 gepflegt UND ein W2-Label existiert
+        w2adr = ch.get("cc600_adr_w2")
+        if w2adr and (ch.get("ha_label_w2") or w2_label):
+            label_w2 = ch.get("ha_label_w2") or (
+                f"{zone}-{desc}" if desc else f"{zone}-{w1_label} / {w2_label}")
+            lookup.setdefault(w2adr, {
+                "unique_id": f"cc600_{A}_w2", "base_adr": A, "is_w2": True,
+                "label": label_w2, "zone": zone, "wertart": wertart,
+            })
+
+    logger.debug("Adr-Lookup geladen: %d Einträge", len(lookup))
+    return lookup
+
+
 def load_field_names(mapping_path: str | None = None) -> dict[str, str]:
     """
     Lädt cc600_channel_mapping.json und gibt ein Dict zurück:

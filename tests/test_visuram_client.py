@@ -32,6 +32,7 @@ from scripts.visuram_client import (
     _build_arg,
     load_field_names,
     load_field_lookup,
+    load_adr_lookup,
     VisuRAMClient,
     VISURAMPC_HOST,
     VISURAMPC_PORT,
@@ -643,3 +644,64 @@ class TestLoadFieldLookup:
     def test_datei_nicht_gefunden_gibt_leeres_dict(self):
         lookup = load_field_lookup("/tmp/existiert_nicht_xyz.json")
         assert lookup == {}
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# load_adr_lookup (Option B): cc600_adr → Entity, immun gegen FeldID-Drift
+# ─────────────────────────────────────────────────────────────────────────────
+
+_ADR_MAPPING = [
+    # W1 ohne W2
+    {"zone": "01", "kanal": "12316", "cc600_adr": "0101123161",
+     "feld_id_w1": "Feld33", "feld_id_w2": None,
+     "desc": "D-Lüftg: Zu-Windgeschw Luv", "w1_label": "D-Lüftg: Zu-Windgeschw Luv",
+     "w2_label": "", "ha_label_w1": "01-D-Lüftg: Zu-Windgeschw Luv"},
+    # W1 + W2 mit expliziter cc600_adr_w2
+    {"zone": "01", "kanal": "12210", "cc600_adr": "0101122101",
+     "feld_id_w1": "Container1Feld1", "feld_id_w2": "Container2Feld1",
+     "cc600_adr_w2": "0101122102",
+     "desc": "D-Lüftg: Stellung-Ost / West", "w1_label": "D-Lüftg: Stellung-Ost",
+     "w2_label": "West", "ha_label_w1": "01-D-Lüftg: Stellung-Ost",
+     "ha_label_w2": "01-D-Lüftg: Stellung-West"},
+    # W2-Label vorhanden, aber KEINE cc600_adr_w2 → kein W2-Eintrag
+    {"zone": "00", "kanal": "00001", "cc600_adr": "0100000032",
+     "feld_id_w1": "Feld2", "feld_id_w2": "Feld3",
+     "desc": "Sonnenaufgang / -untergang", "w1_label": "Sonnenaufgang",
+     "w2_label": "-untergang"},
+]
+
+
+@pytest.fixture
+def adr_mapping_file(tmp_path):
+    p = tmp_path / "cc600_channel_mapping.json"
+    p.write_text(json.dumps(_ADR_MAPPING), encoding="utf-8")
+    return str(p)
+
+
+class TestLoadAdrLookup:
+    """Schlüssel ist die volle cc600_adr; W2 nur via explizite cc600_adr_w2."""
+
+    def test_w1_per_cc600_adr(self, adr_mapping_file):
+        m = load_adr_lookup(adr_mapping_file)
+        assert m["0101123161"]["unique_id"] == "cc600_0101123161"
+        assert m["0101123161"]["is_w2"] is False
+        assert m["0101123161"]["label"] == "01-D-Lüftg: Zu-Windgeschw Luv"
+
+    def test_w2_per_explizite_adr(self, adr_mapping_file):
+        m = load_adr_lookup(adr_mapping_file)
+        assert m["0101122102"]["unique_id"] == "cc600_0101122101_w2"
+        assert m["0101122102"]["is_w2"] is True
+        assert m["0101122102"]["label"] == "01-D-Lüftg: Stellung-West"
+
+    def test_kein_w2_ohne_cc600_adr_w2(self, adr_mapping_file):
+        """w2_label gesetzt, aber keine cc600_adr_w2 → keine W2-Auflösung."""
+        m = load_adr_lookup(adr_mapping_file)
+        assert not any(e["is_w2"] for a, e in m.items() if e["base_adr"] == "0100000032")
+
+    def test_anzahl(self, adr_mapping_file):
+        """3 W1 + 1 W2 (nur der mit cc600_adr_w2) = 4 Einträge."""
+        m = load_adr_lookup(adr_mapping_file)
+        assert len(m) == 4
+
+    def test_datei_nicht_gefunden_gibt_leeres_dict(self):
+        assert load_adr_lookup("/tmp/existiert_nicht_xyz.json") == {}

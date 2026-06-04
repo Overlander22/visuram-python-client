@@ -507,8 +507,7 @@
     "w1_label": "Raum-Mitteltemp",
     "w2_label": "-Vortag",
     "ha_label_w1": "01-Raum-Mitteltemp",
-    "ha_label_w2": "01-Raum-Mitteltemp Vortag",
-    "cc600_adr_w2": "0101102022"
+    "ha_label_w2": "01-Raum-Mitteltemp Vortag"
   },
   {
     "zone": "01",
@@ -790,8 +789,7 @@
     "w1_label": "D-Lüftg: Stellung-Ost",
     "w2_label": "West",
     "ha_label_w1": "01-D-Lüftg: Stellung-Ost",
-    "ha_label_w2": "01-D-Lüftg: Stellung-West",
-    "cc600_adr_w2": "0101122102"
+    "ha_label_w2": "01-D-Lüftg: Stellung-West"
   },
   {
     "zone": "01",
@@ -1930,8 +1928,7 @@
     "w1_label": "Raumtemp-Nord",
     "w2_label": "Raumtemp-Süd",
     "ha_label_w1": "02-Raumtemp-Nord",
-    "ha_label_w2": "02-Raumtemp-Süd",
-    "cc600_adr_w2": "0102100012"
+    "ha_label_w2": "02-Raumtemp-Süd"
   },
   {
     "zone": "02",
@@ -1945,8 +1942,7 @@
     "w1_label": "Raum-Mitteltemp",
     "w2_label": "-Vortag",
     "ha_label_w1": "02-Raum-Mitteltemp",
-    "ha_label_w2": "02-Raum-Mitteltemp Vortag",
-    "cc600_adr_w2": "0102102022"
+    "ha_label_w2": "02-Raum-Mitteltemp Vortag"
   },
   {
     "zone": "02",
@@ -2287,8 +2283,7 @@
     "w1_label": "D-Lüftg: Stellung-Ost",
     "w2_label": "West",
     "ha_label_w1": "02-D-Lüftg: Stellung-Ost",
-    "ha_label_w2": "02-D-Lüftg: Stellung-West",
-    "cc600_adr_w2": "0102122102"
+    "ha_label_w2": "02-D-Lüftg: Stellung-West"
   },
   {
     "zone": "02",
@@ -3138,8 +3133,7 @@
     "w1_label": "Raum-Mitteltemp",
     "w2_label": "-Vortag",
     "ha_label_w1": "03-Raum-Mitteltemp",
-    "ha_label_w2": "03-Raum-Mitteltemp Vortag",
-    "cc600_adr_w2": "0103102022"
+    "ha_label_w2": "03-Raum-Mitteltemp Vortag"
   },
   {
     "zone": "03",
@@ -3421,8 +3415,7 @@
     "w1_label": "D-Lüftg: Stellung-Ost",
     "w2_label": "West",
     "ha_label_w1": "03-D-Lüftg: Stellung-Ost",
-    "ha_label_w2": "03-D-Lüftg: Stellung-West",
-    "cc600_adr_w2": "0103122102"
+    "ha_label_w2": "03-D-Lüftg: Stellung-West"
   },
   {
     "zone": "03",
@@ -4015,8 +4008,7 @@
     "w1_label": "Raum-Mitteltemp",
     "w2_label": "-Vortag",
     "ha_label_w1": "04-Raum-Mitteltemp",
-    "ha_label_w2": "04-Raum-Mitteltemp Vortag",
-    "cc600_adr_w2": "0104102022"
+    "ha_label_w2": "04-Raum-Mitteltemp Vortag"
   },
   {
     "zone": "04",
@@ -4367,8 +4359,7 @@
     "w1_label": "D-Lüftg: Stellung-Ost",
     "w2_label": "West",
     "ha_label_w1": "04-D-Lüftg: Stellung-Ost",
-    "ha_label_w2": "04-D-Lüftg: Stellung-West",
-    "cc600_adr_w2": "0104122102"
+    "ha_label_w2": "04-D-Lüftg: Stellung-West"
   },
   {
     "zone": "04",
