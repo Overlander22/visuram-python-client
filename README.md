@@ -226,7 +226,46 @@ nur, wenn ihre retained Discovery-Topics geleert werden
    python3 scripts/apply_area_mapping.py --dry-run   # Vorschau
    ```
 
-Das Script ist **idempotent**: legt nur an was fehlt, ändert nichts Vorhandenes außer neue Labels hinzufügen.
+Das Script ist **idempotent**, aber nicht rein additiv:
+- **Floors/Areas/Labels** werden nur angelegt, wenn sie fehlen.
+- **Labels an Entities** werden nur **gemergt** (hinzugefügt, nie entfernt).
+- **Area-Zuordnung** wird dagegen **überschrieben**, sobald die aktuelle Area
+  einer Entity von der zone-konfigurierten abweicht (`area_id` wird zurückgesetzt).
+  → Siehe nächster Abschnitt.
+
+Dieselbe Logik (`assign_entity`) läuft auch automatisch via `area_mapping_app`
+**60 s nach jedem AppDaemon-Start** – ein Neustart triggert die Area-Zuweisung also mit.
+
+### Was überlebt ein Update? (manuelle HA-Anpassungen)
+
+Ein „Update" (Re-Deploy + AppDaemon-Neustart) stößt **zwei** Mechanismen an, die
+sich unterschiedlich verhalten:
+
+1. **MQTT-Discovery (`visuRAM_app.py`)** re-publiziert die Config mit **stabiler
+   unique_id** (`cc600_<adr>`). HA wertet das als *Update*, nicht als Neuanlage →
+   Registry-Overrides des Users gewinnen über die Discovery-Defaults.
+2. **`area_mapping_app`** (60 s nach Start) normalisiert Entity-IDs und weist
+   Areas/Labels zu – teils **überschreibend**.
+
+| Manuelle Änderung in HA | Überlebt? | Grund |
+|---|---|---|
+| **Anzeigename** (friendly name) | ✅ ja | Registry-Override schlägt Discovery-`original_name`; Area-Script fasst Namen nicht an |
+| **Nachkommastellen** (display precision) | ✅✅ ja | Steht in keiner Discovery-Config, reine HA-Registry-Option |
+| **Einheit / device_class** (Override) | ✅ ja | Registry-Override gewinnt |
+| **Bereichszuordnung** (Area) | ⚠️ **nein**, wenn abweichend | `area_mapping_app` setzt die Area beim nächsten Start auf die **Zone-Area** zurück |
+| **Technische `entity_id`** (umbenannt) | ⚠️ **nein** | Wird auf `sensor.cc600_<adr>` zurück-normalisiert |
+
+**Universeller Killer:** Solange die **unique_id gleich bleibt**, geht nichts
+verloren. Wird eine Entity **gelöscht und neu angelegt** (cc600_adr ändert sich,
+retained Discovery-Topic geleert, MQTT-Integration zurückgesetzt), sind **alle**
+Anpassungen für diese unique_id weg. Normale Updates lösen das **nicht** aus.
+
+**Praktischer Rat:**
+- **Namen und Nachkommastellen** ruhig in der HA-UI pflegen – robust.
+- **Areas/Labels** zentral in `data/zone_area_mapping.json` pflegen (pro Zone),
+  nicht pro-Entity in der UI – sonst werden Area-Änderungen beim nächsten
+  Neustart überschrieben. Areas sind zonen-, nicht entity-granular.
+- **`entity_id`** nicht manuell umbenennen – das adr-Schema wird erzwungen.
 
 ### Service: CC600-Kanal schreiben
 
