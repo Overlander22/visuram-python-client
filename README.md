@@ -217,6 +217,40 @@ appdaemon:
 nur, wenn ihre retained Discovery-Topics geleert werden
 (`homeassistant/sensor/<alte_unique_id>/config` mit leerem retained Payload).
 
+### Neue Felder von BildID 3 aufnehmen (zusätzliche Entities)
+
+Wenn auf VisuRAM-Seite zusätzliche Felder in die Visualisierung **BildID 3**
+aufgenommen werden, entstehen daraus **nicht automatisch** HA-Entities.
+`load_field_lookup()` keyt ausschließlich über `feld_id_w1`/`feld_id_w2` aus
+`cc600_channel_mapping.json` – ohne passenden Mapping-Eintrag erzeugt der Poll
+**keine Entity** (höchstens eine WARNING). Das Hinzufügen auf BildID 3 ist also
+*notwendig, aber nicht hinreichend*.
+
+| Szenario | Ergebnis |
+|---|---|
+| Laufender Betrieb, nichts geändert | Wert wird gepollt, aber **keine Entity** (auch keine Warnung – `_html_adr_map` wird nur beim Start geladen) |
+| AppDaemon-Neustart **ohne** JSON-Update | Weiter keine Entity, aber Log zeigt `Unbekannter Sensor: FeldXX (cc600_adr=…, Wert=…)` → **Discovery-Signal** |
+| AppDaemon-Neustart **mit** aktualisierter `cc600_channel_mapping.json` | ✅ Entity wird angelegt |
+
+**Ablauf:**
+
+1. **VisuRAM-Seite:** Felder auf BildID 3 aufnehmen (jedes mit `TOOLTIPADR:<cc600_adr>`).
+2. **Frisches HTML ziehen** und `FeldID → cc600_adr` extrahieren
+   (`_fetch_html_feld_adrs()` bzw. `scripts/analyze_container_fields.py`).
+3. **`cc600_channel_mapping.json` ergänzen:** je neue cc600_adr `feld_id_w1`/
+   `feld_id_w2` setzen **und** Label pflegen (`ha_label_w1`/`w2_label`/`desc`/`zone`).
+   Viele Kanäle existieren ggf. schon aus dem 438er-Parameterzeilen-Import → dann
+   nur den FeldID-Link nachtragen.
+4. **Deploy** der JSON (scp) + **AppDaemon-Neustart** (Hot-Reload ist unzuverlässig).
+5. Entities erscheinen; `area_mapping_app` weist 60 s nach Start Areas/Labels zu.
+
+> **⚠️ Stolperstein – FeldID-Umnummerierung:** Beim Umbau von BildID 3 kann
+> VisuRAM **bestehende** FeldIDs neu vergeben. Die Entity-IDs sind zwar
+> adr-basiert (stabil), aber die `feld_id_w1/w2`-Links in der JSON sind es **nicht**
+> – verschieben sie sich, landen Poll-Werte falsch oder fallen raus. Daher nach
+> einer BildID-3-Änderung den **kompletten** `FeldID → cc600_adr`-Abgleich aus dem
+> HTML neu fahren, nicht nur neue Zeilen anhängen.
+
 ### Floors / Areas / Labels zuweisen
 
 1. `data/zone_area_mapping.json` öffnen und `ha_floor`, `ha_area`, `ha_labels` pro Zone ausfüllen
