@@ -1,0 +1,23 @@
+---
+# AppDaemon-Hauptkonfiguration.
+#
+# Auf dem HA-Server liegt diese Datei NICHT in apps/, sondern im Add-on-Root:
+#   /addon_configs/a0d7b954_appdaemon/appdaemon.yaml
+# Diese Repo-Kopie dient als versionierte Referenz des deployten Stands.
+appdaemon:
+  latitude: 52.379189
+  longitude: 4.899431
+  elevation: 2
+  time_zone: Europe/Amsterdam
+  # Default 10s. Der erste _poll pusht alle MQTT-Discovery-Configs (~12–17s) →
+  # ohne Anhebung erzeugt AppDaemon eine kosmetische "Excessive time"-WARNING.
+  thread_duration_warning_threshold: 30
+  plugins:
+    HASS:
+      type: hass
+      token: !env_var SUPERVISOR_TOKEN
+http:
+  url: http://0.0.0.0:5050
+admin:
+api:
+hadashboard:

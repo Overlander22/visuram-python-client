@@ -102,7 +102,8 @@ visuram_python_client/
 ├── appdaemon/
 │   ├── visuRAM_app.py            # AppDaemon-App für Home Assistant (MQTT Discovery)
 │   ├── area_mapping_app.py       # AppDaemon-App: Floors/Areas/Labels automatisch zuweisen
-│   └── apps.yaml                 # AppDaemon-Konfiguration beider Apps
+│   ├── apps.yaml                 # AppDaemon-App-Konfiguration beider Apps
+│   └── appdaemon.yaml            # AppDaemon-Hauptkonfig (Referenz; liegt am Server im Add-on-Root)
 ├── data/
 │   ├── cc600_channel_mapping.json  # 486 CC600-Kanäle (438 Parameterzeile + 48 HTML) mit FeldID-Mapping
 │   ├── all_cc600_channels.json     # Rohdaten aus HAR-Analyse
@@ -110,7 +111,8 @@ visuram_python_client/
 │   └── zone_area_mapping.json      # Zonen → HA Floors/Areas/Labels (ausfüllen!)
 ├── tests/
 │   ├── test_visuram_client.py      # Unit-Tests für visuram_client.py
-│   └── test_apply_area_mapping.py  # Unit-Tests für apply_area_mapping.py
+│   ├── test_apply_area_mapping.py  # Unit-Tests für apply_area_mapping.py
+│   └── test_visuram_app.py         # Unit-Tests für visuRAM_app.py (HTML-Analyse + Warnungs-Logik)
 ├── requirements.txt
 ├── requirements-dev.txt
 └── README.md
@@ -142,12 +144,35 @@ CC600 ──RS-232──► VisuRAM-PC (Windows)
 | **Gerät** | „CC600" (HA erzwingt `has_entity_name`-Verhalten → Entities erscheinen unter dem Gerät mit ihrem Kurznamen) |
 
 **Naming (friendly):** `{zone}-{w1_label}` für W1, `{zone}-{desc}` für W2  
-**Felder ohne Mapping** werden NICHT als Entity angelegt, sondern einmalig als
-`WARNING` geloggt (Sicherheitsnetz für neue, noch nicht gemappte Sensoren).
+**Felder ohne Mapping** werden NICHT als Entity angelegt. Eine `WARNING` wird nur
+dann geloggt, wenn die zugrunde liegende cc600_adr (W1/W2) noch gar nicht gemappt
+bzw. als Entity vorhanden ist – also ein **echter neuer Sensor**. Still bleiben:
+Analogsymbole (`ContainerXFeld2`, ohne TOOLTIPADR) und Duplikate (mehrere FeldIDs
+auf derselben cc600_adr). Dazu lädt `visuRAM_app.py` beim Start per
+`_fetch_html_feld_adrs()` die TOOLTIPADR-Map (FeldID → cc600_adr) aus VisuRAM.aspx
+und gleicht sie gegen die bereits gemappten Adressen ab (Sicherheitsnetz ohne
+Fehlalarme durch Balken/Duplikate).
 
 ### Deployment auf HA-Server
 
-Dateien per `curl` aus GitHub (`main`) in das AppDaemon-Verzeichnis holen:
+Verzeichnis auf dem HA-Server: `/addon_configs/a0d7b954_appdaemon/apps/visuRAM`
+
+**Variante A – SSH/scp (bevorzugt, kein GitHub-Token nötig):**
+
+Setzt SSH-Zugang voraus (Add-on *Terminal & SSH* → Konfiguration → Netzwerk →
+Host-Port für `22/tcp` setzen, z.B. **2222**; sonst „Connection refused" trotz
+hinterlegtem Key). Dann lokale Dateien direkt hochladen:
+
+```bash
+VDIR="/addon_configs/a0d7b954_appdaemon/apps/visuRAM"
+scp -P 2222 appdaemon/visuRAM_app.py      root@192.168.178.102:"$VDIR/"
+scp -P 2222 appdaemon/area_mapping_app.py root@192.168.178.102:"$VDIR/"
+scp -P 2222 scripts/visuram_client.py     root@192.168.178.102:"$VDIR/"
+scp -P 2222 data/cc600_channel_mapping.json root@192.168.178.102:"$VDIR/"
+# Verifikation: sha256sum lokal == remote
+```
+
+**Variante B – curl aus GitHub (`main`):**
 
 ```bash
 TOKEN="ghp_..."   # GitHub PAT (repo read)
@@ -169,11 +194,24 @@ Danach **AppDaemon komplett neu starten** (Add-on-Restart, NICHT auf den
 Hot-Reload verlassen – der lädt Hilfsmodule/JSON unzuverlässig nach):
 
 ```bash
-ha addons restart a0d7b954_appdaemon
+ha addons restart a0d7b954_appdaemon   # 'addons' ist deprecated → alternativ: ha apps restart …
 ```
 
 **Voraussetzung einmalig:** `websocket-client` als python_package im AppDaemon
 (für `area_mapping_app`).
+
+### AppDaemon-Hauptkonfig (`appdaemon.yaml`)
+
+Server-seitig unter `/addon_configs/a0d7b954_appdaemon/appdaemon.yaml` (NICHT in
+`apps/`). Relevante, nicht-default Einstellung:
+
+```yaml
+appdaemon:
+  # ...
+  thread_duration_warning_threshold: 30   # Default 10s. Der erste _poll pusht
+                                          # alle MQTT-Discovery-Configs (~12–17s)
+                                          # → ohne Anhebung kosmetische WARNING.
+```
 
 **Migration bei Prefix-/Geräte-Umbenennung:** Alte MQTT-Entities verschwinden
 nur, wenn ihre retained Discovery-Topics geleert werden
@@ -209,7 +247,7 @@ pytest tests/ -v
 pytest tests/ -v --cov=scripts --cov-report=term-missing
 ```
 
-89 Tests (Stand 03.06.2026).
+100 Tests (Stand 04.06.2026).
 
 ---
 
