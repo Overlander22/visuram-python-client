@@ -1,0 +1,1133 @@
+{
+  "_anleitung": "Freigabe-/Sperrliste für SCHREIBENDEN Zugriff. Bitte je Kanal 'zugriff' prüfen: 'rw' = HA darf schreiben, 'ro' = nur lesen (gesperrt). Default-Deny: alles ohne 'rw' bleibt gesperrt. _-Felder (Live-Wert, FELDART, Begründung) sind Kontext und werden beim Merge ignoriert. rw-Vorschläge stehen oben. Zurück an Olly/Claude → wird per cc600_adr ins cc600_channel_mapping.json gemergt; set_value erlaubt dann NUR rw-Kanäle.",
+  "_stand": "2026-06-05",
+  "_anzahl": 124,
+  "_davon_rw_vorschlag": 77,
+  "kanaele": [
+    {
+      "cc600_adr": "0101112021",
+      "zone": "01",
+      "ha_label_w1": "01-Heizung: akt Raumsollwert",
+      "_live_w1": "1.0",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Sollwert (Parameter)",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0101122021",
+      "zone": "01",
+      "ha_label_w1": "01-Lueftung: akt Raumsollwert",
+      "_live_w1": "24.0",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Sollwert (Parameter)",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0101123161",
+      "zone": "01",
+      "ha_label_w1": "01-D-Lueftg: Zu-Windgeschw Luv",
+      "_live_w1": "8.0",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Sturmschutz-Schwellwert (Parameter)",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0101123162",
+      "zone": "01",
+      "ha_label_w1": "01-D-Lueftg: Zu-Windgeschw Lee",
+      "_live_w1": "12.0",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Sturmschutz-Schwellwert (Parameter)",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0101420101",
+      "zone": "01",
+      "ha_label_w1": "01-Schirm: Schaltpunkt Tag",
+      "_live_w1": "35.0",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Schaltpunkt/Schwellwert (Parameter)",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0101420131",
+      "zone": "01",
+      "ha_label_w1": "01-Schirm: Schaltpunkt Nacht So",
+      "_live_w1": "5.0",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Schaltpunkt/Schwellwert (Parameter)",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0101420132",
+      "zone": "01",
+      "ha_label_w1": "01-Schirm: Schaltpunkt Nacht Wi",
+      "_live_w1": "12.0",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Schaltpunkt/Schwellwert (Parameter)",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0101500211",
+      "zone": "01",
+      "ha_label_w1": "01-Bereg 2: Gießdauer",
+      "_live_w1": "60",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Dauer-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0101500212",
+      "zone": "01",
+      "ha_label_w1": "01-Bereg 2: Handstart",
+      "_live_w1": "0 Aus",
+      "_feldart": "Schalter",
+      "_begruendung": "manueller Schalter (Steuerung)",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0101500221",
+      "zone": "01",
+      "ha_label_w1": "01-Bereg 2: Gießdauer Hand",
+      "_live_w1": "60",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Dauer-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0101500291",
+      "zone": "01",
+      "ha_label_w1": "01-Bereg 2: Freigabe von(SA)",
+      "_live_w1": "10:15",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zeitplan-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0101500292",
+      "zone": "01",
+      "ha_label_w1": "01-Bereg 2: Freigabe bis(SU)",
+      "_live_w1": "10:30",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zeitplan-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0101500311",
+      "zone": "01",
+      "ha_label_w1": "01-Bereg 3: Gießdauer Hand",
+      "_live_w1": "720",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Dauer-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0101500312",
+      "zone": "01",
+      "ha_label_w1": "01-Bereg 3: Handstart",
+      "_live_w1": "0 Aus",
+      "_feldart": "Schalter",
+      "_begruendung": "manueller Schalter (Steuerung)",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0101500321",
+      "zone": "01",
+      "ha_label_w1": "01-Bereg 3: Gießdauer",
+      "_live_w1": "900",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Dauer-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0101500391",
+      "zone": "01",
+      "ha_label_w1": "01-Bereg 3: Freigabe von(SA)",
+      "_live_w1": "12:00",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zeitplan-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0101500392",
+      "zone": "01",
+      "ha_label_w1": "01-Bereg 3: Freigabe bis(SU)",
+      "_live_w1": "13:00",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zeitplan-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0101500411",
+      "zone": "01",
+      "ha_label_w1": "01-Bereg 4: Gießdauer Hand",
+      "_live_w1": "60",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Dauer-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0101500412",
+      "zone": "01",
+      "ha_label_w1": "01-Bereg 4: Handstart",
+      "_live_w1": "0 Aus",
+      "_feldart": "Schalter",
+      "_begruendung": "manueller Schalter (Steuerung)",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0101500421",
+      "zone": "01",
+      "ha_label_w1": "01-Bereg 4: Gießdauer",
+      "_live_w1": "60",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Dauer-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0101500491",
+      "zone": "01",
+      "ha_label_w1": "01-Bereg 4: Freigabe von(SA)",
+      "_live_w1": "13:00",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zeitplan-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0101500492",
+      "zone": "01",
+      "ha_label_w1": "01-Bereg 4: Freigabe bis(SU)",
+      "_live_w1": "13:30",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zeitplan-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0101500611",
+      "zone": "01",
+      "ha_label_w1": "01-Bereg 6 Garten: Gießdauer Hand",
+      "_live_w1": "3600",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Dauer-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0101500612",
+      "zone": "01",
+      "ha_label_w1": "01-Bereg 6 Garten: Handstart",
+      "_live_w1": "0 Aus",
+      "_feldart": "Schalter",
+      "_begruendung": "manueller Schalter (Steuerung)",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0101500621",
+      "zone": "01",
+      "ha_label_w1": "01-Bereg 6 Garten: Gießdauer",
+      "_live_w1": "3600",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Dauer-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0101500691",
+      "zone": "01",
+      "ha_label_w1": "01-Bereg 6 Garten: Freigabe von(SA)",
+      "_live_w1": "12:00",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zeitplan-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0101500692",
+      "zone": "01",
+      "ha_label_w1": "01-Bereg 6 Garten: Freigabe bis(SU)",
+      "_live_w1": "13:00",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zeitplan-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0101502212",
+      "zone": "01",
+      "ha_label_w1": "01-Bereg 2: akt. Gießdauer",
+      "_live_w1": "0",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Dauer-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0101502312",
+      "zone": "01",
+      "ha_label_w1": "01-Bereg 3: akt. Gießdauer",
+      "_live_w1": "0",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Dauer-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0101502412",
+      "zone": "01",
+      "ha_label_w1": "01-Bereg 04: akt. Gießdauer",
+      "_live_w1": "0",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Dauer-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0101502612",
+      "zone": "01",
+      "ha_label_w1": "01-Bereg 06 Garten: akt. Gießdauer",
+      "_live_w1": "0",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Dauer-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0102112021",
+      "zone": "02",
+      "ha_label_w1": "02-Heizung: akt Raumsollwert",
+      "_live_w1": "-3.0",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Sollwert (Parameter)",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0102122021",
+      "zone": "02",
+      "ha_label_w1": "02-Lueftung: akt Raumsollwert",
+      "_live_w1": "28.0",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Sollwert (Parameter)",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0102123161",
+      "zone": "02",
+      "ha_label_w1": "02-D-Lueftg: Zu-Windgeschw Luv",
+      "_live_w1": "8.0",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Sturmschutz-Schwellwert (Parameter)",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0102123162",
+      "zone": "02",
+      "ha_label_w1": "02-D-Lueftg: Zu-Windgeschw Lee",
+      "_live_w1": "12.0",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Sturmschutz-Schwellwert (Parameter)",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0102420101",
+      "zone": "02",
+      "ha_label_w1": "02-Schirm: Schaltpunkt Tag",
+      "_live_w1": "50.0",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Schaltpunkt/Schwellwert (Parameter)",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0102420131",
+      "zone": "02",
+      "ha_label_w1": "02-Schirm: Schaltpunkt Nacht So",
+      "_live_w1": "6.0",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Schaltpunkt/Schwellwert (Parameter)",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0102420132",
+      "zone": "02",
+      "ha_label_w1": "02-Schirm: Schaltpunkt Nacht Wi",
+      "_live_w1": "12.0",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Schaltpunkt/Schwellwert (Parameter)",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0102500111",
+      "zone": "02",
+      "ha_label_w1": "02-Bereg 1 Sued: Gießdauer Hand",
+      "_live_w1": "480",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Dauer-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0102500112",
+      "zone": "02",
+      "ha_label_w1": "02-Bereg 1 Sued: Handstart",
+      "_live_w1": "0 Aus",
+      "_feldart": "Schalter",
+      "_begruendung": "manueller Schalter (Steuerung)",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0102500121",
+      "zone": "02",
+      "ha_label_w1": "02-Bereg 1 Sued: Gießdauer",
+      "_live_w1": "480",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Dauer-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0102500191",
+      "zone": "02",
+      "ha_label_w1": "02-Bereg 1 Sued: Freigabe von(SA)",
+      "_live_w1": "11:30",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zeitplan-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0102500192",
+      "zone": "02",
+      "ha_label_w1": "02-Bereg 1 Sued: Freigabe bis(SU)",
+      "_live_w1": "11:45",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zeitplan-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0102500211",
+      "zone": "02",
+      "ha_label_w1": "02-Bereg 2 Nord: Gießdauer Hand",
+      "_live_w1": "900",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Dauer-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0102500212",
+      "zone": "02",
+      "ha_label_w1": "02-Bereg 2 Nord: Handstart",
+      "_live_w1": "0 Aus",
+      "_feldart": "Schalter",
+      "_begruendung": "manueller Schalter (Steuerung)",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0102500221",
+      "zone": "02",
+      "ha_label_w1": "02-Bereg 2 Nord: Gießdauer",
+      "_live_w1": "900",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Dauer-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0102500291",
+      "zone": "02",
+      "ha_label_w1": "02-Bereg 2 Nord: Freigabe von(SA)",
+      "_live_w1": "11:40",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zeitplan-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0102500292",
+      "zone": "02",
+      "ha_label_w1": "02-Bereg 2 Nord: Freigabe bis(SU)",
+      "_live_w1": "12:15",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zeitplan-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0102510112",
+      "zone": "02",
+      "ha_label_w1": "02-Trinkwasser: Handstart",
+      "_live_w1": "0 Aus",
+      "_feldart": "Schalter",
+      "_begruendung": "manueller Schalter (Steuerung)",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0103112021",
+      "zone": "03",
+      "ha_label_w1": "03-Heizung: akt Raumsollwert",
+      "_live_w1": "-3.0",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Sollwert (Parameter)",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0103112201",
+      "zone": "03",
+      "ha_label_w1": "03-Lufthzg: Einschaltdauer",
+      "_live_w1": "0.0",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Dauer-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0103122021",
+      "zone": "03",
+      "ha_label_w1": "03-Lueftung: akt Raumsollwert",
+      "_live_w1": "28.0",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Sollwert (Parameter)",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0103123161",
+      "zone": "03",
+      "ha_label_w1": "03-D-Lueftg: Zu-Windgeschw Luv",
+      "_live_w1": "8.0",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Sturmschutz-Schwellwert (Parameter)",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0103123162",
+      "zone": "03",
+      "ha_label_w1": "03-D-Lueftg: Zu-Windgeschw Lee",
+      "_live_w1": "12.0",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Sturmschutz-Schwellwert (Parameter)",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0103500111",
+      "zone": "03",
+      "ha_label_w1": "03-Bereg 1 Sued: Gießdauer Hand",
+      "_live_w1": "480",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Dauer-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0103500112",
+      "zone": "03",
+      "ha_label_w1": "03-Bereg 1 Sued: Handstart",
+      "_live_w1": "0 Aus",
+      "_feldart": "Schalter",
+      "_begruendung": "manueller Schalter (Steuerung)",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0103500121",
+      "zone": "03",
+      "ha_label_w1": "03-Bereg 1 Sued: Gießdauer",
+      "_live_w1": "480",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Dauer-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0103500191",
+      "zone": "03",
+      "ha_label_w1": "03-Bereg 1 Sued: Freigabe von(SA)",
+      "_live_w1": "11:00",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zeitplan-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0103500192",
+      "zone": "03",
+      "ha_label_w1": "03-Bereg 1 Sued: Freigabe bis(SU)",
+      "_live_w1": "11:15",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zeitplan-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0103500211",
+      "zone": "03",
+      "ha_label_w1": "03-Bereg 2 Nord: Gießdauer Hand",
+      "_live_w1": "1200",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Dauer-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0103500212",
+      "zone": "03",
+      "ha_label_w1": "03-Bereg 2 Nord: Handstart",
+      "_live_w1": "0 Aus",
+      "_feldart": "Schalter",
+      "_begruendung": "manueller Schalter (Steuerung)",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0103500221",
+      "zone": "03",
+      "ha_label_w1": "03-Bereg 2 Nord: Gießdauer",
+      "_live_w1": "1200",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Dauer-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0103500291",
+      "zone": "03",
+      "ha_label_w1": "03-Bereg 2 Nord: Freigabe von(SA)",
+      "_live_w1": "11:10",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zeitplan-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0103500292",
+      "zone": "03",
+      "ha_label_w1": "03-Bereg 2 Nord: Freigabe bis(SU)",
+      "_live_w1": "11:45",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zeitplan-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0104122021",
+      "zone": "04",
+      "ha_label_w1": "04-Lueftung: akt Raumsollwert",
+      "_live_w1": "30.0",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Sollwert (Parameter)",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0104123161",
+      "zone": "04",
+      "ha_label_w1": "04-D-Lueftg: Zu-Windgeschw Luv",
+      "_live_w1": "7.0",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Sturmschutz-Schwellwert (Parameter)",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0104123162",
+      "zone": "04",
+      "ha_label_w1": "04-D-Lueftg: Zu-Windgeschw Lee",
+      "_live_w1": "10.0",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Sturmschutz-Schwellwert (Parameter)",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0150511001",
+      "zone": "50",
+      "ha_label_w1": "50-GWasser: Wochentag von",
+      "_live_w1": "1 Mo",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zeitplan-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0150511002",
+      "zone": "50",
+      "ha_label_w1": "50-GWasser: Wochentag bis",
+      "_live_w1": "5 Fr",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zeitplan-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0150511011",
+      "zone": "50",
+      "ha_label_w1": "50-GWasser: Versorgung von",
+      "_live_w1": "10:58",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zeitplan-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0150511012",
+      "zone": "50",
+      "ha_label_w1": "50-GWasser: Versorgung bis",
+      "_live_w1": "13:00",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zeitplan-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0150511021",
+      "zone": "50",
+      "ha_label_w1": "50-GWasser: Wochentag von",
+      "_live_w1": "6 Sa",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zeitplan-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0150511031",
+      "zone": "50",
+      "ha_label_w1": "50-GWasser: Versorgung von",
+      "_live_w1": "10:58",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zeitplan-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0150511032",
+      "zone": "50",
+      "ha_label_w1": "50-GWasser: Versorgung bis",
+      "_live_w1": "13:00",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zeitplan-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0150511041",
+      "zone": "50",
+      "ha_label_w1": "50-GWasser: Wochentag von",
+      "_live_w1": "7 So",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zeitplan-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0150511051",
+      "zone": "50",
+      "ha_label_w1": "50-GWasser: Versorgung von",
+      "_live_w1": "10:58",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zeitplan-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0150511052",
+      "zone": "50",
+      "ha_label_w1": "50-GWasser: Versorgung bis",
+      "_live_w1": "13:00",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zeitplan-Parameter",
+      "zugriff": "rw"
+    },
+    {
+      "cc600_adr": "0100000031",
+      "zone": "00",
+      "ha_label_w1": "00-Sonnenaufgang",
+      "_live_w1": "5:22",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro"
+    },
+    {
+      "cc600_adr": "0100000032",
+      "zone": "00",
+      "ha_label_w1": "00-Sonnenuntergang",
+      "_live_w1": "21:15",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro"
+    },
+    {
+      "cc600_adr": "0100100001",
+      "zone": "00",
+      "ha_label_w1": "00-Außentemperatur",
+      "_live_w1": "21.4",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro"
+    },
+    {
+      "cc600_adr": "0100100011",
+      "zone": "00",
+      "ha_label_w1": "00-Außentemp: 24h-Minimum",
+      "_live_w1": "10.7",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro"
+    },
+    {
+      "cc600_adr": "0100100012",
+      "zone": "00",
+      "ha_label_w1": "00-Außentemp: 24h-Maximum",
+      "_live_w1": "23.0",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro"
+    },
+    {
+      "cc600_adr": "0100400001",
+      "zone": "00",
+      "ha_label_w1": "00-Außenhelligkeit",
+      "_live_w1": "47.5",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro"
+    },
+    {
+      "cc600_adr": "0100400011",
+      "zone": "00",
+      "ha_label_w1": "00-Lichtsumme",
+      "_live_w1": "247.0",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro"
+    },
+    {
+      "cc600_adr": "0100400012",
+      "zone": "00",
+      "ha_label_w1": "00-Lichtsumme Vortag",
+      "_live_w1": "245.0",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro"
+    },
+    {
+      "cc600_adr": "0100900001",
+      "zone": "00",
+      "ha_label_w1": "00-Windgeschwindigkeit",
+      "_live_w1": "0.5",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro"
+    },
+    {
+      "cc600_adr": "0100900002",
+      "zone": "00",
+      "ha_label_w1": "00-Windrichtung",
+      "_live_w1": "6 W",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro"
+    },
+    {
+      "cc600_adr": "0100900501",
+      "zone": "00",
+      "ha_label_w1": "00-Niederschlag",
+      "_live_w1": "0 nein",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro"
+    },
+    {
+      "cc600_adr": "0100900502",
+      "zone": "00",
+      "ha_label_w1": "00-Schnee",
+      "_live_w1": "0 nein",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro"
+    },
+    {
+      "cc600_adr": "0100903011",
+      "zone": "00",
+      "ha_label_w1": "00-Sturmschutz manuell",
+      "_live_w1": "0 Aus",
+      "_feldart": "Schalter",
+      "_begruendung": "sicherheitskritisch (Sturmschutz) – bewusst gesperrt",
+      "zugriff": "ro"
+    },
+    {
+      "cc600_adr": "0100903021",
+      "zone": "00",
+      "ha_label_w1": "00-Sturmschutz auto",
+      "_live_w1": "1 Auto",
+      "_feldart": "Datenfeld",
+      "_begruendung": "sicherheitskritisch (Sturmschutz) – bewusst gesperrt",
+      "zugriff": "ro"
+    },
+    {
+      "cc600_adr": "0100903022",
+      "zone": "00",
+      "ha_label_w1": "00-Sturmschutz ab Windgeschw",
+      "_live_w1": "14.0",
+      "_feldart": "Datenfeld",
+      "_begruendung": "sicherheitskritisch (Sturmschutz) – bewusst gesperrt",
+      "zugriff": "ro"
+    },
+    {
+      "cc600_adr": "0101100001",
+      "zone": "01",
+      "ha_label_w1": "01-Raumtemperatur",
+      "_live_w1": "27.5",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro"
+    },
+    {
+      "cc600_adr": "0101102021",
+      "zone": "01",
+      "ha_label_w1": "01-Raum-Mitteltemp",
+      "_live_w1": "23.2",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro",
+      "ha_label_w2": "01-Raum-Mitteltemp Vortag"
+    },
+    {
+      "cc600_adr": "0101112201",
+      "zone": "01",
+      "ha_label_w1": "01-Lufthzg: Leistung",
+      "_live_w1": "0.0",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro"
+    },
+    {
+      "cc600_adr": "0101112202",
+      "zone": "01",
+      "ha_label_w1": "01-Lufthzg: Ventilator Zustand",
+      "_live_w1": "0 aus",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro"
+    },
+    {
+      "cc600_adr": "0101122101",
+      "zone": "01",
+      "ha_label_w1": "01-D-Lueftg: Stellung-Ost",
+      "_live_w1": "100.0",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro",
+      "ha_label_w2": "01-D-Lueftg: Stellung-West"
+    },
+    {
+      "cc600_adr": "0101422101",
+      "zone": "01",
+      "ha_label_w1": "01-Schirm: Stellung",
+      "_live_w1": "0.0",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro"
+    },
+    {
+      "cc600_adr": "0101502201",
+      "zone": "01",
+      "ha_label_w1": "01-Bereg 2: MV Zustand",
+      "_live_w1": "0 aus",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro"
+    },
+    {
+      "cc600_adr": "0101502301",
+      "zone": "01",
+      "ha_label_w1": "01-Bereg 3: MV Zustand",
+      "_live_w1": "0 aus",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro"
+    },
+    {
+      "cc600_adr": "0101502401",
+      "zone": "01",
+      "ha_label_w1": "01-Bereg 4: MV Zustand",
+      "_live_w1": "0 aus",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro"
+    },
+    {
+      "cc600_adr": "0101502601",
+      "zone": "01",
+      "ha_label_w1": "01-Bereg 6 Garten: MV Zustand",
+      "_live_w1": "0 aus",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro"
+    },
+    {
+      "cc600_adr": "0102100001",
+      "zone": "02",
+      "ha_label_w1": "02-Raumtemperatur",
+      "_live_w1": "31.2",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro"
+    },
+    {
+      "cc600_adr": "0102100011",
+      "zone": "02",
+      "ha_label_w1": "02-Raumtemp-Nord",
+      "_live_w1": "30.9",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro",
+      "ha_label_w2": "02-Raumtemp-Sued"
+    },
+    {
+      "cc600_adr": "0102102021",
+      "zone": "02",
+      "ha_label_w1": "02-Raum-Mitteltemp",
+      "_live_w1": "26.0",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro",
+      "ha_label_w2": "02-Raum-Mitteltemp Vortag"
+    },
+    {
+      "cc600_adr": "0102112201",
+      "zone": "02",
+      "ha_label_w1": "02-Lufthzg: Leistung",
+      "_live_w1": "0.0",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro"
+    },
+    {
+      "cc600_adr": "0102112202",
+      "zone": "02",
+      "ha_label_w1": "02-Lufthzg: Ventilator Zustand",
+      "_live_w1": "0 aus",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro"
+    },
+    {
+      "cc600_adr": "0102122101",
+      "zone": "02",
+      "ha_label_w1": "02-D-Lueftg: Stellung-Ost",
+      "_live_w1": "63.7",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro",
+      "ha_label_w2": "02-D-Lueftg: Stellung-West"
+    },
+    {
+      "cc600_adr": "0102422101",
+      "zone": "02",
+      "ha_label_w1": "02-Schirm: Stellung",
+      "_live_w1": "0.0",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro"
+    },
+    {
+      "cc600_adr": "0102502101",
+      "zone": "02",
+      "ha_label_w1": "02-Bereg 1 Sued: MV Zustand",
+      "_live_w1": "0 aus",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro"
+    },
+    {
+      "cc600_adr": "0102502201",
+      "zone": "02",
+      "ha_label_w1": "02-Bereg 2 Nord: MV Zustand",
+      "_live_w1": "0 aus",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro"
+    },
+    {
+      "cc600_adr": "0102510111",
+      "zone": "02",
+      "ha_label_w1": "02-Trinkwasser: Laufzeit Hand",
+      "_live_w1": "120",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro"
+    },
+    {
+      "cc600_adr": "0102512101",
+      "zone": "02",
+      "ha_label_w1": "02-Trinkwasser: MV Zustand",
+      "_live_w1": "0 aus",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro"
+    },
+    {
+      "cc600_adr": "0103100001",
+      "zone": "03",
+      "ha_label_w1": "03-Raumtemperatur",
+      "_live_w1": "30.9",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro"
+    },
+    {
+      "cc600_adr": "0103102021",
+      "zone": "03",
+      "ha_label_w1": "03-Raum-Mitteltemp",
+      "_live_w1": "25.8",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro",
+      "ha_label_w2": "03-Raum-Mitteltemp Vortag"
+    },
+    {
+      "cc600_adr": "0103112202",
+      "zone": "03",
+      "ha_label_w1": "03-Lufthzg: Ventilator Zustand",
+      "_live_w1": "0 aus",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro"
+    },
+    {
+      "cc600_adr": "0103122101",
+      "zone": "03",
+      "ha_label_w1": "03-D-Lueftg: Stellung-Ost",
+      "_live_w1": "59.1",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro",
+      "ha_label_w2": "03-D-Lueftg: Stellung-West"
+    },
+    {
+      "cc600_adr": "0103502101",
+      "zone": "03",
+      "ha_label_w1": "03-Bereg 1 Sued: MV Zustand",
+      "_live_w1": "0 aus",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro"
+    },
+    {
+      "cc600_adr": "0103502201",
+      "zone": "03",
+      "ha_label_w1": "03-Bereg 2 Nord: MV Zustand",
+      "_live_w1": "0 aus",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro"
+    },
+    {
+      "cc600_adr": "0104100001",
+      "zone": "04",
+      "ha_label_w1": "04-Raumtemperatur",
+      "_live_w1": "33.8",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro"
+    },
+    {
+      "cc600_adr": "0104102021",
+      "zone": "04",
+      "ha_label_w1": "04-Raum-Mitteltemp",
+      "_live_w1": "27.3",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro",
+      "ha_label_w2": "04-Raum-Mitteltemp Vortag"
+    },
+    {
+      "cc600_adr": "0104122101",
+      "zone": "04",
+      "ha_label_w1": "04-D-Lueftg: Stellung-Ost",
+      "_live_w1": "70.9",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro",
+      "ha_label_w2": "04-D-Lueftg: Stellung-West"
+    },
+    {
+      "cc600_adr": "0105100001",
+      "zone": "05",
+      "ha_label_w1": "05-Raumtemperatur Dach",
+      "_live_w1": "25.8",
+      "_feldart": "Datenfeld",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro"
+    },
+    {
+      "cc600_adr": "0191112101",
+      "zone": "91",
+      "ha_label_w1": "91-Heizung Ringpumpe",
+      "_live_w1": "0 aus",
+      "_feldart": "Meldesymbol",
+      "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
+      "zugriff": "ro"
+    }
+  ]
+}
