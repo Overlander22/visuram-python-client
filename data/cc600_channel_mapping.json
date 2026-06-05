@@ -251,7 +251,7 @@
     "w2_value": "14,0 m/s",
     "w1_label": "Sturmschutz",
     "w2_label": "ab Windgeschw",
-    "ha_label_w1": "00-Sturmschutz"
+    "ha_label_w1": "00-Sturmschutz auto"
   },
   {
     "zone": "00",
@@ -618,7 +618,7 @@
     "w2_value": "",
     "w1_label": "Lufthzg: Einschaltdauer",
     "w2_label": "",
-    "ha_label_w1": "01-Lufthzg: Einschaltdauer"
+    "ha_label_w1": "01-Lufthzg: Leistung"
   },
   {
     "zone": "01",
@@ -763,7 +763,7 @@
     "w2_value": "",
     "w1_label": "Lüftung: akt Raumsollwert",
     "w2_label": "",
-    "ha_label_w1": "01-Lüftung: akt Raumsollwert"
+    "ha_label_w1": "01-Lueftung: akt Raumsollwert"
   },
   {
     "zone": "01",
@@ -776,8 +776,8 @@
     "w2_value": "47,3 %",
     "w1_label": "D-Lüftg: Stellung-Ost",
     "w2_label": "West",
-    "ha_label_w1": "01-D-Lüftg: Stellung-Ost",
-    "ha_label_w2": "01-D-Lüftg: Stellung-West",
+    "ha_label_w1": "01-D-Lueftg: Stellung-Ost",
+    "ha_label_w2": "01-D-Lueftg: Stellung-West",
     "cc600_adr_w2": "0101122102"
   },
   {
@@ -875,7 +875,7 @@
     "w2_value": "12,0 m/s",
     "w1_label": "D-Lüftg: Zu-Windgeschw Luv",
     "w2_label": "Lee",
-    "ha_label_w1": "01-D-Lüftg: Zu-Windgeschw Luv"
+    "ha_label_w1": "01-D-Lueftg: Zu-Windgeschw Luv"
   },
   {
     "zone": "01",
@@ -888,7 +888,7 @@
     "w2_value": "",
     "w1_label": "D-Lüftg: P-Bereich Lee",
     "w2_label": "",
-    "ha_label_w1": "01-D-Lüftg: Zu-Windgeschw Lee"
+    "ha_label_w1": "01-D-Lueftg: Zu-Windgeschw Lee"
   },
   {
     "zone": "01",
@@ -1157,7 +1157,7 @@
     "w2_value": "0 aus",
     "w1_label": "Bereg: Gießdauer",
     "w2_label": "Handstart",
-    "ha_label_w1": "01-Bereg: Gießdauer"
+    "ha_label_w1": "01-Bereg 2: Gießdauer"
   },
   {
     "zone": "01",
@@ -1170,7 +1170,7 @@
     "w2_value": "",
     "w1_label": "Bereg: Gießdauer",
     "w2_label": "",
-    "ha_label_w1": "01-Bereg: Gießdauer"
+    "ha_label_w1": "01-Bereg 2: Gießdauer Hand"
   },
   {
     "zone": "01",
@@ -1183,7 +1183,7 @@
     "w2_value": "10:30 h:min",
     "w1_label": "Bereg: Freigabe von(SA)",
     "w2_label": "bis(SU)",
-    "ha_label_w1": "01-Bereg: Freigabe von(SA)"
+    "ha_label_w1": "01-Bereg 2: Freigabe von(SA)"
   },
   {
     "zone": "01",
@@ -1196,7 +1196,7 @@
     "w2_value": "",
     "w1_label": "Bereg: Gießdauer",
     "w2_label": "",
-    "ha_label_w1": "01-Bereg: Freigabe bis(SU)"
+    "ha_label_w1": "01-Bereg 2: Freigabe bis(SU)"
   },
   {
     "zone": "01",
@@ -1208,7 +1208,8 @@
     "w1_value": "12:00 min:s",
     "w2_value": "0 aus",
     "w1_label": "Bereg: Gießdauer",
-    "w2_label": "Handstart"
+    "w2_label": "Handstart",
+    "ha_label_w1": "01-Bereg 3: Gießdauer Hand"
   },
   {
     "zone": "01",
@@ -1221,7 +1222,7 @@
     "w2_value": "",
     "w1_label": "Bereg: Gießdauer",
     "w2_label": "",
-    "ha_label_w1": "01-Bereg: Handstart"
+    "ha_label_w1": "01-Bereg 3: Handstart"
   },
   {
     "zone": "01",
@@ -1234,7 +1235,7 @@
     "w2_value": "",
     "w1_label": "Bereg: Gießdauer",
     "w2_label": "",
-    "ha_label_w1": "01-Bereg: Gießdauer"
+    "ha_label_w1": "01-Bereg 3: Gießdauer"
   },
   {
     "zone": "01",
@@ -1259,7 +1260,7 @@
     "w2_value": "13:00 h:min",
     "w1_label": "Bereg: Freigabe von(SA)",
     "w2_label": "bis(SU)",
-    "ha_label_w1": "01-Bereg: Freigabe von(SA)"
+    "ha_label_w1": "01-Bereg 3: Freigabe von(SA)"
   },
   {
     "zone": "01",
@@ -1272,7 +1273,7 @@
     "w2_value": "",
     "w1_label": "Bereg: Gießdauer",
     "w2_label": "",
-    "ha_label_w1": "01-Bereg: Freigabe bis(SU)"
+    "ha_label_w1": "01-Bereg 3: Freigabe bis(SU)"
   },
   {
     "zone": "01",
@@ -1285,7 +1286,7 @@
     "w2_value": "0 aus",
     "w1_label": "Bereg: Gießdauer",
     "w2_label": "Handstart",
-    "ha_label_w1": "01-Bereg: Gießdauer"
+    "ha_label_w1": "01-Bereg 4: Gießdauer Hand"
   },
   {
     "zone": "01",
@@ -1298,7 +1299,7 @@
     "w2_value": "",
     "w1_label": "Bereg: Gießdauer",
     "w2_label": "",
-    "ha_label_w1": "01-Bereg: Gießdauer"
+    "ha_label_w1": "01-Bereg 4: Gießdauer"
   },
   {
     "zone": "01",
@@ -1311,7 +1312,7 @@
     "w2_value": "13:30 h:min",
     "w1_label": "Bereg: Freigabe von(SA)",
     "w2_label": "bis(SU)",
-    "ha_label_w1": "01-Bereg: Freigabe von(SA)"
+    "ha_label_w1": "01-Bereg 4: Freigabe von(SA)"
   },
   {
     "zone": "01",
@@ -1324,7 +1325,7 @@
     "w2_value": "",
     "w1_label": "Bereg: Gießdauer",
     "w2_label": "",
-    "ha_label_w1": "01-Bereg: Freigabe bis(SU)"
+    "ha_label_w1": "01-Bereg 4: Freigabe bis(SU)"
   },
   {
     "zone": "01",
@@ -1361,7 +1362,7 @@
     "w2_value": "0 aus",
     "w1_label": "Bereg: Gießdauer",
     "w2_label": "Handstart",
-    "ha_label_w1": "01-Bereg: Handstart"
+    "ha_label_w1": "01-Bereg 6 Garten: Handstart"
   },
   {
     "zone": "01",
@@ -1374,7 +1375,7 @@
     "w2_value": "",
     "w1_label": "Bereg: Gießdauer",
     "w2_label": "",
-    "ha_label_w1": "01-Bereg: Gießdauer"
+    "ha_label_w1": "01-Bereg 6 Garten: Gießdauer"
   },
   {
     "zone": "01",
@@ -1399,7 +1400,7 @@
     "w2_value": "",
     "w1_label": "Bereg: Gießdauer",
     "w2_label": "",
-    "ha_label_w1": "01-Bereg: Freigabe von(SA)"
+    "ha_label_w1": "01-Bereg 6 Garten: Freigabe von(SA)"
   },
   {
     "zone": "01",
@@ -1412,7 +1413,7 @@
     "w2_value": "13:00 h:min",
     "w1_label": "Bereg: Freigabe von(SA)",
     "w2_label": "bis(SU)",
-    "ha_label_w1": "01-Bereg: Freigabe bis(SU)"
+    "ha_label_w1": "01-Bereg 6 Garten: Freigabe bis(SU)"
   },
   {
     "zone": "01",
@@ -1521,7 +1522,7 @@
     "w2_value": "0 nein",
     "w1_label": "Bereg: Magnetventil",
     "w2_label": "Bedarf",
-    "ha_label_w1": "01-Bereg: Magnetventil"
+    "ha_label_w1": "01-Bereg 2: MV Zustand"
   },
   {
     "zone": "01",
@@ -1546,7 +1547,7 @@
     "w2_value": "",
     "w1_label": "Bereg: Magnetventil",
     "w2_label": "",
-    "ha_label_w1": "01-Bereg: Gießdauer"
+    "ha_label_w1": "01-Bereg 2: akt. Gießdauer"
   },
   {
     "zone": "01",
@@ -1559,7 +1560,7 @@
     "w2_value": "0:00 min:s",
     "w1_label": "Bereg: akt Anzahl",
     "w2_label": "Gießdauer",
-    "ha_label_w1": "01-Bereg: Gießdauer"
+    "ha_label_w1": "01-Bereg 3: akt. Gießdauer"
   },
   {
     "zone": "01",
@@ -1584,7 +1585,7 @@
     "w2_value": "0 nein",
     "w1_label": "Bereg: Magnetventil",
     "w2_label": "Bedarf",
-    "ha_label_w1": "01-Bereg: Magnetventil"
+    "ha_label_w1": "01-Bereg 4: MV Zustand"
   },
   {
     "zone": "01",
@@ -1609,7 +1610,7 @@
     "w2_value": "",
     "w1_label": "Bereg: Magnetventil",
     "w2_label": "",
-    "ha_label_w1": "01-Bereg: Gießdauer"
+    "ha_label_w1": "01-Bereg 04: akt. Gießdauer"
   },
   {
     "zone": "01",
@@ -1646,7 +1647,7 @@
     "w2_value": "0:00 min:s",
     "w1_label": "Bereg: akt Anzahl",
     "w2_label": "Gießdauer",
-    "ha_label_w1": "01-Bereg: Gießdauer"
+    "ha_label_w1": "01-Bereg 06 Garten: akt. Gießdauer"
   },
   {
     "zone": "01",
@@ -1865,7 +1866,7 @@
     "w1_label": "Raumtemp-Nord",
     "w2_label": "Raumtemp-Süd",
     "ha_label_w1": "02-Raumtemp-Nord",
-    "ha_label_w2": "02-Raumtemp-Süd",
+    "ha_label_w2": "02-Raumtemp-Sued",
     "cc600_adr_w2": "0102100012"
   },
   {
@@ -2015,7 +2016,7 @@
     "w2_value": "",
     "w1_label": "Lufthzg: Einschaltdauer",
     "w2_label": "",
-    "ha_label_w1": "02-Lufthzg: Einschaltdauer"
+    "ha_label_w1": "02-Lufthzg: Leistung"
   },
   {
     "zone": "02",
@@ -2196,7 +2197,7 @@
     "w2_value": "",
     "w1_label": "Lüftung: akt Raumsollwert",
     "w2_label": "",
-    "ha_label_w1": "02-Lüftung: akt Raumsollwert"
+    "ha_label_w1": "02-Lueftung: akt Raumsollwert"
   },
   {
     "zone": "02",
@@ -2209,8 +2210,8 @@
     "w2_value": "0,0 %",
     "w1_label": "D-Lüftg: Stellung-Ost",
     "w2_label": "West",
-    "ha_label_w1": "02-D-Lüftg: Stellung-Ost",
-    "ha_label_w2": "02-D-Lüftg: Stellung-West",
+    "ha_label_w1": "02-D-Lueftg: Stellung-Ost",
+    "ha_label_w2": "02-D-Lueftg: Stellung-West",
     "cc600_adr_w2": "0102122102"
   },
   {
@@ -2308,7 +2309,7 @@
     "w2_value": "",
     "w1_label": "D-Lüftg: P-Bereich Lee",
     "w2_label": "",
-    "ha_label_w1": "02-D-Lüftg: Zu-Windgeschw Luv"
+    "ha_label_w1": "02-D-Lueftg: Zu-Windgeschw Luv"
   },
   {
     "zone": "02",
@@ -2321,7 +2322,7 @@
     "w2_value": "12,0 m/s",
     "w1_label": "D-Lüftg: Zu-Windgeschw Luv",
     "w2_label": "Lee",
-    "ha_label_w1": "02-D-Lüftg: Zu-Windgeschw Lee"
+    "ha_label_w1": "02-D-Lueftg: Zu-Windgeschw Lee"
   },
   {
     "zone": "02",
@@ -2566,7 +2567,8 @@
     "w1_value": "8:00 min:s",
     "w2_value": "0 aus",
     "w1_label": "Bereg: Gießdauer",
-    "w2_label": "Handstart"
+    "w2_label": "Handstart",
+    "ha_label_w1": "02-Bereg 1 Sued: Gießdauer Hand"
   },
   {
     "zone": "02",
@@ -2579,7 +2581,7 @@
     "w2_value": "",
     "w1_label": "Bereg: Gießdauer",
     "w2_label": "",
-    "ha_label_w1": "02-Bereg: Handstart"
+    "ha_label_w1": "02-Bereg 1 Sued: Handstart"
   },
   {
     "zone": "02",
@@ -2592,7 +2594,7 @@
     "w2_value": "",
     "w1_label": "Bereg: Gießdauer",
     "w2_label": "",
-    "ha_label_w1": "02-Bereg: Gießdauer"
+    "ha_label_w1": "02-Bereg 1 Sued: Gießdauer"
   },
   {
     "zone": "02",
@@ -2617,7 +2619,7 @@
     "w2_value": "11:45 h:min",
     "w1_label": "Bereg: Freigabe von(SA)",
     "w2_label": "bis(SU)",
-    "ha_label_w1": "02-Bereg: Freigabe von(SA)"
+    "ha_label_w1": "02-Bereg 1 Sued: Freigabe von(SA)"
   },
   {
     "zone": "02",
@@ -2630,7 +2632,7 @@
     "w2_value": "",
     "w1_label": "Bereg: Gießdauer",
     "w2_label": "",
-    "ha_label_w1": "02-Bereg: Freigabe bis(SU)"
+    "ha_label_w1": "02-Bereg 1 Sued: Freigabe bis(SU)"
   },
   {
     "zone": "02",
@@ -2642,7 +2644,8 @@
     "w1_value": "15:00 min:s",
     "w2_value": "0 aus",
     "w1_label": "Bereg: Gießdauer",
-    "w2_label": "Handstart"
+    "w2_label": "Handstart",
+    "ha_label_w1": "02-Bereg 2 Nord: Gießdauer Hand"
   },
   {
     "zone": "02",
@@ -2655,7 +2658,7 @@
     "w2_value": "",
     "w1_label": "Bereg: Gießdauer",
     "w2_label": "",
-    "ha_label_w1": "02-Bereg: Handstart"
+    "ha_label_w1": "02-Bereg 2 Nord: Handstart"
   },
   {
     "zone": "02",
@@ -2668,7 +2671,7 @@
     "w2_value": "",
     "w1_label": "Bereg: Gießdauer",
     "w2_label": "",
-    "ha_label_w1": "02-Bereg: Gießdauer"
+    "ha_label_w1": "02-Bereg 2 Nord: Gießdauer"
   },
   {
     "zone": "02",
@@ -2693,7 +2696,7 @@
     "w2_value": "12:15 h:min",
     "w1_label": "Bereg: Freigabe von(SA)",
     "w2_label": "bis(SU)",
-    "ha_label_w1": "02-Bereg: Freigabe von(SA)"
+    "ha_label_w1": "02-Bereg 2 Nord: Freigabe von(SA)"
   },
   {
     "zone": "02",
@@ -2706,7 +2709,7 @@
     "w2_value": "",
     "w1_label": "Bereg: Gießdauer",
     "w2_label": "",
-    "ha_label_w1": "02-Bereg: Freigabe bis(SU)"
+    "ha_label_w1": "02-Bereg 2 Nord: Freigabe bis(SU)"
   },
   {
     "zone": "02",
@@ -2743,7 +2746,7 @@
     "w2_value": "0 nein",
     "w1_label": "Bereg: Magnetventil",
     "w2_label": "Bedarf",
-    "ha_label_w1": "02-Bereg: Magnetventil"
+    "ha_label_w1": "02-Bereg 1 Sued: MV Zustand"
   },
   {
     "zone": "02",
@@ -2780,7 +2783,7 @@
     "w2_value": "0 nein",
     "w1_label": "Bereg: Magnetventil",
     "w2_label": "Bedarf",
-    "ha_label_w1": "02-Bereg: Magnetventil"
+    "ha_label_w1": "02-Bereg 2 Nord: MV Zustand"
   },
   {
     "zone": "02",
@@ -2864,7 +2867,8 @@
     "w1_value": "8:00 min:s",
     "w2_value": "0 aus",
     "w1_label": "SpNebel: Sprühdauer",
-    "w2_label": "Handstart"
+    "w2_label": "Handstart",
+    "ha_label_w1": "02-Trinkwasser: Laufzeit Hand"
   },
   {
     "zone": "02",
@@ -2900,7 +2904,8 @@
     "w1_value": "0 aus",
     "w2_value": "0 nein",
     "w1_label": "SpNebel: Magnetventil",
-    "w2_label": "Bedarf"
+    "w2_label": "Bedarf",
+    "ha_label_w1": "02-Trinkwasser: MV Zustand"
   },
   {
     "zone": "02",
@@ -3291,7 +3296,7 @@
     "w2_value": "",
     "w1_label": "Lüftung: akt Raumsollwert",
     "w2_label": "",
-    "ha_label_w1": "03-Lüftung: akt Raumsollwert"
+    "ha_label_w1": "03-Lueftung: akt Raumsollwert"
   },
   {
     "zone": "03",
@@ -3304,8 +3309,8 @@
     "w2_value": "0,0 %",
     "w1_label": "D-Lüftg: Stellung-Ost",
     "w2_label": "West",
-    "ha_label_w1": "03-D-Lüftg: Stellung-Ost",
-    "ha_label_w2": "03-D-Lüftg: Stellung-West",
+    "ha_label_w1": "03-D-Lueftg: Stellung-Ost",
+    "ha_label_w2": "03-D-Lueftg: Stellung-West",
     "cc600_adr_w2": "0103122102"
   },
   {
@@ -3403,7 +3408,7 @@
     "w2_value": "12,0 m/s",
     "w1_label": "D-Lüftg: Zu-Windgeschw Luv",
     "w2_label": "Lee",
-    "ha_label_w1": "03-D-Lüftg: Zu-Windgeschw Luv"
+    "ha_label_w1": "03-D-Lueftg: Zu-Windgeschw Luv"
   },
   {
     "zone": "03",
@@ -3416,7 +3421,7 @@
     "w2_value": "",
     "w1_label": "D-Lüftg: P-Bereich Lee",
     "w2_label": "",
-    "ha_label_w1": "03-D-Lüftg: Zu-Windgeschw Lee"
+    "ha_label_w1": "03-D-Lueftg: Zu-Windgeschw Lee"
   },
   {
     "zone": "03",
@@ -3500,7 +3505,8 @@
     "w1_value": "8:00 min:s",
     "w2_value": "0 aus",
     "w1_label": "Bereg: Gießdauer",
-    "w2_label": "Handstart"
+    "w2_label": "Handstart",
+    "ha_label_w1": "03-Bereg 1 Sued: Gießdauer Hand"
   },
   {
     "zone": "03",
@@ -3513,7 +3519,7 @@
     "w2_value": "",
     "w1_label": "Bereg: Gießdauer",
     "w2_label": "",
-    "ha_label_w1": "03-Bereg: Handstart"
+    "ha_label_w1": "03-Bereg 1 Sued: Handstart"
   },
   {
     "zone": "03",
@@ -3526,7 +3532,7 @@
     "w2_value": "",
     "w1_label": "Bereg: Gießdauer",
     "w2_label": "",
-    "ha_label_w1": "03-Bereg: Gießdauer"
+    "ha_label_w1": "03-Bereg 1 Sued: Gießdauer"
   },
   {
     "zone": "03",
@@ -3551,7 +3557,7 @@
     "w2_value": "",
     "w1_label": "Bereg: Gießdauer",
     "w2_label": "",
-    "ha_label_w1": "03-Bereg: Freigabe von(SA)"
+    "ha_label_w1": "03-Bereg 1 Sued: Freigabe von(SA)"
   },
   {
     "zone": "03",
@@ -3564,7 +3570,7 @@
     "w2_value": "11:15 h:min",
     "w1_label": "Bereg: Freigabe von(SA)",
     "w2_label": "bis(SU)",
-    "ha_label_w1": "03-Bereg: Freigabe bis(SU)"
+    "ha_label_w1": "03-Bereg 1 Sued: Freigabe bis(SU)"
   },
   {
     "zone": "03",
@@ -3576,7 +3582,8 @@
     "w1_value": "20:00 min:s",
     "w2_value": "0 aus",
     "w1_label": "Bereg: Gießdauer",
-    "w2_label": "Handstart"
+    "w2_label": "Handstart",
+    "ha_label_w1": "03-Bereg 2 Nord: Gießdauer Hand"
   },
   {
     "zone": "03",
@@ -3589,7 +3596,7 @@
     "w2_value": "",
     "w1_label": "Bereg: Gießdauer",
     "w2_label": "",
-    "ha_label_w1": "03-Bereg: Handstart"
+    "ha_label_w1": "03-Bereg 2 Nord: Handstart"
   },
   {
     "zone": "03",
@@ -3602,7 +3609,7 @@
     "w2_value": "",
     "w1_label": "Bereg: Gießdauer",
     "w2_label": "",
-    "ha_label_w1": "03-Bereg: Gießdauer"
+    "ha_label_w1": "03-Bereg 2 Nord: Gießdauer"
   },
   {
     "zone": "03",
@@ -3627,7 +3634,7 @@
     "w2_value": "11:45 h:min",
     "w1_label": "Bereg: Freigabe von(SA)",
     "w2_label": "bis(SU)",
-    "ha_label_w1": "03-Bereg: Freigabe von(SA)"
+    "ha_label_w1": "03-Bereg 2 Nord: Freigabe von(SA)"
   },
   {
     "zone": "03",
@@ -3640,7 +3647,7 @@
     "w2_value": "",
     "w1_label": "Bereg: Gießdauer",
     "w2_label": "",
-    "ha_label_w1": "03-Bereg: Freigabe bis(SU)"
+    "ha_label_w1": "03-Bereg 2 Nord: Freigabe bis(SU)"
   },
   {
     "zone": "03",
@@ -3677,7 +3684,7 @@
     "w2_value": "0 nein",
     "w1_label": "Bereg: Magnetventil",
     "w2_label": "Bedarf",
-    "ha_label_w1": "03-Bereg: Magnetventil"
+    "ha_label_w1": "03-Bereg 1 Sued: MV Zustand"
   },
   {
     "zone": "03",
@@ -3714,7 +3721,7 @@
     "w2_value": "1 ja",
     "w1_label": "Bereg: Magnetventil",
     "w2_label": "Bedarf",
-    "ha_label_w1": "03-Bereg: Magnetventil"
+    "ha_label_w1": "03-Bereg 2 Nord: MV Zustand"
   },
   {
     "zone": "03",
@@ -4199,7 +4206,7 @@
     "w2_value": "",
     "w1_label": "Lüftung: akt Raumsollwert",
     "w2_label": "",
-    "ha_label_w1": "04-Lüftung: akt Raumsollwert"
+    "ha_label_w1": "04-Lueftung: akt Raumsollwert"
   },
   {
     "zone": "04",
@@ -4224,8 +4231,8 @@
     "w2_value": "0,0 %",
     "w1_label": "D-Lüftg: Stellung-Ost",
     "w2_label": "West",
-    "ha_label_w1": "04-D-Lüftg: Stellung-Ost",
-    "ha_label_w2": "04-D-Lüftg: Stellung-West",
+    "ha_label_w1": "04-D-Lueftg: Stellung-Ost",
+    "ha_label_w2": "04-D-Lueftg: Stellung-West",
     "cc600_adr_w2": "0104122102"
   },
   {
@@ -4323,7 +4330,7 @@
     "w2_value": "",
     "w1_label": "D-Lüftg: P-Bereich Lee",
     "w2_label": "",
-    "ha_label_w1": "04-D-Lüftg: Zu-Windgeschw Luv"
+    "ha_label_w1": "04-D-Lueftg: Zu-Windgeschw Luv"
   },
   {
     "zone": "04",
@@ -4336,7 +4343,7 @@
     "w2_value": "10,0 m/s",
     "w1_label": "D-Lüftg: Zu-Windgeschw Luv",
     "w2_label": "Lee",
-    "ha_label_w1": "04-D-Lüftg: Zu-Windgeschw Lee"
+    "ha_label_w1": "04-D-Lueftg: Zu-Windgeschw Lee"
   },
   {
     "zone": "04",
@@ -5201,7 +5208,7 @@
     "w2_value": "",
     "w1_label": "Raumtemperatur",
     "w2_label": "",
-    "ha_label_w1": "05-Raumtemperatur"
+    "ha_label_w1": "05-Raumtemperatur Dach"
   },
   {
     "zone": "05",
@@ -5776,7 +5783,7 @@
     "w2_value": "",
     "w1_label": "Pumpe",
     "w2_label": "",
-    "ha_label_w1": "91-Pumpe"
+    "ha_label_w1": "91-Heizung Ringpumpe"
   },
   {
     "zone": "91",
@@ -5864,7 +5871,7 @@
     "w2_value": "",
     "w1_label": "Bereg 6: Gießdauer",
     "w2_label": "",
-    "ha_label_w1": "01-Bereg 6: Gießdauer"
+    "ha_label_w1": "01-Bereg 6 Garten: Gießdauer Hand"
   },
   {
     "zone": "01",
@@ -5890,7 +5897,7 @@
     "w2_value": "",
     "w1_label": "Bereg 6: MV Zustand",
     "w2_label": "",
-    "ha_label_w1": "01-Bereg 6: MV Zustand"
+    "ha_label_w1": "01-Bereg 6 Garten: MV Zustand"
   },
   {
     "zone": "02",
