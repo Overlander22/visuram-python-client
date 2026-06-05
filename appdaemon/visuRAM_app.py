@@ -39,6 +39,17 @@ _TIME_RE = re.compile(r"^\d+:\d{2}$")
 # Greift nur, wenn im JSON kein explizites "wertart" gepflegt ist.
 _DAUER_HINTS = ("dauer", "laufzeit", "anzahl", "einschaltdauer", "zeitintervall")
 
+# Schalter-Enums: FELDART:Schalter (Drehschalter) sendet im Stream nur die nackte
+# Zahl (0/1/2) – der Enum-Text steckt in der Schalter-Grafik, NICHT im Datenstrom.
+# Wir leiten den Text aus der Stufenzahl ab (aus CSSSTUFEN im HTML erkannt).
+# Belegung von HP bestätigt (04.06.2026):
+#   2-stufig → 0=Aus, 1=Ein     (z.B. Sturmschutz manuell)
+#   3-stufig → 0=Aus, 1=Auto, 2=Ein  (z.B. Bereg/Handstart-Drehschalter)
+_SWITCH_ENUMS: dict[int, dict[str, str]] = {
+    2: {"0": "Aus", "1": "Ein"},
+    3: {"0": "Aus", "1": "Auto", "2": "Ein"},
+}
+
 # visuram_client.py liegt im gleichen Verzeichnis
 sys.path.insert(0, os.path.dirname(__file__))
 
@@ -146,8 +157,12 @@ class VisuRAMApp(hass.Hass):
         enthalten – sie können damit lautlos übersprungen werden.
 
         Gibt dict zurück: { "ContainerXFeldY" → "0102422101", "FeldXX" → ... }
+
+        Nebenbei wird self._switch_enums befüllt: cc600_adr → {wert: text} für
+        FELDART:Schalter-Felder (Drehschalter), die im Stream nur die Zahl liefern.
         """
         import requests as _req
+        self._switch_enums: dict[str, dict] = {}
         try:
             session = _req.Session()
             session.headers.update({
@@ -172,12 +187,25 @@ class VisuRAMApp(hass.Hass):
             for fm in re.finditer(
                 r'InitFeld\("([^"]+_Feld)",\s*"([^"]*?)"', r2.text
             ):
-                ta = re.search(r"TOOLTIPADR:([^;]+)", fm.group(2))
-                if ta:
-                    fid = fm.group(1).replace("_Feld", "")
-                    result[fid] = ta.group(1).strip()
+                fid    = fm.group(1).replace("_Feld", "")
+                params = fm.group(2)
+                ta = re.search(r"TOOLTIPADR:([^;]+)", params)
+                if not ta:
+                    continue
+                adr = ta.group(1).strip()
+                result[fid] = adr
+                # Schalter (Drehschalter): nur Zahl im Stream → Enum-Map nach
+                # Stufenzahl (Anzahl Stufen in CSSSTUFEN, getrennt durch '|').
+                if "FELDART:Schalter" in params:
+                    css = re.search(r"CSSSTUFEN:([^;]+)", params)
+                    nst = len([x for x in css.group(1).split("|") if x]) if css else 0
+                    if nst in _SWITCH_ENUMS:
+                        self._switch_enums[adr] = _SWITCH_ENUMS[nst]
 
-            self.log(f"HTML-Analyse: {len(result)} FeldIDs mit TOOLTIPADR geladen")
+            self.log(
+                f"HTML-Analyse: {len(result)} FeldIDs mit TOOLTIPADR, "
+                f"{len(self._switch_enums)} Schalter-Enums geladen"
+            )
             return result
 
         except Exception as exc:
@@ -274,7 +302,15 @@ class VisuRAMApp(hass.Hass):
             state        = value
             anzeige      = None  # menschenlesbarer Originalwert ("15:00"/"06:23")
 
-            if unit in ("min:s", "h:min") or _TIME_RE.match(value.strip()):
+            switch_map = self._switch_enums.get(cc600_adr)
+            if switch_map is not None:
+                # Schalter (Drehschalter): nackte Zahl → "Zahl Text", konsistent zu
+                # den textführenden Datenfeld-Enums ("0 aus"). Text aus Schaltertyp.
+                key = value.strip().split(".")[0].split(",")[0]
+                txt = switch_map.get(key)
+                if txt:
+                    state = f"{value} {txt}"
+            elif unit in ("min:s", "h:min") or _TIME_RE.match(value.strip()):
                 # Zeitwert – auch wenn die Einheit fehlt (Muster "MM:SS"/"HH:MM").
                 if self._time_kind(entry, friendly, unit) == "dauer":
                     secs = self._time_to_seconds(value, unit)

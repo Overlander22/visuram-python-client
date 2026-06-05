@@ -254,6 +254,7 @@ def _make_full_app(adr_lookup, html_adr_map):
     app._adr_lookup   = adr_lookup
     app._html_adr_map = html_adr_map
     app._covered_adrs = set(adr_lookup)
+    app._switch_enums = {}
     app._logged_unknown    = set()
     app._published_discovery = set()
     app._UNIT_TO_CLASS = {"oC": "temperature", "°C": "temperature"}
@@ -319,3 +320,69 @@ class TestAdrResolution:
         app._push_sensors_mqtt({"Container9Feld2_Feld": {"value": "50", "unit": "%"}})
         assert [p for p in app._published if p[0].endswith("/state")] == []
         assert _warnings(app) == []
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Schalter-Enums (Drehschalter): nackte Zahl → "Zahl Text"
+# ─────────────────────────────────────────────────────────────────────────────
+
+_HTML_WITH_SWITCHES = '''
+<script>
+  InitFeld("Feld135_Feld","TOOLTIPADR:0101500212;CSSSTUFEN:Drehschalter3_0*0|Drehschalter3_1*1|Drehschalter3_2*2;FELDART:Schalter","","");
+  InitFeld("Feld134_Feld","TOOLTIPADR:0100903011;CSSSTUFEN:Sw_0*0|Sw_1*1;FELDART:Schalter","","");
+  InitFeld("Feld10_Feld","TOOLTIPADR:0101100001;FELDART:Datenfeld","","");
+</script>
+'''
+
+
+class TestSwitchEnumParsing:
+    """_fetch_html_feld_adrs befüllt _switch_enums nach Stufenzahl."""
+
+    @resp_mock.activate
+    def test_schalter_enums_aus_html(self):
+        resp_mock.add(resp_mock.GET, _ASPX_URL,
+                      body="'&WCFID=1&BildId=3", status=200)
+        resp_mock.add(resp_mock.GET, _ASPX_URL, body=_HTML_WITH_SWITCHES, status=200)
+        app = _make_app()
+        app._fetch_html_feld_adrs("testhost", 80)
+        # 3-stufig → Aus/Auto/Ein ; 2-stufig → Aus/Ein ; Datenfeld → kein Eintrag
+        assert app._switch_enums["0101500212"] == {"0": "Aus", "1": "Auto", "2": "Ein"}
+        assert app._switch_enums["0100903011"] == {"0": "Aus", "1": "Ein"}
+        assert "0101100001" not in app._switch_enums
+
+
+class TestSwitchEnumRendering:
+    """Schalter-Adresse → state als 'Zahl Text', kein device_class/unit."""
+
+    def _app(self):
+        app = _make_full_app(
+            adr_lookup={"0101500212": _entry("cc600_0101500212", "01-Bereg 2: Handstart")},
+            html_adr_map={"Feld135": "0101500212"},
+        )
+        app._switch_enums = {"0101500212": {"0": "Aus", "1": "Auto", "2": "Ein"}}
+        return app
+
+    def test_stellung_0_wird_aus(self):
+        app = self._app()
+        app._push_sensors_mqtt({"Feld135_Feld": {"value": "0", "unit": ""}})
+        states = [p for p in app._published if p[0].endswith("/state")]
+        assert ("nersingen/sensor/cc600_0101500212/state", "0 Aus", False) in states
+
+    def test_stellung_2_wird_ein(self):
+        app = self._app()
+        app._push_sensors_mqtt({"Feld135_Feld": {"value": "2", "unit": ""}})
+        states = [p[1] for p in app._published if p[0].endswith("/state")]
+        assert "2 Ein" in states
+
+    def test_kein_device_class_oder_unit(self):
+        app = self._app()
+        app._push_sensors_mqtt({"Feld135_Feld": {"value": "1", "unit": ""}})
+        cfgs = [json.loads(p[1]) for p in app._published if p[0].endswith("/config")]
+        assert cfgs and "unit_of_measurement" not in cfgs[0]
+        assert "device_class" not in cfgs[0]
+
+    def test_unbekannte_stellung_faellt_auf_zahl_zurueck(self):
+        app = self._app()
+        app._push_sensors_mqtt({"Feld135_Feld": {"value": "9", "unit": ""}})
+        states = [p[1] for p in app._published if p[0].endswith("/state")]
+        assert states == ["9"]   # keine Map-Treffer → nackte Zahl

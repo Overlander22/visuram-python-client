@@ -6,82 +6,82 @@
       "cc600_adr": "0101112202",
       "zone": "01",
       "kanal": "11220",
-      "ha_label_w1": "01-Lufthzg: Ventilator",
+      "ha_label_w1": "01-Lufthzg: Ventilator Zustand",
       "_live_wert": "0 aus",
       "_hinweis": "Geschwister 0101112201 = 'Lufthzg: Einschaltdauer / Ventilator' (P=2 = Ventilator-Teil)",
-      "_hp_bestaetigt": false
+      "_hp_bestaetigt": true
     },
     {
       "cc600_adr": "0101500212",
       "zone": "01",
       "kanal": "50021",
-      "ha_label_w1": "01-Bereg: Handstart",
+      "ha_label_w1": "01-Bereg 2: Handstart",
       "_live_wert": "0",
       "_hinweis": "Geschwister 0101500211 = 'Bereg: Gießdauer / Handstart' (P=2 = Handstart)",
-      "_hp_bestaetigt": false
+      "_hp_bestaetigt": true
     },
     {
       "cc600_adr": "0101500412",
       "zone": "01",
       "kanal": "50041",
-      "ha_label_w1": "01-Bereg: Handstart",
+      "ha_label_w1": "01-Bereg 4: Handstart",
       "_live_wert": "0",
       "_hinweis": "HPs Review-Sheet Zeile 24 nennt diese adr ausdrücklich '01-Bereg: Handstart'",
-      "_hp_bestaetigt": false
+      "_hp_bestaetigt": true
     },
     {
       "cc600_adr": "0101500611",
       "zone": "01",
       "kanal": "50061",
-      "ha_label_w1": "01-Bereg: Gießdauer",
+      "ha_label_w1": "01-Bereg 6: Gießdauer",
       "_live_wert": "60:00 min:s",
       "_hinweis": "Geschwister 0101500612 = 'Bereg: Gießdauer / Handstart'; P=1 + Dauer 60:00 → Gießdauer",
-      "_hp_bestaetigt": false
+      "_hp_bestaetigt": true
     },
     {
       "cc600_adr": "0101502301",
       "zone": "01",
       "kanal": "50230",
-      "ha_label_w1": "01-Bereg: ??? (Meldung)",
+      "ha_label_w1": "01-Bereg 3: MV Zustand",
       "_live_wert": "0 aus",
       "_hinweis": "FELDART:Meldesymbol (Status/Alarm), Beregnungs-Bereich. Bedeutung von Kanal 50230 bitte HP angeben.",
-      "_hp_bestaetigt": false
+      "_hp_bestaetigt": true
     },
     {
       "cc600_adr": "0101502601",
       "zone": "01",
       "kanal": "50260",
-      "ha_label_w1": "01-Bereg: ??? (Meldung)",
+      "ha_label_w1": "01-Bereg 6: MV Zustand",
       "_live_wert": "0 aus",
       "_hinweis": "FELDART:Meldesymbol (Status/Alarm), Beregnungs-Bereich. Bedeutung von Kanal 50260 bitte HP angeben.",
-      "_hp_bestaetigt": false
+      "_hp_bestaetigt": true
     },
     {
       "cc600_adr": "0102112202",
       "zone": "02",
       "kanal": "11220",
-      "ha_label_w1": "02-Lufthzg: Ventilator",
+      "ha_label_w1": "02-Lufthzg: Ventilator Zustand",
       "_live_wert": "0 aus",
       "_hinweis": "Geschwister 0102112201 = 'Lufthzg: Einschaltdauer / Ventilator' (P=2 = Ventilator)",
-      "_hp_bestaetigt": false
+      "_hp_bestaetigt": true
     },
     {
       "cc600_adr": "0102510112",
       "zone": "02",
       "kanal": "51011",
-      "ha_label_w1": "02-SpNebel: Handstart",
+      "ha_label_w1": "02-Trinkwasser: Handstart",
       "_live_wert": "0",
       "_hinweis": "Geschwister 0102510111 = 'SpNebel: Sprühdauer / Handstart' (P=2 = Handstart)",
-      "_hp_bestaetigt": false
+      "_hp_bestaetigt": true
     },
     {
       "cc600_adr": "0103112202",
       "zone": "03",
       "kanal": "11220",
-      "ha_label_w1": "03-Lufthzg: Ventilator",
+      "ha_label_w1": "03-Lufthzg: Ventilator Zustand",
       "_live_wert": "0 aus",
       "_hinweis": "Geschwister 0103112201 = 'Lufthzg: Einschaltdauer / Ventilator' (P=2 = Ventilator)",
-      "_hp_bestaetigt": false
+      "_hp_bestaetigt": true
     },
     {
       "cc600_adr": "0150502001",
