@@ -5,6 +5,20 @@ Reverse-engineered HTTP/JSON-Protokoll für **lokale Netzwerkintegration** – p
 
 ---
 
+## Status (Stand 05.06.2026)
+
+- **Lesen: abgeschlossen & produktiv.** 133 HA-Entitäten (adress-basiert, selbstheilendes
+  FeldID→cc600_adr-Mapping aus dem Live-HTML), korrekte Werte/Einheiten/Zeit/Enums (inkl.
+  Drehschalter), kuratierte Labels. 114 Tests grün.
+- **Schreiben: noch offen.** Der Service `visuram/set_value` ist implementiert (drift-immun,
+  adress-aufgelöst), aber **noch nicht produktiv getestet**. Offen: Schreibtest an harmlosem
+  Kanal, Allowlist freigegebener cc600_adr (sicherheitskritische Kanäle wie Sturmschutz
+  bewusst sperren), HA-Bedienelemente. Siehe Notion „Phase 2".
+- **Deploy: git-basiert.** Der HA-Server zieht `origin/main` selbst – siehe
+  [Deployment auf HA-Server](#deployment-auf-ha-server) / `deploy/ha_pull_deploy.sh`.
+
+---
+
 ## Hintergrund
 
 Die Anlage **K2118 „Flora Toskana / Nersingen"** nutzt einen CC600-Steuerungscomputer (Baujahr 2003), der über RS-232 an einen Windows-PC angebunden ist. Auf diesem PC laufen:
