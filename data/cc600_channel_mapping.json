@@ -622,19 +622,6 @@
   },
   {
     "zone": "01",
-    "kanal": "11220",
-    "cc600_adr": "0101112203",
-    "feld_id_w1": "Feld94",
-    "feld_id_w2": null,
-    "desc": "Lufthzg: Einschaltdauer / Ventilator",
-    "w1_value": "0,0 %",
-    "w2_value": "0 aus",
-    "w1_label": "Lufthzg: Einschaltdauer",
-    "w2_label": "Ventilator",
-    "ha_label_w1": "01-Lufthzg: Ventilator"
-  },
-  {
-    "zone": "01",
     "kanal": "11300",
     "cc600_adr": "0101113001",
     "feld_id_w1": null,
@@ -1538,19 +1525,6 @@
   },
   {
     "zone": "01",
-    "kanal": "50220",
-    "cc600_adr": "0101502203",
-    "feld_id_w1": "Feld95",
-    "feld_id_w2": null,
-    "desc": "Bereg: Magnetventil / Bedarf",
-    "w1_value": "",
-    "w2_value": "",
-    "w1_label": "Bereg: Magnetventil",
-    "w2_label": "",
-    "ha_label_w1": "01-Bereg: Magnetventil"
-  },
-  {
-    "zone": "01",
     "kanal": "50221",
     "cc600_adr": "0101502211",
     "feld_id_w1": null,
@@ -1573,19 +1547,6 @@
     "w1_label": "Bereg: Magnetventil",
     "w2_label": "",
     "ha_label_w1": "01-Bereg: Gießdauer"
-  },
-  {
-    "zone": "01",
-    "kanal": "50230",
-    "cc600_adr": "0101502303",
-    "feld_id_w1": "Feld98",
-    "feld_id_w2": null,
-    "desc": "Bereg: Magnetventil / Bedarf",
-    "w1_value": "0 aus",
-    "w2_value": "0 nein",
-    "w1_label": "Bereg: Magnetventil",
-    "w2_label": "Bedarf",
-    "ha_label_w1": "01-Bereg: Bedarf"
   },
   {
     "zone": "01",
@@ -1623,19 +1584,6 @@
     "w2_value": "0 nein",
     "w1_label": "Bereg: Magnetventil",
     "w2_label": "Bedarf",
-    "ha_label_w1": "01-Bereg: Magnetventil"
-  },
-  {
-    "zone": "01",
-    "kanal": "50240",
-    "cc600_adr": "0101502403",
-    "feld_id_w1": "Feld96",
-    "feld_id_w2": null,
-    "desc": "Bereg: Magnetventil / Bedarf",
-    "w1_value": "",
-    "w2_value": "",
-    "w1_label": "Bereg: Magnetventil",
-    "w2_label": "",
     "ha_label_w1": "01-Bereg: Magnetventil"
   },
   {
@@ -1686,19 +1634,6 @@
     "w2_value": "0:00 min:s",
     "w1_label": "Bereg: akt Anzahl",
     "w2_label": "Gießdauer"
-  },
-  {
-    "zone": "01",
-    "kanal": "50260",
-    "cc600_adr": "0101502603",
-    "feld_id_w1": "Feld99",
-    "feld_id_w2": null,
-    "desc": "Bereg: Magnetventil / Bedarf",
-    "w1_value": "0 aus",
-    "w2_value": "0 nein",
-    "w1_label": "Bereg: Magnetventil",
-    "w2_label": "Bedarf",
-    "ha_label_w1": "01-Bereg: Bedarf"
   },
   {
     "zone": "01",
@@ -2081,18 +2016,6 @@
     "w1_label": "Lufthzg: Einschaltdauer",
     "w2_label": "",
     "ha_label_w1": "02-Lufthzg: Einschaltdauer"
-  },
-  {
-    "zone": "02",
-    "kanal": "11220",
-    "cc600_adr": "0102112203",
-    "feld_id_w1": "Feld97",
-    "feld_id_w2": null,
-    "desc": "Lufthzg: Einschaltdauer / Ventilator",
-    "w1_value": "0,0 %",
-    "w2_value": "0 aus",
-    "w1_label": "Lufthzg: Einschaltdauer",
-    "w2_label": "Ventilator"
   },
   {
     "zone": "02",
@@ -2824,19 +2747,6 @@
   },
   {
     "zone": "02",
-    "kanal": "50210",
-    "cc600_adr": "0102502103",
-    "feld_id_w1": "Feld92",
-    "feld_id_w2": null,
-    "desc": "Bereg: Magnetventil / Bedarf",
-    "w1_value": "",
-    "w2_value": "",
-    "w1_label": "Bereg: Magnetventil",
-    "w2_label": "",
-    "ha_label_w1": "02-Bereg: Magnetventil"
-  },
-  {
-    "zone": "02",
     "kanal": "50211",
     "cc600_adr": "0102502111",
     "feld_id_w1": null,
@@ -2870,19 +2780,6 @@
     "w2_value": "0 nein",
     "w1_label": "Bereg: Magnetventil",
     "w2_label": "Bedarf",
-    "ha_label_w1": "02-Bereg: Magnetventil"
-  },
-  {
-    "zone": "02",
-    "kanal": "50220",
-    "cc600_adr": "0102502203",
-    "feld_id_w1": "Feld91",
-    "feld_id_w2": null,
-    "desc": "Bereg: Magnetventil / Bedarf",
-    "w1_value": "",
-    "w2_value": "",
-    "w1_label": "Bereg: Magnetventil",
-    "w2_label": "",
     "ha_label_w1": "02-Bereg: Magnetventil"
   },
   {
@@ -3250,19 +3147,6 @@
     "w1_label": "Lufthzg: Einschaltdauer",
     "w2_label": "",
     "ha_label_w1": "03-Lufthzg: Einschaltdauer"
-  },
-  {
-    "zone": "03",
-    "kanal": "11220",
-    "cc600_adr": "0103112203",
-    "feld_id_w1": "Feld90",
-    "feld_id_w2": null,
-    "desc": "Lufthzg: Einschaltdauer / Ventilator",
-    "w1_value": "0,0 %",
-    "w2_value": "0 aus",
-    "w1_label": "Lufthzg: Einschaltdauer",
-    "w2_label": "Ventilator",
-    "ha_label_w1": "03-Lufthzg: Ventilator"
   },
   {
     "zone": "03",
@@ -3797,19 +3681,6 @@
   },
   {
     "zone": "03",
-    "kanal": "50210",
-    "cc600_adr": "0103502103",
-    "feld_id_w1": "Feld88",
-    "feld_id_w2": null,
-    "desc": "Bereg: Magnetventil / Bedarf",
-    "w1_value": "",
-    "w2_value": "",
-    "w1_label": "Bereg: Magnetventil",
-    "w2_label": "",
-    "ha_label_w1": "03-Bereg: Magnetventil"
-  },
-  {
-    "zone": "03",
     "kanal": "50211",
     "cc600_adr": "0103502111",
     "feld_id_w1": null,
@@ -3843,19 +3714,6 @@
     "w2_value": "1 ja",
     "w1_label": "Bereg: Magnetventil",
     "w2_label": "Bedarf",
-    "ha_label_w1": "03-Bereg: Magnetventil"
-  },
-  {
-    "zone": "03",
-    "kanal": "50220",
-    "cc600_adr": "0103502203",
-    "feld_id_w1": "Feld93",
-    "feld_id_w2": null,
-    "desc": "Bereg: Magnetventil / Bedarf",
-    "w1_value": "",
-    "w2_value": "",
-    "w1_label": "Bereg: Magnetventil",
-    "w2_label": "",
     "ha_label_w1": "03-Bereg: Magnetventil"
   },
   {
@@ -5728,19 +5586,6 @@
     "w2_value": "",
     "w1_label": "Bewässerung",
     "w2_label": ""
-  },
-  {
-    "zone": "50",
-    "kanal": "50200",
-    "cc600_adr": "0150502003",
-    "feld_id_w1": "Feld100",
-    "feld_id_w2": null,
-    "desc": "Bewässerung",
-    "w1_value": "",
-    "w2_value": "",
-    "w1_label": "Bewässerung",
-    "w2_label": "",
-    "ha_label_w1": "50-Bewässerung"
   },
   {
     "zone": "50",
