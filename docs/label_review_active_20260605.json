@@ -1,5 +1,5 @@
 {
-  "_anleitung": "Auszug von cc600_channel_mapping.json: NUR die aktuell in HA angezeigten Kanäle. Bitte 'ha_label_w1' (und ggf. 'ha_label_w2') überarbeiten. '_'-Felder sind Kontext (aktueller HA-Name + Live-Wert) und werden beim Merge ignoriert. Zurück an Olly/Claude → ha_label_* werden per cc600_adr in die vollständige cc600_channel_mapping.json gemergt und deployed.",
+  "_anleitung": "Auszug von cc600_channel_mapping.json: NUR die aktuell in HA angezeigten Kanäle. Bitte 'ha_label_w1' (und ggf. 'ha_label_w2') ueberarbeiten. '_'-Felder sind Kontext (aktueller HA-Name + Live-Wert) und werden beim Merge ignoriert. Zurueck an Olly/Claude → ha_label_* werden per cc600_adr in die vollständige cc600_channel_mapping.json gemergt und deployed.",
   "_stand": "2026-06-05",
   "_anzahl": 136,
   "kanaele": [
@@ -127,7 +127,7 @@
       "_desc": "Sturmschutz / ab Windgeschw",
       "_ha_name_w1": "CC600 00-Sturmschutz",
       "_live_w1": "1 Auto",
-      "ha_label_w1": "00-Sturmschutz"
+      "ha_label_w1": "00-Sturmschutz auto"
     },
     {
       "cc600_adr": "0100903022",
@@ -175,7 +175,7 @@
       "_desc": "Lufthzg: Einschaltdauer / Ventilator",
       "_ha_name_w1": "CC600 01-Lufthzg: Einschaltdauer",
       "_live_w1": "0.0",
-      "ha_label_w1": "01-Lufthzg: Einschaltdauer"
+      "ha_label_w1": "01-Lufthzg: Leistung"
     },
     {
       "cc600_adr": "0101112202",
@@ -199,40 +199,40 @@
       "cc600_adr": "0101122021",
       "zone": "01",
       "kanal": "12202",
-      "_desc": "Lüftung: akt Raumsollwert",
-      "_ha_name_w1": "CC600 01-Lüftung: akt Raumsollwert",
+      "_desc": "Lueftung: akt Raumsollwert",
+      "_ha_name_w1": "CC600 01-Lueftung: akt Raumsollwert",
       "_live_w1": "24.0",
-      "ha_label_w1": "01-Lüftung: akt Raumsollwert"
+      "ha_label_w1": "01-Lueftung: akt Raumsollwert"
     },
     {
       "cc600_adr": "0101122101",
       "zone": "01",
       "kanal": "12210",
-      "_desc": "D-Lüftg: Stellung-Ost / West",
-      "_ha_name_w1": "CC600 01-D-Lüftg: Stellung-Ost",
+      "_desc": "D-Lueftg: Stellung-Ost / West",
+      "_ha_name_w1": "CC600 01-D-Lueftg: Stellung-Ost",
       "_live_w1": "23.6",
-      "ha_label_w1": "01-D-Lüftg: Stellung-Ost",
-      "_ha_name_w2": "CC600 01-D-Lüftg: Stellung-West",
+      "ha_label_w1": "01-D-Lueftg: Stellung-Ost",
+      "_ha_name_w2": "CC600 01-D-Lueftg: Stellung-West",
       "_live_w2": "23.7",
-      "ha_label_w2": "01-D-Lüftg: Stellung-West"
+      "ha_label_w2": "01-D-Lueftg: Stellung-West"
     },
     {
       "cc600_adr": "0101123161",
       "zone": "01",
       "kanal": "12316",
-      "_desc": "D-Lüftg: Zu-Windgeschw Luv / Lee",
-      "_ha_name_w1": "CC600 01-D-Lüftg: Zu-Windgeschw Luv",
+      "_desc": "D-Lueftg: Zu-Windgeschw Luv / Lee",
+      "_ha_name_w1": "CC600 01-D-Lueftg: Zu-Windgeschw Luv",
       "_live_w1": "8.0",
-      "ha_label_w1": "01-D-Lüftg: Zu-Windgeschw Luv"
+      "ha_label_w1": "01-D-Lueftg: Zu-Windgeschw Luv"
     },
     {
       "cc600_adr": "0101123162",
       "zone": "01",
       "kanal": "12316",
-      "_desc": "D-Lüftg: P-Bereich Lee / Luv",
-      "_ha_name_w1": "CC600 01-D-Lüftg: Zu-Windgeschw Lee",
+      "_desc": "D-Lueftg: P-Bereich Lee / Luv",
+      "_ha_name_w1": "CC600 01-D-Lueftg: Zu-Windgeschw Lee",
       "_live_w1": "12.0",
-      "ha_label_w1": "01-D-Lüftg: Zu-Windgeschw Lee"
+      "ha_label_w1": "01-D-Lueftg: Zu-Windgeschw Lee"
     },
     {
       "cc600_adr": "0101420101",
@@ -277,7 +277,7 @@
       "_desc": "Bereg: Gießdauer / Handstart",
       "_ha_name_w1": "CC600 01-Bereg: Gießdauer",
       "_live_w1": "60",
-      "ha_label_w1": "01-Bereg: Gießdauer"
+      "ha_label_w1": "01-Bereg 2: Gießdauer"
     },
     {
       "cc600_adr": "0101500212",
@@ -295,7 +295,7 @@
       "_desc": "Bereg: Gießdauer / Handstart",
       "_ha_name_w1": "CC600 01-Bereg: Gießdauer",
       "_live_w1": "60",
-      "ha_label_w1": "01-Bereg: Gießdauer"
+      "ha_label_w1": "01-Bereg 2: Gießdauer Hand"
     },
     {
       "cc600_adr": "0101500291",
@@ -304,7 +304,7 @@
       "_desc": "Bereg: Freigabe von(SA) / bis(SU)",
       "_ha_name_w1": "CC600 01-Bereg: Freigabe von(SA)",
       "_live_w1": "10:15",
-      "ha_label_w1": "01-Bereg: Freigabe von(SA)"
+      "ha_label_w1": "01-Bereg 2: Freigabe von(SA)"
     },
     {
       "cc600_adr": "0101500292",
@@ -313,7 +313,7 @@
       "_desc": "Bereg: Gießdauer / Handstart",
       "_ha_name_w1": "CC600 01-Bereg: Freigabe bis(SU)",
       "_live_w1": "10:30",
-      "ha_label_w1": "01-Bereg: Freigabe bis(SU)"
+      "ha_label_w1": "01-Bereg 2: Freigabe bis(SU)"
     },
     {
       "cc600_adr": "0101500311",
@@ -322,7 +322,7 @@
       "_desc": "Bereg: Gießdauer / Handstart",
       "_ha_name_w1": "CC600 01-Bereg: Gießdauer",
       "_live_w1": "720",
-      "ha_label_w1": "01-Bereg: Gießdauer"
+      "ha_label_w1": "01-Bereg 3: Gießdauer Hand"
     },
     {
       "cc600_adr": "0101500312",
@@ -331,7 +331,7 @@
       "_desc": "Bereg: Gießdauer / Handstart",
       "_ha_name_w1": "CC600 01-Bereg: Handstart",
       "_live_w1": "0 Aus",
-      "ha_label_w1": "01-Bereg: Handstart"
+      "ha_label_w1": "01-Bereg 3: Handstart"
     },
     {
       "cc600_adr": "0101500321",
@@ -340,7 +340,7 @@
       "_desc": "Bereg: Gießdauer",
       "_ha_name_w1": "CC600 01-Bereg: Gießdauer",
       "_live_w1": "900",
-      "ha_label_w1": "01-Bereg: Gießdauer"
+      "ha_label_w1": "01-Bereg 3: Gießdauer"
     },
     {
       "cc600_adr": "0101500391",
@@ -349,7 +349,7 @@
       "_desc": "Bereg: Freigabe von(SA) / bis(SU)",
       "_ha_name_w1": "CC600 01-Bereg: Freigabe von(SA)",
       "_live_w1": "12:00",
-      "ha_label_w1": "01-Bereg: Freigabe von(SA)"
+      "ha_label_w1": "01-Bereg 3: Freigabe von(SA)"
     },
     {
       "cc600_adr": "0101500392",
@@ -358,7 +358,7 @@
       "_desc": "Bereg: Gießdauer / Handstart",
       "_ha_name_w1": "CC600 01-Bereg: Freigabe bis(SU)",
       "_live_w1": "13:00",
-      "ha_label_w1": "01-Bereg: Freigabe bis(SU)"
+      "ha_label_w1": "01-Bereg 3: Freigabe bis(SU)"
     },
     {
       "cc600_adr": "0101500411",
@@ -367,7 +367,7 @@
       "_desc": "Bereg: Gießdauer / Handstart",
       "_ha_name_w1": "CC600 01-Bereg: Gießdauer",
       "_live_w1": "60",
-      "ha_label_w1": "01-Bereg: Gießdauer"
+      "ha_label_w1": "01-Bereg 4: Gießdauer Hand"
     },
     {
       "cc600_adr": "0101500412",
@@ -385,7 +385,7 @@
       "_desc": "Bereg: Gießdauer / Handstart",
       "_ha_name_w1": "CC600 01-Bereg: Gießdauer",
       "_live_w1": "60",
-      "ha_label_w1": "01-Bereg: Gießdauer"
+      "ha_label_w1": "01-Bereg 4: Gießdauer"
     },
     {
       "cc600_adr": "0101500491",
@@ -394,7 +394,7 @@
       "_desc": "Bereg: Freigabe von(SA) / bis(SU)",
       "_ha_name_w1": "CC600 01-Bereg: Freigabe von(SA)",
       "_live_w1": "13:00",
-      "ha_label_w1": "01-Bereg: Freigabe von(SA)"
+      "ha_label_w1": "01-Bereg 4: Freigabe von(SA)"
     },
     {
       "cc600_adr": "0101500492",
@@ -403,7 +403,7 @@
       "_desc": "Bereg: Gießdauer / Handstart",
       "_ha_name_w1": "CC600 01-Bereg: Freigabe bis(SU)",
       "_live_w1": "13:30",
-      "ha_label_w1": "01-Bereg: Freigabe bis(SU)"
+      "ha_label_w1": "01-Bereg 4: Freigabe bis(SU)"
     },
     {
       "cc600_adr": "0101500611",
@@ -412,7 +412,7 @@
       "_desc": "Bereg 6: Gießdauer",
       "_ha_name_w1": "CC600 01-Bereg 6: Gießdauer",
       "_live_w1": "3600",
-      "ha_label_w1": "01-Bereg 6: Gießdauer"
+      "ha_label_w1": "01-Bereg 6 Garten: Gießdauer Hand"
     },
     {
       "cc600_adr": "0101500612",
@@ -421,7 +421,7 @@
       "_desc": "Bereg: Gießdauer / Handstart",
       "_ha_name_w1": "CC600 01-Bereg: Handstart",
       "_live_w1": "0 Aus",
-      "ha_label_w1": "01-Bereg: Handstart"
+      "ha_label_w1": "01-Bereg 6 Garten: Handstart"
     },
     {
       "cc600_adr": "0101500621",
@@ -430,7 +430,7 @@
       "_desc": "Bereg: Gießdauer",
       "_ha_name_w1": "CC600 01-Bereg: Gießdauer",
       "_live_w1": "3600",
-      "ha_label_w1": "01-Bereg: Gießdauer"
+      "ha_label_w1": "01-Bereg 6 Garten: Gießdauer"
     },
     {
       "cc600_adr": "0101500691",
@@ -439,7 +439,7 @@
       "_desc": "Bereg: Gießdauer / Handstart",
       "_ha_name_w1": "CC600 01-Bereg: Freigabe von(SA)",
       "_live_w1": "12:00",
-      "ha_label_w1": "01-Bereg: Freigabe von(SA)"
+      "ha_label_w1": "01-Bereg 6 Garten: Freigabe von(SA)"
     },
     {
       "cc600_adr": "0101500692",
@@ -448,7 +448,7 @@
       "_desc": "Bereg: Freigabe von(SA) / bis(SU)",
       "_ha_name_w1": "CC600 01-Bereg: Freigabe bis(SU)",
       "_live_w1": "13:00",
-      "ha_label_w1": "01-Bereg: Freigabe bis(SU)"
+      "ha_label_w1": "01-Bereg 6 Garten: Freigabe bis(SU)"
     },
     {
       "cc600_adr": "0101502201",
@@ -457,7 +457,7 @@
       "_desc": "Bereg: Magnetventil / Bedarf",
       "_ha_name_w1": "CC600 01-Bereg: Magnetventil",
       "_live_w1": "0 aus",
-      "ha_label_w1": "01-Bereg: Magnetventil"
+      "ha_label_w1": "01-Bereg 2: MV Zustand"
     },
     {
       "cc600_adr": "0101502203",
@@ -466,7 +466,7 @@
       "_desc": "Bereg: Magnetventil / Bedarf",
       "_ha_name_w1": "CC600 01-Bereg: Magnetventil",
       "_live_w1": "unknown",
-      "ha_label_w1": "01-Bereg: Magnetventil"
+      "ha_label_w1": "01-Bereg 2: MV Zustand"
     },
     {
       "cc600_adr": "0101502212",
@@ -475,7 +475,7 @@
       "_desc": "Bereg: Magnetventil / Bedarf",
       "_ha_name_w1": "CC600 01-Bereg: Gießdauer",
       "_live_w1": "0",
-      "ha_label_w1": "01-Bereg: Gießdauer"
+      "ha_label_w1": "01-Bereg 2: akt. Gießdauer"
     },
     {
       "cc600_adr": "0101502301",
@@ -493,7 +493,7 @@
       "_desc": "Bereg: Magnetventil / Bedarf",
       "_ha_name_w1": "CC600 01-Bereg: Bedarf",
       "_live_w1": "unknown",
-      "ha_label_w1": "01-Bereg: Bedarf"
+      "ha_label_w1": "01-Bereg 3: MV Zustand"
     },
     {
       "cc600_adr": "0101502312",
@@ -502,7 +502,7 @@
       "_desc": "Bereg: akt Anzahl / Gießdauer",
       "_ha_name_w1": "CC600 01-Bereg: Gießdauer",
       "_live_w1": "0",
-      "ha_label_w1": "01-Bereg: Gießdauer"
+      "ha_label_w1": "01-Bereg 3: akt. Gießdauer"
     },
     {
       "cc600_adr": "0101502401",
@@ -511,7 +511,7 @@
       "_desc": "Bereg: Magnetventil / Bedarf",
       "_ha_name_w1": "CC600 01-Bereg: Magnetventil",
       "_live_w1": "0 aus",
-      "ha_label_w1": "01-Bereg: Magnetventil"
+      "ha_label_w1": "01-Bereg 4: MV Zustand"
     },
     {
       "cc600_adr": "0101502403",
@@ -520,7 +520,7 @@
       "_desc": "Bereg: Magnetventil / Bedarf",
       "_ha_name_w1": "CC600 01-Bereg: Magnetventil",
       "_live_w1": "unknown",
-      "ha_label_w1": "01-Bereg: Magnetventil"
+      "ha_label_w1": "01-Bereg 4: MV Zustand"
     },
     {
       "cc600_adr": "0101502412",
@@ -529,7 +529,7 @@
       "_desc": "Bereg: Magnetventil / Bedarf",
       "_ha_name_w1": "CC600 01-Bereg: Gießdauer",
       "_live_w1": "0",
-      "ha_label_w1": "01-Bereg: Gießdauer"
+      "ha_label_w1": "01-Bereg 04: akt. Gießdauer"
     },
     {
       "cc600_adr": "0101502601",
@@ -538,7 +538,7 @@
       "_desc": "Bereg 6: MV Zustand",
       "_ha_name_w1": "CC600 01-Bereg 6: MV Zustand",
       "_live_w1": "0 aus",
-      "ha_label_w1": "01-Bereg 6: MV Zustand"
+      "ha_label_w1": "01-Bereg 6 Garten: MV Zustand"
     },
     {
       "cc600_adr": "0101502603",
@@ -547,7 +547,7 @@
       "_desc": "Bereg: Magnetventil / Bedarf",
       "_ha_name_w1": "CC600 01-Bereg: Bedarf",
       "_live_w1": "unknown",
-      "ha_label_w1": "01-Bereg: Bedarf"
+      "ha_label_w1": "01-Bereg 6 Garten: MV Zustand"
     },
     {
       "cc600_adr": "0101502612",
@@ -556,7 +556,7 @@
       "_desc": "Bereg: akt Anzahl / Gießdauer",
       "_ha_name_w1": "CC600 01-Bereg: Gießdauer",
       "_live_w1": "0",
-      "ha_label_w1": "01-Bereg: Gießdauer"
+      "ha_label_w1": "01-Bereg 06 Garten: akt. Gießdauer"
     },
     {
       "cc600_adr": "0102100001",
@@ -571,13 +571,13 @@
       "cc600_adr": "0102100011",
       "zone": "02",
       "kanal": "10001",
-      "_desc": "Raumtemp-Nord / Raumtemp-Süd",
+      "_desc": "Raumtemp-Nord / Raumtemp-Sued",
       "_ha_name_w1": "CC600 02-Raumtemp-Nord",
       "_live_w1": "29.6",
       "ha_label_w1": "02-Raumtemp-Nord",
-      "_ha_name_w2": "CC600 02-Raumtemp-Süd",
+      "_ha_name_w2": "CC600 02-Raumtemp-Sued",
       "_live_w2": "28.9",
-      "ha_label_w2": "02-Raumtemp-Süd"
+      "ha_label_w2": "02-Raumtemp-Sued"
     },
     {
       "cc600_adr": "0102102021",
@@ -607,7 +607,7 @@
       "_desc": "Lufthzg: Einschaltdauer / Ventilator",
       "_ha_name_w1": "CC600 02-Lufthzg: Einschaltdauer",
       "_live_w1": "0.0",
-      "ha_label_w1": "02-Lufthzg: Einschaltdauer"
+      "ha_label_w1": "02-Lufthzg: Leistung"
     },
     {
       "cc600_adr": "0102112202",
@@ -631,40 +631,40 @@
       "cc600_adr": "0102122021",
       "zone": "02",
       "kanal": "12202",
-      "_desc": "Lüftung: akt Raumsollwert",
-      "_ha_name_w1": "CC600 02-Lüftung: akt Raumsollwert",
+      "_desc": "Lueftung: akt Raumsollwert",
+      "_ha_name_w1": "CC600 02-Lueftung: akt Raumsollwert",
       "_live_w1": "28.0",
-      "ha_label_w1": "02-Lüftung: akt Raumsollwert"
+      "ha_label_w1": "02-Lueftung: akt Raumsollwert"
     },
     {
       "cc600_adr": "0102122101",
       "zone": "02",
       "kanal": "12210",
-      "_desc": "D-Lüftg: Stellung-Ost / West",
-      "_ha_name_w1": "CC600 02-D-Lüftg: Stellung-Ost",
+      "_desc": "D-Lueftg: Stellung-Ost / West",
+      "_ha_name_w1": "CC600 02-D-Lueftg: Stellung-Ost",
       "_live_w1": "30.3",
-      "ha_label_w1": "02-D-Lüftg: Stellung-Ost",
-      "_ha_name_w2": "CC600 02-D-Lüftg: Stellung-West",
+      "ha_label_w1": "02-D-Lueftg: Stellung-Ost",
+      "_ha_name_w2": "CC600 02-D-Lueftg: Stellung-West",
       "_live_w2": "0.0",
-      "ha_label_w2": "02-D-Lüftg: Stellung-West"
+      "ha_label_w2": "02-D-Lueftg: Stellung-West"
     },
     {
       "cc600_adr": "0102123161",
       "zone": "02",
       "kanal": "12316",
-      "_desc": "D-Lüftg: P-Bereich Lee / Luv",
-      "_ha_name_w1": "CC600 02-D-Lüftg: Zu-Windgeschw Luv",
+      "_desc": "D-Lueftg: P-Bereich Lee / Luv",
+      "_ha_name_w1": "CC600 02-D-Lueftg: Zu-Windgeschw Luv",
       "_live_w1": "8.0",
-      "ha_label_w1": "02-D-Lüftg: Zu-Windgeschw Luv"
+      "ha_label_w1": "02-D-Lueftg: Zu-Windgeschw Luv"
     },
     {
       "cc600_adr": "0102123162",
       "zone": "02",
       "kanal": "12316",
-      "_desc": "D-Lüftg: Zu-Windgeschw Luv / Lee",
-      "_ha_name_w1": "CC600 02-D-Lüftg: Zu-Windgeschw Lee",
+      "_desc": "D-Lueftg: Zu-Windgeschw Luv / Lee",
+      "_ha_name_w1": "CC600 02-D-Lueftg: Zu-Windgeschw Lee",
       "_live_w1": "12.0",
-      "ha_label_w1": "02-D-Lüftg: Zu-Windgeschw Lee"
+      "ha_label_w1": "02-D-Lueftg: Zu-Windgeschw Lee"
     },
     {
       "cc600_adr": "0102420101",
@@ -709,7 +709,7 @@
       "_desc": "Bereg: Gießdauer / Handstart",
       "_ha_name_w1": "CC600 02-Bereg: Gießdauer",
       "_live_w1": "480",
-      "ha_label_w1": "02-Bereg: Gießdauer"
+      "ha_label_w1": "02-Bereg 1 Sued: Gießdauer Hand"
     },
     {
       "cc600_adr": "0102500112",
@@ -718,7 +718,7 @@
       "_desc": "Bereg: Gießdauer / Handstart",
       "_ha_name_w1": "CC600 02-Bereg: Handstart",
       "_live_w1": "0 Aus",
-      "ha_label_w1": "02-Bereg: Handstart"
+      "ha_label_w1": "02-Bereg 1 Sued: Handstart"
     },
     {
       "cc600_adr": "0102500121",
@@ -727,7 +727,7 @@
       "_desc": "Bereg: Gießdauer",
       "_ha_name_w1": "CC600 02-Bereg: Gießdauer",
       "_live_w1": "480",
-      "ha_label_w1": "02-Bereg: Gießdauer"
+      "ha_label_w1": "02-Bereg 1 Sued: Gießdauer"
     },
     {
       "cc600_adr": "0102500191",
@@ -736,7 +736,7 @@
       "_desc": "Bereg: Freigabe von(SA) / bis(SU)",
       "_ha_name_w1": "CC600 02-Bereg: Freigabe von(SA)",
       "_live_w1": "11:30",
-      "ha_label_w1": "02-Bereg: Freigabe von(SA)"
+      "ha_label_w1": "02-Bereg 1 Sued: Freigabe von(SA)"
     },
     {
       "cc600_adr": "0102500192",
@@ -745,7 +745,7 @@
       "_desc": "Bereg: Gießdauer / Handstart",
       "_ha_name_w1": "CC600 02-Bereg: Freigabe bis(SU)",
       "_live_w1": "11:45",
-      "ha_label_w1": "02-Bereg: Freigabe bis(SU)"
+      "ha_label_w1": "02-Bereg 1 Sued: Freigabe bis(SU)"
     },
     {
       "cc600_adr": "0102500211",
@@ -754,7 +754,7 @@
       "_desc": "Bereg: Gießdauer / Handstart",
       "_ha_name_w1": "CC600 02-Bereg: Gießdauer",
       "_live_w1": "900",
-      "ha_label_w1": "02-Bereg: Gießdauer"
+      "ha_label_w1": "02-Bereg 2 Nord: Gießdauer Hand"
     },
     {
       "cc600_adr": "0102500212",
@@ -763,7 +763,7 @@
       "_desc": "Bereg: Gießdauer / Handstart",
       "_ha_name_w1": "CC600 02-Bereg: Handstart",
       "_live_w1": "0 Aus",
-      "ha_label_w1": "02-Bereg: Handstart"
+      "ha_label_w1": "02-Bereg 2 Nord: Handstart"
     },
     {
       "cc600_adr": "0102500221",
@@ -772,7 +772,7 @@
       "_desc": "Bereg: Gießdauer",
       "_ha_name_w1": "CC600 02-Bereg: Gießdauer",
       "_live_w1": "900",
-      "ha_label_w1": "02-Bereg: Gießdauer"
+      "ha_label_w1": "02-Bereg 2 Nord: Gießdauer"
     },
     {
       "cc600_adr": "0102500291",
@@ -781,7 +781,7 @@
       "_desc": "Bereg: Freigabe von(SA) / bis(SU)",
       "_ha_name_w1": "CC600 02-Bereg: Freigabe von(SA)",
       "_live_w1": "11:40",
-      "ha_label_w1": "02-Bereg: Freigabe von(SA)"
+      "ha_label_w1": "02-Bereg 2 Nord: Freigabe von(SA)"
     },
     {
       "cc600_adr": "0102500292",
@@ -790,7 +790,7 @@
       "_desc": "Bereg: Gießdauer / Handstart",
       "_ha_name_w1": "CC600 02-Bereg: Freigabe bis(SU)",
       "_live_w1": "12:15",
-      "ha_label_w1": "02-Bereg: Freigabe bis(SU)"
+      "ha_label_w1": "02-Bereg 2 Nord: Freigabe bis(SU)"
     },
     {
       "cc600_adr": "0102502101",
@@ -799,7 +799,7 @@
       "_desc": "Bereg: Magnetventil / Bedarf",
       "_ha_name_w1": "CC600 02-Bereg: Magnetventil",
       "_live_w1": "0 aus",
-      "ha_label_w1": "02-Bereg: Magnetventil"
+      "ha_label_w1": "02-Bereg 1 Sued: MV Zustand"
     },
     {
       "cc600_adr": "0102502103",
@@ -808,7 +808,7 @@
       "_desc": "Bereg: Magnetventil / Bedarf",
       "_ha_name_w1": "CC600 02-Bereg: Magnetventil",
       "_live_w1": "unknown",
-      "ha_label_w1": "02-Bereg: Magnetventil"
+      "ha_label_w1": "02-Bereg 1 Sued: MV Zustand"
     },
     {
       "cc600_adr": "0102502201",
@@ -817,7 +817,7 @@
       "_desc": "Bereg: Magnetventil / Bedarf",
       "_ha_name_w1": "CC600 02-Bereg: Magnetventil",
       "_live_w1": "0 aus",
-      "ha_label_w1": "02-Bereg: Magnetventil"
+      "ha_label_w1": "02-Bereg 2 Nord: MV Zustand"
     },
     {
       "cc600_adr": "0102502203",
@@ -826,16 +826,16 @@
       "_desc": "Bereg: Magnetventil / Bedarf",
       "_ha_name_w1": "CC600 02-Bereg: Magnetventil",
       "_live_w1": "unknown",
-      "ha_label_w1": "02-Bereg: Magnetventil"
+      "ha_label_w1": "02-Bereg 2 Nord: MV Zustand"
     },
     {
       "cc600_adr": "0102510111",
       "zone": "02",
       "kanal": "51011",
-      "_desc": "SpNebel: Sprühdauer / Handstart",
-      "_ha_name_w1": "CC600 02-SpNebel: Sprühdauer",
+      "_desc": "SpNebel: Spruehdauer / Handstart",
+      "_ha_name_w1": "CC600 02-SpNebel: Spruehdauer",
       "_live_w1": "120",
-      "ha_label_w1": "02-SpNebel: Sprühdauer"
+      "ha_label_w1": "02-Trinkwasser: Laufzeit Hand"
     },
     {
       "cc600_adr": "0102510112",
@@ -853,7 +853,7 @@
       "_desc": "SpNebel: Magnetventil / Bedarf",
       "_ha_name_w1": "CC600 02-SpNebel: Magnetventil",
       "_live_w1": "0 aus",
-      "ha_label_w1": "02-SpNebel: Magnetventil"
+      "ha_label_w1": "02-Trinkwasser: MV Zustand"
     },
     {
       "cc600_adr": "0103100001",
@@ -916,40 +916,40 @@
       "cc600_adr": "0103122021",
       "zone": "03",
       "kanal": "12202",
-      "_desc": "Lüftung: akt Raumsollwert",
-      "_ha_name_w1": "CC600 03-Lüftung: akt Raumsollwert",
+      "_desc": "Lueftung: akt Raumsollwert",
+      "_ha_name_w1": "CC600 03-Lueftung: akt Raumsollwert",
       "_live_w1": "28.0",
-      "ha_label_w1": "03-Lüftung: akt Raumsollwert"
+      "ha_label_w1": "03-Lueftung: akt Raumsollwert"
     },
     {
       "cc600_adr": "0103122101",
       "zone": "03",
       "kanal": "12210",
-      "_desc": "D-Lüftg: Stellung-Ost / West",
-      "_ha_name_w1": "CC600 03-D-Lüftg: Stellung-Ost",
+      "_desc": "D-Lueftg: Stellung-Ost / West",
+      "_ha_name_w1": "CC600 03-D-Lueftg: Stellung-Ost",
       "_live_w1": "29.0",
-      "ha_label_w1": "03-D-Lüftg: Stellung-Ost",
-      "_ha_name_w2": "CC600 03-D-Lüftg: Stellung-West",
+      "ha_label_w1": "03-D-Lueftg: Stellung-Ost",
+      "_ha_name_w2": "CC600 03-D-Lueftg: Stellung-West",
       "_live_w2": "0.0",
-      "ha_label_w2": "03-D-Lüftg: Stellung-West"
+      "ha_label_w2": "03-D-Lueftg: Stellung-West"
     },
     {
       "cc600_adr": "0103123161",
       "zone": "03",
       "kanal": "12316",
-      "_desc": "D-Lüftg: Zu-Windgeschw Luv / Lee",
-      "_ha_name_w1": "CC600 03-D-Lüftg: Zu-Windgeschw Luv",
+      "_desc": "D-Lueftg: Zu-Windgeschw Luv / Lee",
+      "_ha_name_w1": "CC600 03-D-Lueftg: Zu-Windgeschw Luv",
       "_live_w1": "8.0",
-      "ha_label_w1": "03-D-Lüftg: Zu-Windgeschw Luv"
+      "ha_label_w1": "03-D-Lueftg: Zu-Windgeschw Luv"
     },
     {
       "cc600_adr": "0103123162",
       "zone": "03",
       "kanal": "12316",
-      "_desc": "D-Lüftg: P-Bereich Lee / Luv",
-      "_ha_name_w1": "CC600 03-D-Lüftg: Zu-Windgeschw Lee",
+      "_desc": "D-Lueftg: P-Bereich Lee / Luv",
+      "_ha_name_w1": "CC600 03-D-Lueftg: Zu-Windgeschw Lee",
       "_live_w1": "12.0",
-      "ha_label_w1": "03-D-Lüftg: Zu-Windgeschw Lee"
+      "ha_label_w1": "03-D-Lueftg: Zu-Windgeschw Lee"
     },
     {
       "cc600_adr": "0103500111",
@@ -958,7 +958,7 @@
       "_desc": "Bereg: Gießdauer / Handstart",
       "_ha_name_w1": "CC600 03-Bereg: Gießdauer",
       "_live_w1": "480",
-      "ha_label_w1": "03-Bereg: Gießdauer"
+      "ha_label_w1": "03-Bereg 1 Sued: Gießdauer Hand"
     },
     {
       "cc600_adr": "0103500112",
@@ -967,7 +967,7 @@
       "_desc": "Bereg: Gießdauer / Handstart",
       "_ha_name_w1": "CC600 03-Bereg: Handstart",
       "_live_w1": "0 Aus",
-      "ha_label_w1": "03-Bereg: Handstart"
+      "ha_label_w1": "03-Bereg 1 Sued: Handstart"
     },
     {
       "cc600_adr": "0103500121",
@@ -976,7 +976,7 @@
       "_desc": "Bereg: Gießdauer",
       "_ha_name_w1": "CC600 03-Bereg: Gießdauer",
       "_live_w1": "480",
-      "ha_label_w1": "03-Bereg: Gießdauer"
+      "ha_label_w1": "03-Bereg 1 Sued: Gießdauer"
     },
     {
       "cc600_adr": "0103500191",
@@ -985,7 +985,7 @@
       "_desc": "Bereg: Gießdauer / Handstart",
       "_ha_name_w1": "CC600 03-Bereg: Freigabe von(SA)",
       "_live_w1": "11:00",
-      "ha_label_w1": "03-Bereg: Freigabe von(SA)"
+      "ha_label_w1": "03-Bereg 1 Sued: Freigabe von(SA)"
     },
     {
       "cc600_adr": "0103500192",
@@ -994,7 +994,7 @@
       "_desc": "Bereg: Freigabe von(SA) / bis(SU)",
       "_ha_name_w1": "CC600 03-Bereg: Freigabe bis(SU)",
       "_live_w1": "11:15",
-      "ha_label_w1": "03-Bereg: Freigabe bis(SU)"
+      "ha_label_w1": "03-Bereg 1 Sued: Freigabe bis(SU)"
     },
     {
       "cc600_adr": "0103500211",
@@ -1003,7 +1003,7 @@
       "_desc": "Bereg: Gießdauer / Handstart",
       "_ha_name_w1": "CC600 03-Bereg: Gießdauer",
       "_live_w1": "1200",
-      "ha_label_w1": "03-Bereg: Gießdauer"
+      "ha_label_w1": "03-Bereg 2 Nord: Gießdauer Hand"
     },
     {
       "cc600_adr": "0103500212",
@@ -1012,7 +1012,7 @@
       "_desc": "Bereg: Gießdauer / Handstart",
       "_ha_name_w1": "CC600 03-Bereg: Handstart",
       "_live_w1": "0 Aus",
-      "ha_label_w1": "03-Bereg: Handstart"
+      "ha_label_w1": "03-Bereg 2 Nord: Handstart"
     },
     {
       "cc600_adr": "0103500221",
@@ -1021,7 +1021,7 @@
       "_desc": "Bereg: Gießdauer",
       "_ha_name_w1": "CC600 03-Bereg: Gießdauer",
       "_live_w1": "1200",
-      "ha_label_w1": "03-Bereg: Gießdauer"
+      "ha_label_w1": "03-Bereg 2 Nord: Gießdauer"
     },
     {
       "cc600_adr": "0103500291",
@@ -1030,7 +1030,7 @@
       "_desc": "Bereg: Freigabe von(SA) / bis(SU)",
       "_ha_name_w1": "CC600 03-Bereg: Freigabe von(SA)",
       "_live_w1": "11:10",
-      "ha_label_w1": "03-Bereg: Freigabe von(SA)"
+      "ha_label_w1": "03-Bereg 2 Nord: Freigabe von(SA)"
     },
     {
       "cc600_adr": "0103500292",
@@ -1039,7 +1039,7 @@
       "_desc": "Bereg: Gießdauer / Handstart",
       "_ha_name_w1": "CC600 03-Bereg: Freigabe bis(SU)",
       "_live_w1": "11:45",
-      "ha_label_w1": "03-Bereg: Freigabe bis(SU)"
+      "ha_label_w1": "03-Bereg 2 Nord: Freigabe bis(SU)"
     },
     {
       "cc600_adr": "0103502101",
@@ -1048,7 +1048,7 @@
       "_desc": "Bereg: Magnetventil / Bedarf",
       "_ha_name_w1": "CC600 03-Bereg: Magnetventil",
       "_live_w1": "0 aus",
-      "ha_label_w1": "03-Bereg: Magnetventil"
+      "ha_label_w1": "03-Bereg 1 Sued: MV Zustand"
     },
     {
       "cc600_adr": "0103502103",
@@ -1057,7 +1057,7 @@
       "_desc": "Bereg: Magnetventil / Bedarf",
       "_ha_name_w1": "CC600 03-Bereg: Magnetventil",
       "_live_w1": "unknown",
-      "ha_label_w1": "03-Bereg: Magnetventil"
+      "ha_label_w1": "03-Bereg Sued: MV Zustand"
     },
     {
       "cc600_adr": "0103502201",
@@ -1066,7 +1066,7 @@
       "_desc": "Bereg: Magnetventil / Bedarf",
       "_ha_name_w1": "CC600 03-Bereg: Magnetventil",
       "_live_w1": "0 aus",
-      "ha_label_w1": "03-Bereg: Magnetventil"
+      "ha_label_w1": "03-Bereg 2 Nord: MV Zustand"
     },
     {
       "cc600_adr": "0103502203",
@@ -1075,7 +1075,7 @@
       "_desc": "Bereg: Magnetventil / Bedarf",
       "_ha_name_w1": "CC600 03-Bereg: Magnetventil",
       "_live_w1": "unknown",
-      "ha_label_w1": "03-Bereg: Magnetventil"
+      "ha_label_w1": "03-Bereg 2 Nord: MV Zustand"
     },
     {
       "cc600_adr": "0104100001",
@@ -1102,40 +1102,40 @@
       "cc600_adr": "0104122021",
       "zone": "04",
       "kanal": "12202",
-      "_desc": "Lüftung: akt Raumsollwert",
-      "_ha_name_w1": "CC600 04-Lüftung: akt Raumsollwert",
+      "_desc": "Lueftung: akt Raumsollwert",
+      "_ha_name_w1": "CC600 04-Lueftung: akt Raumsollwert",
       "_live_w1": "30.0",
-      "ha_label_w1": "04-Lüftung: akt Raumsollwert"
+      "ha_label_w1": "04-Lueftung: akt Raumsollwert"
     },
     {
       "cc600_adr": "0104122101",
       "zone": "04",
       "kanal": "12210",
-      "_desc": "D-Lüftg: Stellung-Ost / West",
-      "_ha_name_w1": "CC600 04-D-Lüftg: Stellung-Ost",
+      "_desc": "D-Lueftg: Stellung-Ost / West",
+      "_ha_name_w1": "CC600 04-D-Lueftg: Stellung-Ost",
       "_live_w1": "20.4",
-      "ha_label_w1": "04-D-Lüftg: Stellung-Ost",
-      "_ha_name_w2": "CC600 04-D-Lüftg: Stellung-West",
+      "ha_label_w1": "04-D-Lueftg: Stellung-Ost",
+      "_ha_name_w2": "CC600 04-D-Lueftg: Stellung-West",
       "_live_w2": "0.0",
-      "ha_label_w2": "04-D-Lüftg: Stellung-West"
+      "ha_label_w2": "04-D-Lueftg: Stellung-West"
     },
     {
       "cc600_adr": "0104123161",
       "zone": "04",
       "kanal": "12316",
-      "_desc": "D-Lüftg: P-Bereich Lee / Luv",
-      "_ha_name_w1": "CC600 04-D-Lüftg: Zu-Windgeschw Luv",
+      "_desc": "D-Lueftg: P-Bereich Lee / Luv",
+      "_ha_name_w1": "CC600 04-D-Lueftg: Zu-Windgeschw Luv",
       "_live_w1": "7.0",
-      "ha_label_w1": "04-D-Lüftg: Zu-Windgeschw Luv"
+      "ha_label_w1": "04-D-Lueftg: Zu-Windgeschw Luv"
     },
     {
       "cc600_adr": "0104123162",
       "zone": "04",
       "kanal": "12316",
-      "_desc": "D-Lüftg: Zu-Windgeschw Luv / Lee",
-      "_ha_name_w1": "CC600 04-D-Lüftg: Zu-Windgeschw Lee",
+      "_desc": "D-Lueftg: Zu-Windgeschw Luv / Lee",
+      "_ha_name_w1": "CC600 04-D-Lueftg: Zu-Windgeschw Lee",
       "_live_w1": "10.0",
-      "ha_label_w1": "04-D-Lüftg: Zu-Windgeschw Lee"
+      "ha_label_w1": "04-D-Lueftg: Zu-Windgeschw Lee"
     },
     {
       "cc600_adr": "0105100001",
@@ -1144,7 +1144,7 @@
       "_desc": "Raumtemperatur",
       "_ha_name_w1": "CC600 05-Raumtemperatur",
       "_live_w1": "26.5",
-      "ha_label_w1": "05-Raumtemperatur"
+      "ha_label_w1": "05-Raumtemperatur Dach"
     },
     {
       "cc600_adr": "0150502003",
@@ -1153,7 +1153,7 @@
       "_desc": "Bewässerung",
       "_ha_name_w1": "CC600 50-Bewässerung",
       "_live_w1": "unknown",
-      "ha_label_w1": "50-Bewässerung"
+      "ha_label_w1": "50-Bewaesserung"
     },
     {
       "cc600_adr": "0150511001",
@@ -1252,7 +1252,7 @@
       "_desc": "Pumpe",
       "_ha_name_w1": "CC600 91-Pumpe",
       "_live_w1": "0 aus",
-      "ha_label_w1": "91-Pumpe"
+      "ha_label_w1": "91-Heizung Ringpumpe"
     }
   ]
 }
