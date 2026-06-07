@@ -812,7 +812,7 @@
       "_live_w1": "0 Aus",
       "_feldart": "Schalter",
       "_begruendung": "sicherheitskritisch (Sturmschutz) – bewusst gesperrt",
-      "zugriff": "ro"
+      "zugriff": "rw"
     },
     {
       "cc600_adr": "0100903021",
@@ -821,7 +821,7 @@
       "_live_w1": "1 Auto",
       "_feldart": "Datenfeld",
       "_begruendung": "sicherheitskritisch (Sturmschutz) – bewusst gesperrt",
-      "zugriff": "ro"
+      "zugriff": "rw"
     },
     {
       "cc600_adr": "0100903022",
@@ -830,7 +830,7 @@
       "_live_w1": "14.0",
       "_feldart": "Datenfeld",
       "_begruendung": "sicherheitskritisch (Sturmschutz) – bewusst gesperrt",
-      "zugriff": "ro"
+      "zugriff": "rw"
     },
     {
       "cc600_adr": "0101100001",
@@ -1127,7 +1127,7 @@
       "_live_w1": "0 aus",
       "_feldart": "Meldesymbol",
       "_begruendung": "Zustands-/Messwert – kein sinnvolles Schreiben",
-      "zugriff": "ro"
+      "zugriff": "rw"
     }
   ]
 }
