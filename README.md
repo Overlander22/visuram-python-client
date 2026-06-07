@@ -5,11 +5,11 @@ Reverse-engineered HTTP/JSON-Protokoll für **lokale Netzwerkintegration** – p
 
 ---
 
-## Status (Stand 05.06.2026)
+## Status (Stand 07.06.2026)
 
 - **Lesen: abgeschlossen & produktiv.** 133 HA-Entitäten (adress-basiert, selbstheilendes
   FeldID→cc600_adr-Mapping aus dem Live-HTML), korrekte Werte/Einheiten/Zeit/Enums (inkl.
-  Drehschalter), kuratierte Labels. 121 Tests grün.
+  Drehschalter), kuratierte Labels. 124 Tests grün.
 - **Schreiben: funktionsfähig & abgesichert (live getestet).** `visuram/set_value` v2:
   Allowlist `zugriff: rw|ro` (Default-Deny, 81 `rw` / 43 `ro`), automatische Kanal-/
   Arbeitswert-Ableitung (W1/W2) mit Erhalt des anderen Werts, **Auswertung der
@@ -320,19 +320,24 @@ Anpassungen für diese unique_id weg. Normale Updates lösen das **nicht** aus.
 
 ### Service: CC600-Kanal schreiben
 
-**Einfacher Aufruf (empfohlen):** Ziel-Entity-Adresse + Wert. Der Service leitet Kanal-Basis
-und Arbeitswert-Slot (W1/W2) aus der letzten Stelle der Adresse ab und erhält den jeweils
-anderen Arbeitswert automatisch.
+**Aufruf über das HA-Event `visuram_set_value`** (NICHT als HA-Service — `register_service`
+ist nur AppDaemon-intern und in HA nicht sichtbar). Die App lauscht auf das Event; Kanal-Basis
+und Arbeitswert-Slot (W1/W2) werden aus der letzten Stelle der Adresse abgeleitet, der jeweils
+andere Arbeitswert wird automatisch erhalten.
 
+In einer HA-Automation / einem Skript:
 ```yaml
-service: visuram/set_value
-data:
+action: event
+event_type: visuram_set_value
+event_data:
   cc600_adr: "0102510112"   # Ziel-Punkt (= Entity-Adresse), hier: Handstart
   value: "2"                # CC600-Format: 0=Aus,1=Auto,2=Ein bzw. "15:00", "25,0", …
 ```
 
+Per REST: `POST /api/events/visuram_set_value` mit JSON-Body `{"cc600_adr": "...", "value": "..."}`.
 Alternativ `feld_id` statt `cc600_adr` (wird live aufgelöst). **Expertenmodus:** explizite
-`w1`/`w2` (dann ist `cc600_adr` die Kanal-Basis) überschreiben `value`.
+`w1`/`w2` (dann ist `cc600_adr` die Kanal-Basis) überschreiben `value`. Für Dashboard-Buttons
+das Event in einem HA-Skript kapseln.
 
 **Schreib-Freigabe (Allowlist, Default-Deny):** geschrieben wird **nur**, wenn der Ziel-Punkt
 im Mapping `"zugriff": "rw"` hat (`_is_writable()` gegen `load_adr_lookup()`, Default `ro`).
