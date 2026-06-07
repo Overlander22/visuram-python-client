@@ -427,82 +427,157 @@ class VisuRAMApp(hass.Hass):
         entry = self._adr_lookup.get(cc600_adr) if cc600_adr else None
         return bool(entry) and entry.get("zugriff") == "rw"
 
+    # ── Schreib-Antwort auswerten + Nutzer-Rückmeldung ───────────────────
+    @staticmethod
+    def _unescape(s: str) -> str:
+        """\\uXXXX-Escapes, HTML-Tags und HTML-Entities (&nbsp; etc.) bereinigen."""
+        import html as _html
+        s = re.sub(r"\\u([0-9a-fA-F]{4})", lambda m: chr(int(m.group(1), 16)), s)
+        s = re.sub(r"<[^>]+>", "", s)
+        return _html.unescape(s).replace("\xa0", " ").strip()
+
+    def _parse_change_response(self, raw: str) -> dict:
+        """
+        Wertet die OnChangeCCValue-Antwort aus.
+
+        Rückgabe: {"mldg": <Ablehnungstext|None>, "w1": <best. W1>, "w2": <best. W2>}
+        Eine nicht-leere MLDG = CC600 hat die Eingabe ABGELEHNT (Plausibilität);
+        der Wert wurde dann NICHT übernommen (Antwort kommt trotzdem als HTTP 200).
+        """
+        def field(name: str) -> str:
+            m = re.search(rf"{name}\{{(.*?)\}}", raw, re.S)
+            return self._unescape(m.group(1)) if m else ""
+        rowinfo = field("ROWINFO")
+        w1 = re.search(r"W1:([^;]*)", rowinfo)
+        w2 = re.search(r"W2:([^;]*)", rowinfo)
+        return {
+            "mldg": field("MLDG") or None,
+            "w1": w1.group(1).strip() if w1 else "",
+            "w2": w2.group(1).strip() if w2 else "",
+        }
+
+    def _notify_user(self, title: str, message: str, nid: str = "visuram_set_value") -> None:
+        """Persistent Notification in HA – sichtbar für den Nutzer, der geschaltet hat."""
+        try:
+            self.call_service("persistent_notification/create",
+                              title=title, message=message, notification_id=nid)
+        except Exception as exc:
+            self.log(f"persistent_notification fehlgeschlagen: {exc}", level="WARNING")
+
+    def _current_raw_value(self, client, adr: str) -> str:
+        """Aktueller CC600-Roh-Wert (ohne Einheit) einer Adresse aus dem letzten
+        GlobalCallback – um beim Schreiben den jeweils anderen Arbeitswert zu erhalten."""
+        rev = {a: f for f, a in self._html_adr_map.items()}
+        feld = rev.get(adr)
+        if not feld:
+            return ""
+        s = (getattr(client, "_initial_sensors", {}) or {}).get(f"{feld}_Feld") or {}
+        return str(s.get("value", ""))
+
     # ── Service-Handler: Schalten ────────────────────────────────────────
     def _handle_set_value(self, namespace: str, domain: str, service: str,
                           kwargs: dict) -> None:
         """
         HA-Service 'visuram/set_value' – setzt einen CC600-Kanalwert.
 
-        Pflichtparameter:
-          feld_id   – FeldID, z.B. 'Feld92' (cc600_adr wird automatisch ermittelt)
+        Einfacher Aufruf (empfohlen):
+          cc600_adr | feld_id  – Ziel-Punkt (Entity-Adresse), z.B. '0102510112'
+          value                – neuer Wert in CC600-Format, z.B. '2', '15:00', '25,0'
+        Der Service leitet Kanal-Basis + Arbeitswert-Slot (W1/W2) aus der letzten Stelle
+        der Adresse ab, ERHÄLT den jeweils anderen Arbeitswert und prüft die Schreib-
+        Freigabe am Ziel-Punkt (Allowlist, Default-Deny).
 
-        Optionale Parameter:
-          w1        – W1-Wert, z.B. '12:00' (Gießdauer) oder '2' (Handstart ein)
-          w2        – W2-Wert, z.B. '2' (Handstart ein), '0' (aus), '1' (Automatik)
-          password  – Schreibpasswort, Standard: '1111'
-          cc600_adr – CC600-Adresse (überschreibt Mapping-Lookup)
+        Expertenmodus (überschreibt value): explizite w1/w2 (cc600_adr = Kanal-Basis).
 
-        Beispiel für Beregnungs-Handstart ein:
-          service: visuram/set_value
-          data:
-            feld_id: "Feld92"
-            w1: "12:00"
-            w2: "2"
+        Rückmeldung an den Nutzer:
+          - CC600 lehnt ab (Plausibilität, MLDG) → WARNING + Persistent Notification.
+          - Erfolg → sofortiger Poll, damit der neue Wert ohne Poll-Lag in HA erscheint.
         """
         feld_id   = kwargs.get("feld_id")
-        w1        = str(kwargs.get("w1", ""))
-        w2        = str(kwargs.get("w2", ""))
-        password  = str(kwargs.get("password", "1111"))
         cc600_adr = kwargs.get("cc600_adr")
+        value     = kwargs.get("value")
+        w1_in     = kwargs.get("w1")
+        w2_in     = kwargs.get("w2")
+        password  = str(kwargs.get("password", "1111"))
 
-        if not feld_id:
-            self.log("visuram/set_value: Pflichtparameter 'feld_id' fehlt", level="ERROR")
+        # Ziel-Punkt (Entity-Adresse) bestimmen
+        target = cc600_adr
+        if not target and feld_id:
+            target = self._html_adr_map.get(feld_id.replace("_Feld", ""))
+            if not target:
+                entry = self._field_lookup.get(feld_id)
+                target = entry["cc600_adr"] if entry else None
+        if not target:
+            self.log("visuram/set_value: 'cc600_adr' oder gültige 'feld_id' nötig",
+                     level="ERROR")
             return
 
-        if not cc600_adr:
-            # Bevorzugt LIVE aus dem HTML auflösen (immun gegen FeldID-Drift),
-            # sonst statischer feld_id→adr-Fallback aus dem Mapping.
-            cc600_adr = self._html_adr_map.get(feld_id.replace("_Feld", ""))
-            if not cc600_adr:
-                entry = self._field_lookup.get(feld_id)
-                cc600_adr = entry["cc600_adr"] if entry else None
-            if not cc600_adr:
-                self.log(
-                    f"visuram/set_value: Kein CC600-Mapping für feld_id={feld_id!r}. "
-                    "Bitte 'cc600_adr' explizit übergeben.",
-                    level="ERROR",
-                )
-                return
-
-        # Schreib-Freigabe prüfen (Default-Deny): nur als 'rw' markierte cc600_adr
-        # dürfen geschrieben werden. 'ro' und unbekannte Adressen werden abgelehnt –
-        # Schutz vor versehentlichem Schreiben auf Mess-/Zustands-/Sicherheitskanäle.
-        if not self._is_writable(cc600_adr):
-            z = (self._adr_lookup.get(cc600_adr) or {}).get("zugriff", "unbekannt")
-            self.log(
-                f"visuram/set_value ABGELEHNT: cc600_adr={cc600_adr} ist nicht zum "
-                f"Schreiben freigegeben (zugriff={z}). Nur 'rw'-Kanäle sind schreibbar.",
-                level="WARNING",
-            )
+        # Schreib-Freigabe am ZIEL-PUNKT prüfen (Default-Deny)
+        if not self._is_writable(target):
+            z = (self._adr_lookup.get(target) or {}).get("zugriff", "unbekannt")
+            msg = (f"Schreiben auf {target} ist nicht freigegeben (zugriff={z}). "
+                   "Nur als 'rw' markierte Kanäle sind schreibbar.")
+            self.log(f"visuram/set_value ABGELEHNT: {msg}", level="WARNING")
+            self._notify_user("VisuRAM: Schreiben gesperrt", msg,
+                              nid=f"visuram_setvalue_{target}")
             return
 
         host = self._client.base_url.split("//")[1].split(":")[0]
         port = int(self._client.base_url.split(":")[-1].split("/")[0])
 
-        self.log(f"set_value: {feld_id} adr={cc600_adr} w1={w1!r} w2={w2!r}")
         try:
             client = VisuRAMClient(host=host, port=port)
             client.connect()
-            result = client.set_value(
-                feld_id=feld_id,
-                cc600_adr=cc600_adr,
-                w1=w1,
-                w2=w2,
-                password=password,
-            )
-            self.log(f"set_value OK – {result[:120]}")
+
+            # Schreibparameter bestimmen
+            if w1_in is not None or w2_in is not None:
+                # Expertenmodus: explizite Arbeitswerte, target = Kanal-Basis
+                ch_adr, w1, w2 = target, str(w1_in or ""), str(w2_in or "")
+            else:
+                if value is None:
+                    self.log("visuram/set_value: 'value' (oder w1/w2) fehlt", level="ERROR")
+                    self._notify_user("VisuRAM: Schreibfehler",
+                                      f"{target}: kein Wert angegeben",
+                                      nid=f"visuram_setvalue_{target}")
+                    return
+                # Kanal-Basis (W1-Form) + Slot aus letzter Stelle (P) ableiten
+                p         = target[-1]
+                ch_adr    = target[:-1] + "1"
+                other_adr = ch_adr if p == "2" else (target[:-1] + "2")
+                other     = self._current_raw_value(client, other_adr)
+                # Sicherheit: existiert ein Geschwister-Arbeitswert, konnten wir ihn
+                # aber nicht lesen → abbrechen, um ihn nicht zu überschreiben.
+                if not other and other_adr in self._adr_lookup:
+                    msg = (f"Anderer Arbeitswert ({other_adr}) nicht lesbar – Schreiben "
+                           "abgebrochen, um ihn nicht zu überschreiben.")
+                    self.log(f"set_value: {msg}", level="WARNING")
+                    self._notify_user("VisuRAM: Schreiben abgebrochen",
+                                      f"{target}: {msg}", nid=f"visuram_setvalue_{target}")
+                    return
+                w1, w2 = (other, str(value)) if p == "2" else (str(value), other)
+
+            if not feld_id:
+                feld_id = {a: f for f, a in self._html_adr_map.items()}.get(target, "")
+
+            self.log(f"set_value: ziel={target} kanal={ch_adr} w1={w1!r} w2={w2!r}")
+            result = client.set_value(feld_id=feld_id, cc600_adr=ch_adr,
+                                      w1=w1, w2=w2, password=password)
+            info = self._parse_change_response(result)
+
+            if info["mldg"]:
+                # CC600 hat abgelehnt (Plausibilität) – Wert NICHT übernommen
+                self.log(f"set_value ABGELEHNT vom CC600: {info['mldg']} "
+                         f"(W1={info['w1']!r} W2={info['w2']!r})", level="WARNING")
+                self._notify_user(
+                    "VisuRAM: Schreiben abgelehnt",
+                    f"{target}: {info['mldg']} – der Wert wurde NICHT übernommen.",
+                    nid=f"visuram_setvalue_{target}")
+            else:
+                self.log(f"set_value OK – ziel={target} W1={info['w1']!r} W2={info['w2']!r}")
+                # Sofortiges Refresh: neuer Wert ohne Poll-Lag in HA sichtbar
+                self.run_in(self._poll, 1)
         except Exception as exc:
-            self.log(
-                f"set_value({feld_id}) FEHLER: {exc}\n{traceback.format_exc()}",
-                level="ERROR",
-            )
+            self.log(f"set_value({target}) FEHLER: {exc}\n{traceback.format_exc()}",
+                     level="ERROR")
+            self._notify_user("VisuRAM: Schreibfehler", f"{target}: {exc}",
+                              nid=f"visuram_setvalue_{target}")

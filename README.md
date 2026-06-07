@@ -10,12 +10,13 @@ Reverse-engineered HTTP/JSON-Protokoll für **lokale Netzwerkintegration** – p
 - **Lesen: abgeschlossen & produktiv.** 133 HA-Entitäten (adress-basiert, selbstheilendes
   FeldID→cc600_adr-Mapping aus dem Live-HTML), korrekte Werte/Einheiten/Zeit/Enums (inkl.
   Drehschalter), kuratierte Labels. 121 Tests grün.
-- **Schreiben: Allowlist aktiv, produktiver Schreibtest noch offen.** Der Service
-  `visuram/set_value` ist implementiert (drift-immun, adress-aufgelöst) **und durch eine
-  Schreib-Freigabeliste abgesichert**: pro Kanal `zugriff: "rw"|"ro"` im Mapping,
-  **Default-Deny** – `set_value` schreibt nur `rw`-Adressen (aktuell 81 `rw` / 43 `ro`,
-  von HP freigegeben). Noch offen: erster kontrollierter Schreibtest an einem harmlosen
-  Kanal, danach HA-Bedienelemente. Siehe Notion „Phase 2".
+- **Schreiben: funktionsfähig & abgesichert (live getestet).** `visuram/set_value` v2:
+  Allowlist `zugriff: rw|ro` (Default-Deny, 81 `rw` / 43 `ro`), automatische Kanal-/
+  Arbeitswert-Ableitung (W1/W2) mit Erhalt des anderen Werts, **Auswertung der
+  CC600-Antwort**: bei Ablehnung (MLDG/Plausibilität) **Persistent Notification** an den
+  Nutzer, bei Erfolg **sofortiger Poll** (kein Poll-Lag in der GUI). Erster Schreibtest
+  (Trinkwasser-Handstart) + Plausibilitäts-Ablehnung verifiziert. Noch offen: HA-
+  Bedienelemente (Buttons/Number/Select). Siehe Notion „Phase 2".
 - **Deploy: git-basiert.** Der HA-Server zieht `origin/main` selbst – siehe
   [Deployment auf HA-Server](#deployment-auf-ha-server) / `deploy/ha_pull_deploy.sh`.
 
@@ -319,20 +320,31 @@ Anpassungen für diese unique_id weg. Normale Updates lösen das **nicht** aus.
 
 ### Service: CC600-Kanal schreiben
 
+**Einfacher Aufruf (empfohlen):** Ziel-Entity-Adresse + Wert. Der Service leitet Kanal-Basis
+und Arbeitswert-Slot (W1/W2) aus der letzten Stelle der Adresse ab und erhält den jeweils
+anderen Arbeitswert automatisch.
+
 ```yaml
 service: visuram/set_value
 data:
-  feld_id: "Feld92"      # W1: Gießdauer
-  w1: "12:00"
-  w2: "2"                # 0=aus, 1=Automatik, 2=Manuell Ein
+  cc600_adr: "0102510112"   # Ziel-Punkt (= Entity-Adresse), hier: Handstart
+  value: "2"                # CC600-Format: 0=Aus,1=Auto,2=Ein bzw. "15:00", "25,0", …
 ```
 
-**Schreib-Freigabe (Allowlist, Default-Deny):** `set_value` schreibt **nur** Kanäle, deren
-`cc600_adr` im Mapping als `"zugriff": "rw"` markiert ist. Alles andere (`"ro"`, fehlend,
-unbekannte Adresse) wird abgelehnt und als `WARNING` geloggt – Schutz vor versehentlichem
-Schreiben auf Mess-/Zustands-/Sicherheitskanäle. Die Freigabe ist HP-kuratiert
-(Review: `docs/access_review_20260605.json`). Prüflogik: `_is_writable()` gegen
-`load_adr_lookup()` (das `zugriff` mitführt; Default `ro`).
+Alternativ `feld_id` statt `cc600_adr` (wird live aufgelöst). **Expertenmodus:** explizite
+`w1`/`w2` (dann ist `cc600_adr` die Kanal-Basis) überschreiben `value`.
+
+**Schreib-Freigabe (Allowlist, Default-Deny):** geschrieben wird **nur**, wenn der Ziel-Punkt
+im Mapping `"zugriff": "rw"` hat (`_is_writable()` gegen `load_adr_lookup()`, Default `ro`).
+Sonst Ablehnung + `WARNING` + Persistent Notification. Freigabe HP-kuratiert
+(`docs/access_review_20260605.json`).
+
+**Rückmeldung an den Nutzer:**
+- **Ablehnung durch CC600** (Plausibilität → Feld `MLDG` in der Antwort; kommt als HTTP 200!)
+  → `WARNING` + **Persistent Notification** „VisuRAM: Schreiben abgelehnt …", Wert NICHT übernommen.
+- **Erfolg** → sofortiger Poll, damit der bestätigte neue Wert ohne Poll-Lag in HA erscheint.
+
+Doppelter Schutz: unsere Allowlist **und** die CC600-eigene Plausibilitätsprüfung.
 
 ---
 
@@ -343,7 +355,7 @@ pytest tests/ -v
 pytest tests/ -v --cov=scripts --cov-report=term-missing
 ```
 
-121 Tests (Stand 05.06.2026).
+124 Tests (Stand 07.06.2026).
 
 ---
 

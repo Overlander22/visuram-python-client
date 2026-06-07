@@ -416,3 +416,39 @@ class TestWriteAllowlist:
 
     def test_none_gesperrt(self):
         assert self._app()._is_writable(None) is False
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# OnChangeCCValue-Antwort auswerten (MLDG = Ablehnung, ROWINFO = bestätigte Werte)
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Reale Ablehnungs-Antwort (w2=3 ungültig, 07.06.2026): MLDG vorhanden, Wert unverändert
+_RESP_REJECT = (
+    '{"d":"CONTEXT[OnChangeCCValue]BDONTWAIT[true]ARG['
+    'SP6{\\u003cspan \\u003e0\\u003c/span\\u003e}SP8{\\u003cspan \\u003eaus\\u003c/span\\u003e}'
+    'ROWINFO{NZ:1;ADR:02.51011;UEBER:false;W1:2:00 min:s;W2:0 aus;EH1:9;}'
+    'MLDG{Wert\\u0026nbsp;2:\\u0026nbsp;Eingabe\\u0026nbsp;nicht\\u0026nbsp;plausibel}'
+    'ID{Feld141_Feld}CODE{}]"}'
+)
+# Erfolgs-Antwort: keine (bzw. leere) MLDG
+_RESP_OK = (
+    '{"d":"CONTEXT[OnChangeCCValue]ARG['
+    'ROWINFO{NZ:1;ADR:02.51011;W1:2:00 min:s;W2:2 ein;}MLDG{}ID{Feld141_Feld}]"}'
+)
+
+
+class TestParseChangeResponse:
+    def test_ablehnung_mldg_erkannt(self):
+        info = _make_app()._parse_change_response(_RESP_REJECT)
+        assert info["mldg"] == "Wert 2: Eingabe nicht plausibel"
+        assert info["w2"] == "0 aus"   # bestätigter (unveränderter) Wert
+
+    def test_erfolg_keine_mldg(self):
+        info = _make_app()._parse_change_response(_RESP_OK)
+        assert info["mldg"] is None
+        assert info["w1"] == "2:00 min:s"
+        assert info["w2"] == "2 ein"
+
+    def test_unescape_bereinigt_tags_und_entities(self):
+        assert _make_app()._unescape("\\u003cspan \\u003eHand\\u0026nbsp;ein\\u003c/span\\u003e") \
+            == "Hand ein"
