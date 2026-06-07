@@ -143,9 +143,13 @@ class VisuRAMApp(hass.Hass):
         # Ersten Poll sofort, dann alle N Sekunden
         self.run_every(self._poll, "now", interval)
 
-        # HA-Service zum Schalten registrieren
+        # Schalten: AppDaemon-internen Service + HA-Event-Listener registrieren.
+        # Der register_service ist NUR AppDaemon-intern (taucht nicht in HA auf);
+        # für HA-getriebene Steuerung (Automationen/Buttons/REST) lauschen wir auf
+        # das HA-Event 'visuram_set_value' (POST /api/events/visuram_set_value).
         self.register_service("visuram/set_value", self._handle_set_value)
-        self.log("Service 'visuram/set_value' registriert")
+        self.listen_event(self._handle_set_value_event, "visuram_set_value")
+        self.log("Schalten registriert: AppDaemon-Service + HA-Event 'visuram_set_value'")
 
     # ── HTML-Analyse ──────────────────────────────────────────────────────
     def _fetch_html_feld_adrs(self, host: str, port: int) -> dict[str, str]:
@@ -474,11 +478,19 @@ class VisuRAMApp(hass.Hass):
         s = (getattr(client, "_initial_sensors", {}) or {}).get(f"{feld}_Feld") or {}
         return str(s.get("value", ""))
 
-    # ── Service-Handler: Schalten ────────────────────────────────────────
+    # ── Schalten: Einstiegspunkte (AppDaemon-Service + HA-Event) ─────────
     def _handle_set_value(self, namespace: str, domain: str, service: str,
                           kwargs: dict) -> None:
+        """AppDaemon-interner Service-Aufruf 'visuram/set_value'."""
+        self._do_set_value(kwargs or {})
+
+    def _handle_set_value_event(self, event_name: str, data: dict, kwargs: dict) -> None:
+        """HA-Event 'visuram_set_value' (aus Automationen/Skripten/REST feuerbar)."""
+        self._do_set_value(data or {})
+
+    def _do_set_value(self, kwargs: dict) -> None:
         """
-        HA-Service 'visuram/set_value' – setzt einen CC600-Kanalwert.
+        Setzt einen CC600-Kanalwert (Kern-Logik für Service UND Event).
 
         Einfacher Aufruf (empfohlen):
           cc600_adr | feld_id  – Ziel-Punkt (Entity-Adresse), z.B. '0102510112'
