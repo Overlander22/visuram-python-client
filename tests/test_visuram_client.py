@@ -656,10 +656,10 @@ _ADR_MAPPING = [
      "feld_id_w1": "Feld33", "feld_id_w2": None,
      "desc": "D-Lüftg: Zu-Windgeschw Luv", "w1_label": "D-Lüftg: Zu-Windgeschw Luv",
      "w2_label": "", "ha_label_w1": "01-D-Lüftg: Zu-Windgeschw Luv"},
-    # W1 + W2 mit expliziter cc600_adr_w2
+    # W1 + W2 mit expliziter cc600_adr_w2, zugriff rw (gilt für W1 und W2)
     {"zone": "01", "kanal": "12210", "cc600_adr": "0101122101",
      "feld_id_w1": "Container1Feld1", "feld_id_w2": "Container2Feld1",
-     "cc600_adr_w2": "0101122102",
+     "cc600_adr_w2": "0101122102", "zugriff": "rw",
      "desc": "D-Lüftg: Stellung-Ost / West", "w1_label": "D-Lüftg: Stellung-Ost",
      "w2_label": "West", "ha_label_w1": "01-D-Lüftg: Stellung-Ost",
      "ha_label_w2": "01-D-Lüftg: Stellung-West"},
@@ -680,6 +680,17 @@ def adr_mapping_file(tmp_path):
 
 class TestLoadAdrLookup:
     """Schlüssel ist die volle cc600_adr; W2 nur via explizite cc600_adr_w2."""
+
+    def test_zugriff_default_ro(self, adr_mapping_file):
+        """Kein zugriff-Feld im Mapping → Default 'ro' (Default-Deny)."""
+        m = load_adr_lookup(adr_mapping_file)
+        assert m["0101123161"]["zugriff"] == "ro"
+
+    def test_zugriff_rw_fuer_w1_und_w2(self, adr_mapping_file):
+        """zugriff gilt für W1- UND W2-Adresse desselben Kanals."""
+        m = load_adr_lookup(adr_mapping_file)
+        assert m["0101122101"]["zugriff"] == "rw"
+        assert m["0101122102"]["zugriff"] == "rw"
 
     def test_w1_per_cc600_adr(self, adr_mapping_file):
         m = load_adr_lookup(adr_mapping_file)

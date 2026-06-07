@@ -9,11 +9,13 @@ Reverse-engineered HTTP/JSON-Protokoll für **lokale Netzwerkintegration** – p
 
 - **Lesen: abgeschlossen & produktiv.** 133 HA-Entitäten (adress-basiert, selbstheilendes
   FeldID→cc600_adr-Mapping aus dem Live-HTML), korrekte Werte/Einheiten/Zeit/Enums (inkl.
-  Drehschalter), kuratierte Labels. 114 Tests grün.
-- **Schreiben: noch offen.** Der Service `visuram/set_value` ist implementiert (drift-immun,
-  adress-aufgelöst), aber **noch nicht produktiv getestet**. Offen: Schreibtest an harmlosem
-  Kanal, Allowlist freigegebener cc600_adr (sicherheitskritische Kanäle wie Sturmschutz
-  bewusst sperren), HA-Bedienelemente. Siehe Notion „Phase 2".
+  Drehschalter), kuratierte Labels. 121 Tests grün.
+- **Schreiben: Allowlist aktiv, produktiver Schreibtest noch offen.** Der Service
+  `visuram/set_value` ist implementiert (drift-immun, adress-aufgelöst) **und durch eine
+  Schreib-Freigabeliste abgesichert**: pro Kanal `zugriff: "rw"|"ro"` im Mapping,
+  **Default-Deny** – `set_value` schreibt nur `rw`-Adressen (aktuell 81 `rw` / 43 `ro`,
+  von HP freigegeben). Noch offen: erster kontrollierter Schreibtest an einem harmlosen
+  Kanal, danach HA-Bedienelemente. Siehe Notion „Phase 2".
 - **Deploy: git-basiert.** Der HA-Server zieht `origin/main` selbst – siehe
   [Deployment auf HA-Server](#deployment-auf-ha-server) / `deploy/ha_pull_deploy.sh`.
 
@@ -325,6 +327,13 @@ data:
   w2: "2"                # 0=aus, 1=Automatik, 2=Manuell Ein
 ```
 
+**Schreib-Freigabe (Allowlist, Default-Deny):** `set_value` schreibt **nur** Kanäle, deren
+`cc600_adr` im Mapping als `"zugriff": "rw"` markiert ist. Alles andere (`"ro"`, fehlend,
+unbekannte Adresse) wird abgelehnt und als `WARNING` geloggt – Schutz vor versehentlichem
+Schreiben auf Mess-/Zustands-/Sicherheitskanäle. Die Freigabe ist HP-kuratiert
+(Review: `docs/access_review_20260605.json`). Prüflogik: `_is_writable()` gegen
+`load_adr_lookup()` (das `zugriff` mitführt; Default `ro`).
+
 ---
 
 ## Tests
@@ -334,7 +343,7 @@ pytest tests/ -v
 pytest tests/ -v --cov=scripts --cov-report=term-missing
 ```
 
-100 Tests (Stand 04.06.2026).
+121 Tests (Stand 05.06.2026).
 
 ---
 

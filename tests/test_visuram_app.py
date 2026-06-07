@@ -386,3 +386,33 @@ class TestSwitchEnumRendering:
         app._push_sensors_mqtt({"Feld135_Feld": {"value": "9", "unit": ""}})
         states = [p[1] for p in app._published if p[0].endswith("/state")]
         assert states == ["9"]   # keine Map-Treffer → nackte Zahl
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Schreib-Freigabe (Allowlist, Default-Deny) – _is_writable
+# ─────────────────────────────────────────────────────────────────────────────
+
+class TestWriteAllowlist:
+    def _app(self):
+        app = _make_app()
+        app._adr_lookup = {
+            "0101500212": {"unique_id": "cc600_0101500212", "zugriff": "rw"},
+            "0101122101": {"unique_id": "cc600_0101122101", "zugriff": "ro"},
+            "0100000031": {"unique_id": "cc600_0100000031"},  # kein zugriff-Feld
+        }
+        return app
+
+    def test_rw_ist_schreibbar(self):
+        assert self._app()._is_writable("0101500212") is True
+
+    def test_ro_ist_gesperrt(self):
+        assert self._app()._is_writable("0101122101") is False
+
+    def test_fehlendes_zugriff_default_deny(self):
+        assert self._app()._is_writable("0100000031") is False
+
+    def test_unbekannte_adr_gesperrt(self):
+        assert self._app()._is_writable("9999999999") is False
+
+    def test_none_gesperrt(self):
+        assert self._app()._is_writable(None) is False

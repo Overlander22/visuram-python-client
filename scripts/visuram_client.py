@@ -748,13 +748,16 @@ def load_adr_lookup(mapping_path: str | None = None) -> dict[str, dict]:
         w1_label = ch.get("w1_label", "").strip()
         w2_label = ch.get("w2_label", "").strip()
         wertart  = ch.get("wertart", "")
+        # Schreib-Freigabe: 'rw' = HA darf schreiben, sonst 'ro' (Default-Deny).
+        # Gilt für W1 und W2 desselben Kanals.
+        zugriff  = ch.get("zugriff", "ro")
 
         # W1: kuratiertes Label bevorzugt, sonst "{zone}-{w1_label}" (wie load_field_names)
         label_w1 = ch.get("ha_label_w1") or (
             f"{zone}-{w1_label}" if w1_label else f"{zone}-{desc or f'{zone}.{kanal}'}")
         lookup.setdefault(A, {
             "unique_id": f"cc600_{A}", "base_adr": A, "is_w2": False,
-            "label": label_w1, "zone": zone, "wertart": wertart,
+            "label": label_w1, "zone": zone, "wertart": wertart, "zugriff": zugriff,
         })
 
         # W2: nur wenn explizite cc600_adr_w2 gepflegt UND ein W2-Label existiert
@@ -764,7 +767,7 @@ def load_adr_lookup(mapping_path: str | None = None) -> dict[str, dict]:
                 f"{zone}-{desc}" if desc else f"{zone}-{w1_label} / {w2_label}")
             lookup.setdefault(w2adr, {
                 "unique_id": f"cc600_{A}_w2", "base_adr": A, "is_w2": True,
-                "label": label_w2, "zone": zone, "wertart": wertart,
+                "label": label_w2, "zone": zone, "wertart": wertart, "zugriff": zugriff,
             })
 
     logger.debug("Adr-Lookup geladen: %d Einträge", len(lookup))

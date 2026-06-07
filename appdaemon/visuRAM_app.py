@@ -420,6 +420,13 @@ class VisuRAMApp(hass.Hass):
         except Exception as exc:
             self.log(f"MQTT publish fehlgeschlagen ({topic}): {exc}", level="ERROR")
 
+    # ── Schreib-Freigabe (Allowlist, Default-Deny) ───────────────────────
+    def _is_writable(self, cc600_adr: str | None) -> bool:
+        """True nur, wenn die cc600_adr im Mapping explizit als 'rw' freigegeben ist.
+        Fehlender Eintrag oder 'ro' → False (Default-Deny: nichts versehentlich schreiben)."""
+        entry = self._adr_lookup.get(cc600_adr) if cc600_adr else None
+        return bool(entry) and entry.get("zugriff") == "rw"
+
     # ── Service-Handler: Schalten ────────────────────────────────────────
     def _handle_set_value(self, namespace: str, domain: str, service: str,
                           kwargs: dict) -> None:
@@ -466,6 +473,18 @@ class VisuRAMApp(hass.Hass):
                     level="ERROR",
                 )
                 return
+
+        # Schreib-Freigabe prüfen (Default-Deny): nur als 'rw' markierte cc600_adr
+        # dürfen geschrieben werden. 'ro' und unbekannte Adressen werden abgelehnt –
+        # Schutz vor versehentlichem Schreiben auf Mess-/Zustands-/Sicherheitskanäle.
+        if not self._is_writable(cc600_adr):
+            z = (self._adr_lookup.get(cc600_adr) or {}).get("zugriff", "unbekannt")
+            self.log(
+                f"visuram/set_value ABGELEHNT: cc600_adr={cc600_adr} ist nicht zum "
+                f"Schreiben freigegeben (zugriff={z}). Nur 'rw'-Kanäle sind schreibbar.",
+                level="WARNING",
+            )
+            return
 
         host = self._client.base_url.split("//")[1].split(":")[0]
         port = int(self._client.base_url.split(":")[-1].split("/")[0])
