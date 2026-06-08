@@ -35,5 +35,5 @@ cp "$REPO/data/cc600_channel_mapping.json" "$VDIR/cc600_channel_mapping.json"
 cp "$REPO/data/zone_area_mapping.json"     "$VDIR/zone_area_mapping.json"
 
 echo ">> AppDaemon-Add-on neu starten"
-ha addons restart "$ADDON"
+ha apps restart "$ADDON"   # 'ha addons' ist deprecated -> 'ha apps'
 echo ">> Deploy fertig – origin/main @ $REV ist live"

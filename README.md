@@ -211,7 +211,7 @@ Danach **AppDaemon komplett neu starten** (Add-on-Restart, NICHT auf den
 Hot-Reload verlassen – der lädt Hilfsmodule/JSON unzuverlässig nach):
 
 ```bash
-ha addons restart a0d7b954_appdaemon   # 'addons' ist deprecated → alternativ: ha apps restart …
+ha apps restart a0d7b954_appdaemon
 ```
 
 **Voraussetzung einmalig:** `websocket-client` als python_package im AppDaemon
