@@ -364,7 +364,11 @@ class VisuRAMApp(hass.Hass):
                 self._published_discovery.add(discovery_key)
 
             # ── State publizieren ────────────────────────────────────────
-            self._mqtt_publish(state_topic, state, retain=False)
+            # retain=True: nach einem HA-Core-Neustart haben die Sensoren sofort
+            # wieder ihren letzten Wert (statt ~bis zum nächsten Poll 'unknown' zu
+            # sein) – sonst sind davon abhängige Bedienelemente (select/number)
+            # kurzzeitig leer/unavailable.
+            self._mqtt_publish(state_topic, state, retain=True)
 
             # ── Attributes publizieren ───────────────────────────────────
             attrs: dict = {"source": "VisuRAM CC600", "feld_id": feld_id,
@@ -375,7 +379,7 @@ class VisuRAMApp(hass.Hass):
                 attrs["anzeige"] = anzeige
             elif unit and not ha_unit:
                 attrs["einheit"] = unit
-            self._mqtt_publish(attr_topic, json.dumps(attrs), retain=False)
+            self._mqtt_publish(attr_topic, json.dumps(attrs), retain=True)
 
     # ── Zeit-Konvertierung ────────────────────────────────────────────────
     @staticmethod

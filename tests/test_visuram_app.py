@@ -283,7 +283,7 @@ class TestAdrResolution:
         app._push_sensors_mqtt({"Feld12_Feld": {"value": "12,0", "unit": "m/s"}})
 
         states = [p for p in app._published if p[0].endswith("/state")]
-        assert ("nersingen/sensor/cc600_0101123162/state", "12.0", False) in states
+        assert ("nersingen/sensor/cc600_0101123162/state", "12.0", True) in states
         # Discovery-Config trägt das adr-basierte Label
         cfgs = [json.loads(p[1]) for p in app._published if p[0].endswith("/config")]
         assert any(c["name"] == "01-Wind Lee"
