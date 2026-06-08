@@ -366,7 +366,7 @@ class TestSwitchEnumRendering:
         app = self._app()
         app._push_sensors_mqtt({"Feld135_Feld": {"value": "0", "unit": ""}})
         states = [p for p in app._published if p[0].endswith("/state")]
-        assert ("nersingen/sensor/cc600_0101500212/state", "0 Aus", False) in states
+        assert ("nersingen/sensor/cc600_0101500212/state", "0 Aus", True) in states
 
     def test_stellung_2_wird_ein(self):
         app = self._app()
