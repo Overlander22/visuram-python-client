@@ -482,6 +482,37 @@ class VisuRAMApp(hass.Hass):
         s = (getattr(client, "_initial_sensors", {}) or {}).get(f"{feld}_Feld") or {}
         return str(s.get("value", ""))
 
+    def _publish_after_write(self, client, ch_adr: str, info: dict) -> None:
+        """Sofortiges, GEZIELTES MQTT-Update der gerade geschriebenen Arbeitswerte
+        (W1/W2) direkt aus der Schreib-Antwort – ohne auf den vollen Poll (HTTP)
+        zu warten. Reduziert das Schalt-Feedback von ~4-5 s auf ~sofort.
+
+        Es wird die GLEICHE Formatierung wie im Poll genutzt (_push_sensors_mqtt),
+        damit Schalter ("2 ein"), Dauern (-> Sekunden) usw. korrekt landen. Die
+        Einheit kommt aus dem letzten Poll (Cache); fehlt sie, greift in
+        _push_sensors_mqtt die Muster-/Schalter-Erkennung. Der nachgelagerte volle
+        Poll korrigiert ohnehin jede etwaige Abweichung.
+        """
+        try:
+            rev = {a: f for f, a in self._html_adr_map.items()}
+            cached = getattr(client, "_initial_sensors", {}) or {}
+            w2_adr = ch_adr[:-1] + "2"
+            sensors: dict = {}
+            for adr, val in ((ch_adr, info.get("w1")), (w2_adr, info.get("w2"))):
+                if val in (None, ""):
+                    continue
+                feld = rev.get(adr)
+                if not feld:
+                    continue
+                key = f"{feld}_Feld"
+                unit = (cached.get(key) or {}).get("unit", "")
+                sensors[key] = {"value": str(val), "unit": unit}
+            if sensors:
+                self._push_sensors_mqtt(sensors)
+                self.log(f"set_value: sofortiges MQTT-Update {list(sensors)}")
+        except Exception as exc:  # nie den Schreibvorgang wegen Anzeige stoeren
+            self.log(f"_publish_after_write fehlgeschlagen: {exc}", level="WARNING")
+
     # ── Schalten: Einstiegspunkte (AppDaemon-Service + HA-Event) ─────────
     def _handle_set_value(self, namespace: str, domain: str, service: str,
                           kwargs: dict) -> None:
@@ -590,7 +621,11 @@ class VisuRAMApp(hass.Hass):
                     nid=f"visuram_setvalue_{target}")
             else:
                 self.log(f"set_value OK – ziel={target} W1={info['w1']!r} W2={info['w2']!r}")
-                # Sofortiges Refresh: neuer Wert ohne Poll-Lag in HA sichtbar
+                # 1) Sofortiges, gezieltes Update aus der Schreib-Antwort (kein
+                #    HTTP-Poll noetig -> Schalt-Feedback praktisch ohne Lag).
+                self._publish_after_write(client, ch_adr, info)
+                # 2) Voller Poll als Absicherung/Sync (korrigiert Format/Einheit
+                #    und faengt Neben-Effekte ab).
                 self.run_in(self._poll, 1)
         except Exception as exc:
             self.log(f"set_value({target}) FEHLER: {exc}\n{traceback.format_exc()}",
