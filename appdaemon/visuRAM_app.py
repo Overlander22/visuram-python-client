@@ -531,6 +531,11 @@ class VisuRAMApp(hass.Hass):
         w1_in     = self._normalize_decimal(kwargs.get("w1"))
         w2_in     = self._normalize_decimal(kwargs.get("w2"))
         password  = str(kwargs.get("password", "1111"))
+        # Feldtyp-Flags (Default = Schalter-Modus). Eingabefelder wie die
+        # Schirm-Schaltpunkte muessen bhgramm="true" mitschicken, sonst
+        # quittiert der CC600 zwar, uebernimmt den Wert aber nicht.
+        bhgramm       = str(kwargs.get("bhgramm", "false"))
+        dontcheckrech = str(kwargs.get("dontcheckrech", "true"))
 
         # Ziel-Punkt (Entity-Adresse) bestimmen
         target = cc600_adr
@@ -591,9 +596,11 @@ class VisuRAMApp(hass.Hass):
             if not feld_id:
                 feld_id = {a: f for f, a in self._html_adr_map.items()}.get(target, "")
 
-            self.log(f"set_value: ziel={target} kanal={ch_adr} w1={w1!r} w2={w2!r}")
+            self.log(f"set_value: ziel={target} kanal={ch_adr} w1={w1!r} w2={w2!r} "
+                     f"bhgramm={bhgramm} dontcheckrech={dontcheckrech}")
             result = client.set_value(feld_id=feld_id, cc600_adr=ch_adr,
-                                      w1=w1, w2=w2, password=password)
+                                      w1=w1, w2=w2, password=password,
+                                      bhgramm=bhgramm, dontcheckrech=dontcheckrech)
             info = self._parse_change_response(result)
 
             if info["mldg"]:

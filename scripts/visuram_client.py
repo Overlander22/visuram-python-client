@@ -156,6 +156,8 @@ def build_set_value_arg(
     w1: str,
     w2: str = "",
     counter: int = 99,
+    bhgramm: str = "false",
+    dontcheckrech: str = "true",
 ) -> str:
     """
     Schreibbefehl: setzt einen CC600-Wert via ChangeCCValue.
@@ -186,15 +188,21 @@ def build_set_value_arg(
     def kv(key: str, val: str) -> str:
         return f"{key.upper()}_x007B_{val}_x007D_"
 
+    # bhgramm / dontcheckrech sind FELDTYP-abhaengig (aus Bedienen.js/felder-js):
+    #   * Schalter (Ventile, Pumpen):    BHGramm=false, DontCheckRecht=!CheckRecht
+    #   * Eingabe-/Schieberegler-Felder: BHGramm=TRUE,  DontCheckRecht=!CheckRecht
+    # Defaults = Schalter-Modus (Abwaertskompatibel). Eingabefelder (z.B. Schirm-
+    # Schaltpunkte) MUESSEN bhgramm="true" senden, sonst quittiert der CC600 den
+    # Wert zwar, uebernimmt ihn aber NICHT.
     inner = (
         kv("function", "ChangeCCValue") +
         kv("adr",      cc600_adr) +
         kv("w1",       w1) +
         kv("w2",       w2) +
-        kv("bhgramm",  "false") +
+        kv("bhgramm",  bhgramm) +
         kv("id",       f"{feld_id}_Feld") +
         kv("einheit",  "false") +
-        kv("dontcheckrech", "true") +
+        kv("dontcheckrech", dontcheckrech) +
         kv("adviseid", feld_id)
     )
     return _build_arg("OnChangeCCValue", bdontwait=True, arg_body=inner, counter=counter)
@@ -477,7 +485,8 @@ class VisuRAMClient:
             )
 
     def set_value(self, feld_id: str, cc600_adr: str, w1: str, w2: str = "",
-                  password: str = "1111") -> str:
+                  password: str = "1111", bhgramm: str = "false",
+                  dontcheckrech: str = "true") -> str:
         """
         Setzt einen CC600-Wert über ChangeCCValue (Context: OnChangeCCValue).
 
@@ -519,6 +528,8 @@ class VisuRAMClient:
             w1=w1,
             w2=w2,
             counter=self.counter,
+            bhgramm=bhgramm,
+            dontcheckrech=dontcheckrech,
         )
         self.counter += 1
         raw = self._post(s_arg)
