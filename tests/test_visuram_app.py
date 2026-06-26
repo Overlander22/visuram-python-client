@@ -452,3 +452,20 @@ class TestParseChangeResponse:
     def test_unescape_bereinigt_tags_und_entities(self):
         assert _make_app()._unescape("\\u003cspan \\u003eHand\\u0026nbsp;ein\\u003c/span\\u003e") \
             == "Hand ein"
+
+
+class TestNormalizeDecimal:
+    """HAs Native-Type-Parsing macht aus "17,0" das Tupel/Liste [17, 0];
+    _normalize_decimal setzt die Komma-Dezimale wieder zusammen."""
+    def test_liste_wird_komma_dezimale(self):
+        assert _make_app()._normalize_decimal([17, 0]) == "17,0"
+
+    def test_tupel_wird_komma_dezimale(self):
+        assert _make_app()._normalize_decimal((5, 5)) == "5,5"
+
+    def test_string_bleibt_unveraendert(self):
+        assert _make_app()._normalize_decimal("15:00") == "15:00"
+        assert _make_app()._normalize_decimal("1") == "1"
+
+    def test_none_bleibt_none(self):
+        assert _make_app()._normalize_decimal(None) is None

@@ -472,6 +472,22 @@ class VisuRAMApp(hass.Hass):
         except Exception as exc:
             self.log(f"persistent_notification fehlgeschlagen: {exc}", level="WARNING")
 
+    @staticmethod
+    def _normalize_decimal(value):
+        """CC600-Komma-Dezimalwerte gegen HAs Native-Type-Parsing absichern.
+
+        HA rendert das number-Template zu z.B. "17,0". Bei aktivierten
+        *native template types* deutet HA diese Zeichenkette als Python-Tupel
+        ``(17, 0)`` (das Komma ist Tupel-Syntax) und liefert sie via Event als
+        Liste ``[17, 0]``. Ohne Korrektur würde ``str([17, 0])`` = "[17, 0]" an
+        den CC600 gehen → Ablehnung "Wert 1: Eingabe fehlerhaft". Hier wird die
+        Komma-Dezimale wieder zusammengesetzt (``[17, 0]`` → "17,0"); andere
+        Werttypen bleiben unverändert.
+        """
+        if isinstance(value, (list, tuple)):
+            return ",".join(str(v) for v in value)
+        return value
+
     def _current_raw_value(self, client, adr: str) -> str:
         """Aktueller CC600-Roh-Wert (ohne Einheit) einer Adresse aus dem letzten
         GlobalCallback – um beim Schreiben den jeweils anderen Arbeitswert zu erhalten."""
@@ -511,9 +527,9 @@ class VisuRAMApp(hass.Hass):
         """
         feld_id   = kwargs.get("feld_id")
         cc600_adr = kwargs.get("cc600_adr")
-        value     = kwargs.get("value")
-        w1_in     = kwargs.get("w1")
-        w2_in     = kwargs.get("w2")
+        value     = self._normalize_decimal(kwargs.get("value"))
+        w1_in     = self._normalize_decimal(kwargs.get("w1"))
+        w2_in     = self._normalize_decimal(kwargs.get("w2"))
         password  = str(kwargs.get("password", "1111"))
 
         # Ziel-Punkt (Entity-Adresse) bestimmen
